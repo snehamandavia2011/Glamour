@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="glamour.mafatlal.com.glamour">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".acSplash"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".acLogin"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack" />
+        <activity
+            android:name=".acRegistration"
+            android:theme="@style/AppThemeBlack"></activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="751fa4790f2065ef93f5dda03fb0d753cc38af42" />
+    </application>
+
+</manifest>

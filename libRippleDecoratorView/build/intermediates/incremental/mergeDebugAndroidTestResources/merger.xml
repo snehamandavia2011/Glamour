@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="debug$Generated" generated="true"><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\build\intermediates\bundles\debug\res"/></dataSet><dataSet config="main$Generated" generated="true"><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\src\androidTest\res"/><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\build\generated\res\rs\androidTest\debug"/><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\build\generated\res\resValues\androidTest\debug"/></dataSet><dataSet config="debug" from-dependency="true" generated-set="debug$Generated"><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\build\intermediates\bundles\debug\res"><file path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\build\intermediates\bundles\debug\res\values\values.xml" qualifiers=""><string name="app_name">RippleDecoratorView</string><declare-styleable name="RippleDecoratorView"><attr format="color" name="rdv_rippleColor"/><attr format="enum" name="rdv_rippleStyle">
+            <enum name="stroke" value="0"/>
+            <enum name="fill" value="1"/>
+        </attr><attr format="float" name="rdv_rippleMaxAlpha"/><attr format="boolean" name="rdv_rippleCentered"/><attr format="dimension" name="rdv_ripplePadding"/><attr format="dimension" name="rdv_rippleRadius"/><attr format="enum" name="rdv_rippleAnimationTrigger">
+            <enum name="onUp" value="0"/>
+            <enum name="onDown" value="1"/>
+            <enum name="onTap" value="2"/>
+            <enum name="none" value="3"/>
+        </attr><attr format="float" name="rdv_rippleAnimationDuration"/><attr format="integer" name="rdv_rippleAnimationFrames"/><attr format="integer" name="rdv_rippleAnimationPeakFrame"/><attr format="boolean" name="rdv_zoomAnimation"/><attr format="enum" name="rdv_zoomAnimationTrigger">
+            <enum name="onUp" value="0"/>
+            <enum name="onDown" value="1"/>
+            <enum name="onTap" value="2"/>
+            <enum name="none" value="3"/>
+        </attr><attr format="float" name="rdv_zoomAnimationScale"/><attr format="float" name="rdv_zoomAnimationDuration"/><attr format="boolean" name="rdv_highlightAnimation"/><attr format="color" name="rdv_highlightColor"/><attr format="float" name="rdv_highlightMaxAlpha"/><attr format="integer" name="rdv_highlightAnimationPeakFrame"/></declare-styleable></file></source></dataSet><dataSet config="main" generated-set="main$Generated"><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\src\androidTest\res"/><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\build\generated\res\rs\androidTest\debug"/><source path="E:\STUDY\Adroid\Glamour\libRippleDecoratorView\build\generated\res\resValues\androidTest\debug"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="RippleDecoratorView"><attr format="color" name="rdv_rippleColor"/><attr format="enum" name="rdv_rippleStyle">
+            <enum name="stroke" value="0"/>
+            <enum name="fill" value="1"/>
+        </attr><attr format="float" name="rdv_rippleMaxAlpha"/><attr format="boolean" name="rdv_rippleCentered"/><attr format="dimension" name="rdv_ripplePadding"/><attr format="dimension" name="rdv_rippleRadius"/><attr format="enum" name="rdv_rippleAnimationTrigger">
+            <enum name="onUp" value="0"/>
+            <enum name="onDown" value="1"/>
+            <enum name="onTap" value="2"/>
+            <enum name="none" value="3"/>
+        </attr><attr format="float" name="rdv_rippleAnimationDuration"/><attr format="integer" name="rdv_rippleAnimationFrames"/><attr format="integer" name="rdv_rippleAnimationPeakFrame"/><attr format="boolean" name="rdv_zoomAnimation"/><attr format="enum" name="rdv_zoomAnimationTrigger">
+            <enum name="onUp" value="0"/>
+            <enum name="onDown" value="1"/>
+            <enum name="onTap" value="2"/>
+            <enum name="none" value="3"/>
+        </attr><attr format="float" name="rdv_zoomAnimationScale"/><attr format="float" name="rdv_zoomAnimationDuration"/><attr format="boolean" name="rdv_highlightAnimation"/><attr format="color" name="rdv_highlightColor"/><attr format="float" name="rdv_highlightMaxAlpha"/><attr format="integer" name="rdv_highlightAnimationPeakFrame"/></declare-styleable></configuration></mergedItems></merger>

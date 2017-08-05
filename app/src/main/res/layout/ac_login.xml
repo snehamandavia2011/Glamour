@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_screen_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/paddingBig"
+        android:paddingRight="@dimen/paddingBig">
+
+        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin">
+
+            <me.zhanghai.android.materialedittext.MaterialEditText
+                android:id="@+id/edUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/strUserName"
+                android:inputType="textEmailAddress" />
+        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin">
+
+            <me.zhanghai.android.materialedittext.MaterialEditText
+                android:id="@+id/edPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/strPassword"
+                android:inputType="textPassword" />
+        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="@dimen/margin"
+            rdv:rdv_rippleAnimationDuration="600"
+            rdv:rdv_rippleAnimationFrames="60"
+            rdv:rdv_rippleAnimationPeakFrame="15"
+            rdv:rdv_rippleColor="@color/white"
+            rdv:rdv_rippleMaxAlpha="0.8"
+            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/btnRed"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:text="@string/strLogin" />
+        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                rdv:rdv_rippleAnimationDuration="600"
+                rdv:rdv_rippleAnimationFrames="60"
+                rdv:rdv_rippleAnimationPeakFrame="15"
+                rdv:rdv_rippleColor="@color/white"
+                rdv:rdv_rippleMaxAlpha="0.8"
+                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                <Button
+                    android:id="@+id/btnForgotPassword"
+                    style="@style/stySubTitleRedSingleLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:background="@color/transparent"
+                    android:text="@string/strForgotPassword" />
+            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin"
+                android:text="|"
+                android:textColor="@color/black" />
+
+            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                rdv:rdv_rippleAnimationDuration="600"
+                rdv:rdv_rippleAnimationFrames="60"
+                rdv:rdv_rippleAnimationPeakFrame="15"
+                rdv:rdv_rippleColor="@color/white"
+                rdv:rdv_rippleMaxAlpha="0.8"
+                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    style="@style/stySubTitleRedSingleLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:background="@color/transparent"
+                    android:text="@string/strRegister" />
+            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

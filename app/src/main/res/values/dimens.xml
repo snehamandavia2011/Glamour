@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="buttonHeight">35dp</dimen>
+    <dimen name="rippleRadius">50dp</dimen>
+    <dimen name="paddingBig">10dp</dimen>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="marginBig">10dp</dimen>
+    <dimen name="margin">5dp</dimen>
+    <dimen name="spinnerHeight">40dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dorProgressBarheight">50dp</dimen>
+
+</resources>

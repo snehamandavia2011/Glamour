@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">Glamour</string>
+    <string name="strUserName">Username</string>
+    <string name="strPassword">Password</string>
+    <string name="strLogin">Login</string>
+    <string name="strForgotPassword">Forgot password?</string>
+    <string name="strRegister">Register</string>
+    <string name="strRegistration">Registration</string>
+    <string name="strFirstName">First Name</string>
+    <string name="strLastName">Last Name</string>
+    <string name="strEmailId">EmailId</string>
+    <string name="strMobileNumber">Mobile Number</string>
+    <string name="strConfirmPassword">Confirm Password</string>
+    <string name="strPersonalDetail">Personal Detail</string>
+    <string name="strCompanyDetail">Company Detail</string>
+    <string name="strCompanyAddress">Company Address</string>
+    <string name="strVendorName">Company name</string>
+    <string name="strVendorPhone">Company phone number</string>
+    <string name="strNumber">Number</string>
+    <string name="strStreet">Street</string>
+    <string name="strPostCode">Post code</string>
+    <string name="strLandmark">Landmark</string>
+    <string name="strAddress">Address</string>
+    <string name="strCity">City</string>
+    <string name="strState">State</string>
+    <string name="strCountry">Country</string>
+    <string name="msgSelectCity">Select City</string>
+    <string name="msgSelectState">Select State</string>
+    <string name="msgSelectCountry">Select Country</string>
+    <string name="strCancel">Cancel</string>
+    <string name="strSave">Save</string>
+    <string name="msgPasswordReset">Password Reset Successfully.</string>
+    <string name="strForgotPasswordQuestion">Forgot Password?</string>
+    <string name="strEmailSent">Email has been sent!</string>
+    <string name="strNoProblemItHappens">No Problem, It happens. \n\nEnter your email address below and we\'ll send new password.</string>
+    <string name="strSendNewPassword">SEND NEW PASSWORD</string>
+    <string name="msgEnterEmailNotExist">Entered email id is not exist, try again.</string>
+    <string name="msgForgotPasswordEmailConfirmation">
+    We have sent you an email with new password to your email, please follow instruction in the email to reset password.\n\n
+    <u>A note about spam filter,</u>
+    \nIf you do not get an email from us within a few minutes please be sure to check your spam filter.\nThe email will be coming from \"no-reply@jobio.io\"
+  </string>
+    <string name="strDone">Done</string>
+    <string name="strEnterEmailId">Enter EmailId</string>
+    <string name="strEnterValidEmailId">Enter valid EmailId</string>
+    <string name="strInternetNotAvaiable">Internet service is not available</string>
+    <string name="strUnableToParseData">Unable to parse data</string>
+    <string name="strServerNotResponding">Server not responding</string>
+    <string name="strRequestTimeout">Request time out</string>
+    <string name="strSessionExpire">Session has been expire</string>
+    <string name="strInvalidUserNameAndPassword">Invalid username or password</string>
+    <string name="strInvalidUserName">This email id is not registered with us!</string>
+    <string name="strDatacannotReceive">Unable to receive data from network</string>
+    <string name="strServerError">Server error</string>
+    <string name="strClientError">Invalid URL request</string>
+    <string name="strUserType">User Type</string>
+    <string name="msgAreYouOwner">Are you owner?</string>
+    <string name="msgAreYouSalesman">Are you salesman?</string>
+    <string name="strYes">Yes</string>
+    <string name="strNo">No</string>
+    <string name="strRetailer">Retailer</string>
+    <string name="strDealer">Dealer</string>
+    <string-array name="arrState">
+        <item>Andaman and Nicobar Islands</item>
+        <item>Andhra Pradesh</item>
+        <item>Arunachal Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>Chandigarh</item>
+        <item>Chhattisgarh</item>
+        <item>Dadra and Nagar Haveli</item>
+        <item>Daman and Diu</item>
+        <item>Delhi</item>
+        <item>Goa</item>
+        <item>Gujarat</item>
+        <item>Haryana</item>
+        <item>Himachal Pradesh</item>
+        <item>Jammu and Kashmir</item>
+        <item>Jharkhand</item>
+        <item>Karnataka</item>
+        <item>Kenmore</item>
+        <item>Kerala</item>
+        <item>Lakshadweep</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Manipur</item>
+        <item>Meghalaya</item>
+        <item>Mizoram</item>
+        <item>Nagaland</item>
+        <item>Narora</item>
+        <item>Natwar</item>
+        <item>Odisha</item>
+        <item>Paschim Medinipur</item>
+        <item>Pondicherry</item>
+        <item>Punjab</item>
+        <item>Rajasthan</item>
+        <item>Sikkim</item>
+        <item>Tamil Nadu</item>
+        <item>Telangana</item>
+        <item>Tripura</item>
+        <item>Uttar Pradesh</item>
+        <item>Uttarakhand</item>
+        <item>Vaishali</item>
+        <item>West Bengal</item>
+    </string-array>
+</resources>

@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "E:\\STUDY\\Adroid\\Glamour\\libRippleDecoratorView\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1541,
+                    "endColumn": 56,
+                    "endOffset": 1593
+                },
+                "from": {
+                    "file": "E:\\STUDY\\Adroid\\Glamour\\libRippleDecoratorView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1541,
+                        "endColumn": 56,
+                        "endOffset": 1593
+                    }
+                }
+            }
+        ]
+    }
+]

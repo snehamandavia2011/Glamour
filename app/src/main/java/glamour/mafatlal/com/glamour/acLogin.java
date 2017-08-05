@@ -1,0 +1,224 @@
+package glamour.mafatlal.com.glamour;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.json.JSONObject;
+
+import me.zhanghai.android.materialedittext.MaterialEditText;
+import utility.ConstantVal;
+import utility.DotProgressBar;
+import utility.Helper;
+import utility.HttpEngine;
+import utility.Logger;
+import utility.URLMapping;
+
+public class acLogin extends AppCompatActivity implements View.OnClickListener {
+    Button btnRegister, btnForgotPassword, btnLogin;
+    MaterialEditText edUserName, edPassword;
+    Context mContext;
+    AppCompatActivity ac;
+    Handler handler = new Handler();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = this;
+        ac = this;
+        Helper.startFabric(mContext);
+        setContentView(R.layout.ac_login);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        edUserName = (MaterialEditText) findViewById(R.id.edUserName);
+        edPassword = (MaterialEditText) findViewById(R.id.edPassword);
+        btnForgotPassword.setPaintFlags(btnForgotPassword.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        btnRegister.setPaintFlags(btnRegister.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
+        btnForgotPassword.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnLogin:
+                break;
+            case R.id.btnForgotPassword:
+                forgotPassword();
+                break;
+            case R.id.btnRegister:
+                Intent i = new Intent(getApplicationContext(), acRegistration.class);
+                startActivity(i);
+                break;
+        }
+    }
+
+    private void forgotPassword() {
+        LayoutInflater infalInflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final Dialog dialog = new Dialog(mContext);
+        View view1 = infalInflater.inflate(R.layout.dlg_forgot_password, null, true);
+        final LinearLayout lyInput = (LinearLayout) view1.findViewById(R.id.lyInput);
+        lyInput.setVisibility(View.VISIBLE);
+        final TextView msgError = (TextView) view1.findViewById(R.id.msgError);
+        final LinearLayout lyConfirmation = (LinearLayout) view1.findViewById(R.id.lyConfirmation);
+        ImageButton btnClose = (ImageButton) view1.findViewById(R.id.btnClose);
+        Button btnDone = (Button) view1.findViewById(R.id.btnDone);
+        Button btnSendNewPassword = (Button) view1.findViewById(R.id.btnSendNewPassword);
+        final DotProgressBar dot_progress_bar = (DotProgressBar) view1.findViewById(R.id.dot_progress_bar);
+        final MaterialEditText edUserName = (MaterialEditText) view1.findViewById(R.id.edUserName);
+        edUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                msgError.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        btnSendNewPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendPassoword(dialog, msgError, edUserName, lyInput, lyConfirmation, dot_progress_bar);
+            }
+        });
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setContentView(view1);
+        dialog.show();
+    }
+
+    private void sendPassoword(final Dialog d, final TextView msgError, final MaterialEditText edUserName, final LinearLayout lyInput, final LinearLayout lyConfirmation, final DotProgressBar dot_progress_bar) {
+        new AsyncTask() {
+            boolean isDataEnteredProper = true;
+            String email, newPassword;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                email = edUserName.getText().toString();
+                if (Helper.isFieldBlank(email)) {
+                    isDataEnteredProper = false;
+                    edUserName.setError(getString(R.string.strEnterEmailId));
+                    Helper.requestFocus(ac, edUserName);
+                } else if (!Helper.isValidEmailId(email)) {
+                    isDataEnteredProper = false;
+                    edUserName.setError(getString(R.string.strEnterValidEmailId));
+                    Helper.requestFocus(ac, edUserName);
+                }
+                if (isDataEnteredProper) {
+                    dot_progress_bar.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                if (isDataEnteredProper) {
+                    URLMapping umVerifyUser = ConstantVal.checkUserExistence();
+                    URLMapping umForgotPassword = ConstantVal.resetPassword();
+                    HttpEngine objHttpEngine = new HttpEngine();
+                    String[] dataVerifyUser = {email};
+                    final String strVerifyUserCode = objHttpEngine.getDataFromWebAPI(mContext, umVerifyUser.getUrl(), dataVerifyUser, umVerifyUser.getParamNames()).getResponseCode();
+                    if (strVerifyUserCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        String[] data = {email};
+                        final String result = objHttpEngine.getDataFromWebAPI(mContext, umForgotPassword.getUrl(), data, umForgotPassword.getParamNames()).getResponseString();
+                        if (result != null && result.length() > 0) {
+                            try {
+                                JSONObject objJSON = new JSONObject(result);
+                                newPassword = objJSON.getString("password");
+                            } catch (Exception e) {
+                                Logger.writeToCrashlytics(e);
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        msgError.setVisibility(View.VISIBLE);
+                                        msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, result));
+                                    }
+                                });
+                                //Helper.displaySnackbar(ac, result);
+                            }
+                        }
+                    } else {
+                        if (strVerifyUserCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    msgError.setVisibility(View.VISIBLE);
+                                    msgError.setText(mContext.getString(R.string.strInvalidUserName));
+                                }
+                            });
+                        } else {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    msgError.setVisibility(View.VISIBLE);
+                                    msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, strVerifyUserCode));
+                                }
+                            });
+                        }
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                dot_progress_bar.clearAnimation();
+                dot_progress_bar.setVisibility(View.GONE);
+                if (newPassword != null && newPassword.length() > 0) {
+                    lyConfirmation.setVisibility(View.VISIBLE);
+                    lyInput.setVisibility(View.GONE);
+                }
+            }
+        }.execute();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return false;
+    }
+
+}

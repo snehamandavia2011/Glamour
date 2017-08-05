@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/padding"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding">
+
+        <LinearLayout
+            android:id="@+id/lyBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin"
+            android:orientation="horizontal">
+
+            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginRight="@dimen/margin"
+                android:layout_weight="1"
+                rdv:rdv_rippleAnimationDuration="600"
+                rdv:rdv_rippleAnimationFrames="60"
+                rdv:rdv_rippleAnimationPeakFrame="15"
+                rdv:rdv_rippleColor="@color/white"
+                rdv:rdv_rippleMaxAlpha="0.8"
+                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    style="@style/btnRed"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:text="@string/strCancel" />
+            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+            <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                rdv:rdv_rippleAnimationDuration="600"
+                rdv:rdv_rippleAnimationFrames="60"
+                rdv:rdv_rippleAnimationPeakFrame="15"
+                rdv:rdv_rippleColor="@color/white"
+                rdv:rdv_rippleMaxAlpha="0.8"
+                rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                <Button
+                    android:id="@+id/btnSave"
+                    style="@style/btnRed"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:text="@string/strSave" />
+            </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/lyBottom"
+            android:layout_marginBottom="@dimen/margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/red_frame"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:layout_marginTop="@dimen/margin"
+                            android:orientation="horizontal">
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edFirstName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strFirstName"
+                                    android:inputType="text" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edLastName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strLastName"
+                                    android:inputType="text" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                        </LinearLayout>
+
+                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin">
+
+                            <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/edEmailId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/strEmailId"
+                                android:inputType="textEmailAddress" />
+                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin">
+
+                            <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/edPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/strPassword"
+                                android:inputType="textPassword" />
+                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin">
+
+                            <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/edConfirmPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/strConfirmPassword"
+                                android:inputType="textPassword" />
+                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin">
+
+                            <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/edMobileNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/strMobileNumber"
+                                android:inputType="phone" />
+                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                        <TextView
+                            style="@style/stySubTitleBlackSingleLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:text="@string/strUserType" />
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rdRetailer"
+                                style="@style/stySmallBlack"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/strRetailer" />
+
+                            <RadioButton
+                                android:id="@+id/rdDealer"
+                                style="@style/stySmallBlack"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/strDealer" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/stySubTitleRedSingleLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:paddingLeft="@dimen/padding"
+                        android:paddingRight="@dimen/padding"
+                        android:paddingTop="@dimen/padding"
+                        android:text="@string/strPersonalDetail" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/red_frame"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding">
+
+                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:layout_marginTop="@dimen/margin">
+
+                            <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/edCompanyName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/strVendorName"
+                                android:inputType="text" />
+                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin">
+
+                            <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/edCompanyPhoneNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/strVendorPhone"
+                                android:inputType="phone" />
+                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/isOwner"
+                            style="@style/stySubTitleBlackSingleLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:checked="true"
+                            android:text="@string/msgAreYouOwner"
+                            android:textOff="@string/strNo"
+                            android:textOn="@string/strYes"
+                            android:theme="@style/stySwitch" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/isSalesman"
+                            style="@style/stySubTitleBlackSingleLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:checked="true"
+                            android:text="@string/msgAreYouSalesman"
+                            android:textOff="@string/strNo"
+                            android:textOn="@string/strYes"
+                            android:theme="@style/stySwitch" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/stySubTitleRedSingleLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:padding="@dimen/padding"
+                        android:text="@string/strCompanyDetail" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/red_frame"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:layout_marginTop="@dimen/margin"
+                            android:orientation="horizontal">
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="1">
+
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edComapnyHouseNo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strNumber"
+                                    android:inputType="text" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="2">
+
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edComapnyStreet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strStreet"
+                                    android:inputType="text" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:orientation="horizontal">
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="1">
+
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edCompanyLandMark"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strLandmark"
+                                    android:inputType="text" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="1">
+
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edCompanyCity"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strCity"
+                                    android:inputType="text" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/stySubTitleBlackSingleLine"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/margin"
+                                    android:text="@string/strState" />
+
+                                <com.thomsonreuters.rippledecoratorview.RippleDecoratorView xmlns:rdv="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/spinnerHeight"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginBottom="@dimen/margin"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_spinner"
+                                    rdv:rdv_rippleAnimationDuration="600"
+                                    rdv:rdv_rippleAnimationFrames="60"
+                                    rdv:rdv_rippleAnimationPeakFrame="15"
+                                    rdv:rdv_rippleColor="@color/red"
+                                    rdv:rdv_rippleMaxAlpha="0.8"
+                                    rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/spinnerHeight">
+
+                                        <ImageView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginRight="@dimen/margin"
+                                            android:background="@drawable/ic_drop_down" />
+
+                                        <Spinner
+                                            android:id="@+id/spnCompanyState"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/spinnerHeight"
+                                            android:background="@null"
+                                            android:prompt="@string/msgSelectState"
+                                            android:spinnerMode="dialog" />
+                                    </RelativeLayout>
+                                </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+                            </LinearLayout>
+
+                            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="1">
+
+                                <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:id="@+id/edCompanyPostCode"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/strPostCode"
+                                    android:inputType="text" />
+                            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/stySubTitleRedSingleLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:paddingLeft="@dimen/padding"
+                        android:paddingRight="@dimen/padding"
+                        android:paddingTop="@dimen/padding"
+                        android:text="@string/strCompanyAddress" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>

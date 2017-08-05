@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  <attr name="color" format="color" />
+  -->
+    <attr name="lineColor" format="color" />
+    <attr name="textColor" format="color" />
+    -
+    <declare-styleable name="ConditionSeekBar">
+        <attr name="color" />
+        - <!-- thumb and progressed line color
+  -->
+        <attr name="textSize" format="dimension" />
+        - <!-- size of the text in labels
+  -->
+        <attr name="lineColor" />
+        - <!-- line scale color
+  -->
+        <attr name="textColor" />
+        - <!-- text color
+  -->
+    </declare-styleable>
+    -
+    <declare-styleable name="DotProgressBar">
+        <attr name="startColor" format="color" />
+        <attr name="endColor" format="color" />
+        <attr name="duration" format="integer" />
+        <attr name="amount" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+</resources>
