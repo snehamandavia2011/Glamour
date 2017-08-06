@@ -103,4 +103,17 @@
         <item>Vaishali</item>
         <item>West Bengal</item>
     </string-array>
+    <string name="msgEnterFirstName">Enter first name</string>
+    <string name="msgEnterLastName">Enter last name</string>
+    <string name="msgEnterPassword">Enter password</string>
+    <string name="msgEnterConfirmPassword">Confirm your password</string>
+    <string name="msgPasswordConfirmShouldSame">Password and confirm password should same.</string>
+    <string name="msgEnterMobileNumber">Enter mobile number</string>
+    <string name="msgEnterCompanyName">Enter company name</string>
+    <string name="msgEnterCompanyPhoneNumber">Enter company phone number</string>
+    <string name="msgEnterCompanyHouseNo">Enter comapny house number</string>
+    <string name="msgEnterCompanyStreet">Enter company street</string>
+    <string name="msgEnterCompanyLandmark">Enter company landmark</string>
+    <string name="msgEnterCompanyPostCode">Enter company postcode</string>
+    <string name="msgEnterCompanyCity">Enter company city</string>
 </resources>

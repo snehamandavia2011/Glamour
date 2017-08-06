@@ -91,7 +91,7 @@ public class ConstantVal {
     }
 
     public static URLMapping registerUser() {
-        String[] paramNames = {"email_id", "new_password"};
+        String[] paramNames = {"fisrtName", "lastName", "emailId", "password", "mobileNumber", "userType", "companyName", "companyPhone", "companyHouseNo", "companyStreet", "companyLandmark", "companyCity", "companyState", "companyCountry", "companyPostCode", "isOwner", "isSalesMan", "date", "time"};
         String URL = getWebURLPrefix() + "Credentialsmanager/registerUser";
         return new URLMapping(paramNames, URL);
     }

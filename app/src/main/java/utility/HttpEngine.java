@@ -19,7 +19,7 @@ import entity.User;
 
 public class HttpEngine {
 
-    public ServerResponse getDataFromWebAPI(Context mContext, String strURL, String[] paramValues, String[] paramNames) {
+    public ServerResponse getDataFromWebAPI(Context mContext, String strURL, String[] paramNames,String[] paramValues) {
 
 
         ServerResponse objServerResponse = null;
