@@ -82,9 +82,6 @@ public class HttpEngine {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.BLANK_RESPONSE, ConstantVal.ServerResponseCode.BLANK_RESPONSE);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.INVALID_LOGIN, ConstantVal.ServerResponseCode.INVALID_LOGIN);
-                    } else if (strResponse.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
-                        objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SESSION_EXPIRED, ConstantVal.ServerResponseCode.SESSION_EXPIRED);
-                        Helper.logOutUser(mContext, true);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.SESSION_EXISTS)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SESSION_EXISTS, ConstantVal.ServerResponseCode.SESSION_EXISTS);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
@@ -103,6 +100,7 @@ public class HttpEngine {
         } catch (UnknownHostException e) {
             e.printStackTrace();
             Logger.writeToCrashlytics(e);
+            objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.REQUEST_TIMEOUT, ConstantVal.ServerResponseCode.REQUEST_TIMEOUT);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             Logger.writeToCrashlytics(e);

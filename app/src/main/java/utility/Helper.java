@@ -3,6 +3,7 @@ package utility;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 
@@ -211,5 +213,18 @@ public class Helper {
                 ac.finish();
             }
         }
+    }
+
+    public static TSnackbar displaySnackbar(final AppCompatActivity ac, final String result, int toastType) {
+        final Context ctx = ac;
+        TSnackbar snackbar = TSnackbar
+                .make(ac.findViewById(android.R.id.content), ConstantVal.ServerResponseCode.getMessage(ctx, result), TSnackbar.LENGTH_LONG);
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundResource(toastType);
+        TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        textView.setMaxLines(3);
+        snackbar.show();
+        return snackbar;
     }
 }

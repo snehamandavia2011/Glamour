@@ -20,13 +20,19 @@ public class ConstantVal {
         public static final String SESSION_EXPIRE = "jobio.io.SESSION_EXPIRE";
     }
 
+    public static class ToastBGColor {
+        public static final int SUCCESS = R.color.Success;
+        public static final int INFO = R.color.info;
+        public static final int WARNING = R.color.warning;
+        public static final int DANGER = R.color.danger;
+    }
+
     public static class ServerResponseCode {
         public static final String SESSION_EXISTS = "1";//value receive from server as response
         public static final String NO_INTERNET = "001";
         public static final String PARSE_ERROR = "002";
         public static String SERVER_NOT_RESPONDING = "003";
         public static String REQUEST_TIMEOUT = "004";//30 seconds
-        public static String SESSION_EXPIRED = "005";//value receive from server as response
         public static String INVALID_LOGIN = "006";//value receive from server as response
         public static String SERVER_ERROR = "007";
         public static String SUCCESS = "008";
@@ -44,9 +50,7 @@ public class ConstantVal {
                     return ctx.getString(R.string.strServerNotResponding);
                 } else if (intCode == Integer.parseInt(REQUEST_TIMEOUT)) {
                     return ctx.getString(R.string.strRequestTimeout);
-                } else if (intCode == Integer.parseInt(SESSION_EXPIRED)) {
-                    return ctx.getString(R.string.strSessionExpire);
-                } else if (intCode == Integer.parseInt(INVALID_LOGIN)) {
+                }  else if (intCode == Integer.parseInt(INVALID_LOGIN)) {
                     return ctx.getString(R.string.strInvalidUserNameAndPassword);
                 } else if (intCode == Integer.parseInt(SERVER_ERROR)) {
                     return ctx.getString(R.string.strServerError);

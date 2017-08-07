@@ -17,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import com.androidadvance.topsnackbar.TSnackbar;
+
 import java.util.Date;
 
 import me.zhanghai.android.materialedittext.MaterialEditText;
@@ -25,6 +27,8 @@ import utility.DateTimeUtils;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
+import utility.Logger;
+import utility.ServerResponse;
 import utility.URLMapping;
 
 public class acRegistration extends AppCompatActivity implements View.OnClickListener {
@@ -98,6 +102,7 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
         new AsyncTask() {
             boolean isDataEnteredProper = true;
             String[] data;
+            ServerResponse sr = null;
 
             @Override
             protected void onPreExecute() {
@@ -193,7 +198,8 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
                 if (isDataEnteredProper) {
                     URLMapping umRegister = ConstantVal.registerUser();
                     HttpEngine objHttpEngine = new HttpEngine();
-                    objHttpEngine.getDataFromWebAPI(mContext, umRegister.getUrl(), umRegister.getParamNames(), data);
+                    sr = objHttpEngine.getDataFromWebAPI(mContext, umRegister.getUrl(), umRegister.getParamNames(), data);
+                    Logger.debug("response code:" + sr.getResponseCode() + " " + sr.getResponseString());
                 }
                 return null;
             }
@@ -204,6 +210,19 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
                 dot_progress_bar.clearAnimation();
                 rlDotProgress.setVisibility(View.GONE);
                 rlMainContent.setVisibility(View.VISIBLE);
+                if (isDataEnteredProper) {
+                    if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        ((AppCompatActivity) mContext).finish();
+                    } else {
+                        Helper.displaySnackbar((AppCompatActivity) mContext, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()), ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
+                            @Override
+                            public void onDismissed(TSnackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                //((AppCompatActivity) mContext).finish();
+                            }
+                        });
+                    }
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

@@ -9,6 +9,11 @@
     <color name="black">#000000</color>
     <color name="light_blue_A700">#0091EA</color>
     <color name="light_blue_A400">#00B0FF</color>
+    <color name="info">#2196F3</color>
+    <color name="Success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="danger">#F44336</color>
+    <color name="promptBgColor">#012939</color>
 
 </resources>
 
