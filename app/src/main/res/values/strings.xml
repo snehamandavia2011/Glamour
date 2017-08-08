@@ -51,6 +51,7 @@
     <string name="strInvalidUserNameAndPassword">Invalid username or password</string>
     <string name="strInvalidUserName">This email id is not registered with us!</string>
     <string name="strDatacannotReceive">Unable to receive data from network</string>
+    <string name="strEmailIdAlreadyExists">Entered email is already registered with us.</string>
     <string name="strServerError">Server error</string>
     <string name="strClientError">Invalid URL request</string>
     <string name="strUserType">User Type</string>
@@ -116,4 +117,5 @@
     <string name="msgEnterCompanyLandmark">Enter company landmark</string>
     <string name="msgEnterCompanyPostCode">Enter company postcode</string>
     <string name="msgEnterCompanyCity">Enter company city</string>
+    <string name="title_activity_ac_home">acHome</string>
 </resources>

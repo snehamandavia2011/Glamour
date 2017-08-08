@@ -86,6 +86,8 @@ public class HttpEngine {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SESSION_EXISTS, ConstantVal.ServerResponseCode.SESSION_EXISTS);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SUCCESS, ConstantVal.ServerResponseCode.SUCCESS);
+                    }else if (strResponse.equals(ConstantVal.ServerResponseCode.USER_ALREADY_EXISTS)) {
+                        objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.USER_ALREADY_EXISTS, ConstantVal.ServerResponseCode.USER_ALREADY_EXISTS);
                     } else {
                         boolean isValid = Helper.isValidJSON(strResponse);
                         if (!isValid) {

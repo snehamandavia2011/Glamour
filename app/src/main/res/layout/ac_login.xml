@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:rdv="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,16 +29,27 @@
         android:paddingLeft="@dimen/paddingBig"
         android:paddingRight="@dimen/paddingBig">
 
+        <utility.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dorProgressBarheight"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            custom:amount="5"
+            custom:duration="@android:integer/config_mediumAnimTime"
+            custom:endColor="@color/red"
+            custom:startColor="@color/red" />
+
         <me.zhanghai.android.materialedittext.MaterialTextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin">
 
             <me.zhanghai.android.materialedittext.MaterialEditText
-                android:id="@+id/edUserName"
+                android:id="@+id/edEmailId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/strUserName"
+                android:hint="@string/strEmailId"
                 android:inputType="textEmailAddress" />
         </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 

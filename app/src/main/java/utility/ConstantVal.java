@@ -38,6 +38,7 @@ public class ConstantVal {
         public static String SUCCESS = "008";
         public static String CLIENT_ERROR = "010";
         public static String BLANK_RESPONSE = "011";
+        public static String USER_ALREADY_EXISTS = "012";
 
         public static String getMessage(Context ctx, String strCode) {
             try {
@@ -50,7 +51,7 @@ public class ConstantVal {
                     return ctx.getString(R.string.strServerNotResponding);
                 } else if (intCode == Integer.parseInt(REQUEST_TIMEOUT)) {
                     return ctx.getString(R.string.strRequestTimeout);
-                }  else if (intCode == Integer.parseInt(INVALID_LOGIN)) {
+                } else if (intCode == Integer.parseInt(INVALID_LOGIN)) {
                     return ctx.getString(R.string.strInvalidUserNameAndPassword);
                 } else if (intCode == Integer.parseInt(SERVER_ERROR)) {
                     return ctx.getString(R.string.strServerError);
@@ -60,6 +61,8 @@ public class ConstantVal {
                     return ctx.getString(R.string.strClientError);
                 } else if (intCode == Integer.parseInt(BLANK_RESPONSE)) {
                     return ctx.getString(R.string.strDatacannotReceive);
+                }else if (intCode == Integer.parseInt(USER_ALREADY_EXISTS)) {
+                    return ctx.getString(R.string.strEmailIdAlreadyExists);
                 }
                 return strCode;
             } catch (NumberFormatException e) {
@@ -77,7 +80,7 @@ public class ConstantVal {
     }
 
     public static URLMapping customerCredentialVerification() {
-        String[] paramNames = {"email_id", "password", "user_type"};
+        String[] paramNames = {"email_id", "password", "android_id", "deviceName", "deviceVersion", "date", "time"};
         String URL = getWebURLPrefix() + "Credentialsmanager/customerCredentialVerification";
         return new URLMapping(paramNames, URL);
     }

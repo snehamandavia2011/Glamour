@@ -13,7 +13,7 @@ import utility.Logger;
  */
 
 public class User {
-    private String firstName, lastName, emailId, password, mobileNumber, userType, companyName, companyPhone, companyHouseNo, companyStreet, companyLandmark, companyPostCode, companyCity, companyState, companyCountry, isOwner, isSalesMan;
+    private String firstName, lastName, emailId, password, mobileNumber, userType, companyName, companyPhone, companyHouseNo, companyStreet, companyLandmark, companyPostCode, companyCity, companyState, companyCountry, isOwner, isSalesMan,token;
 
     public class Fields {
         public static final String FIRST_NAME = "first_name";
@@ -33,6 +33,7 @@ public class User {
         public static final String COMPANY_COUNTRY = "company_country";
         public static final String IS_OWNER = "is_owner";
         public static final String IS_SALES_MAN = "is_sales_man";
+        public static final String TOKEN = "token";
     }
 
     public static void clearCache(Context c) {
@@ -53,6 +54,7 @@ public class User {
         Helper.clearPreference(c, Fields.COMPANY_COUNTRY);
         Helper.clearPreference(c, Fields.IS_OWNER);
         Helper.clearPreference(c, Fields.IS_SALES_MAN);
+        Helper.clearPreference(c, Fields.TOKEN);
     }
 
     public void saveFiledsToPreferences(Context c) {
@@ -73,6 +75,7 @@ public class User {
         Helper.setStringPreference(c, Fields.COMPANY_COUNTRY, this.getCompanyCountry());
         Helper.setStringPreference(c, Fields.IS_OWNER, this.getIsOwner());
         Helper.setStringPreference(c, Fields.IS_SALES_MAN, this.getIsSalesMan());
+        Helper.setStringPreference(c, Fields.TOKEN, this.getToken());
     }
 
     public void parseJSON(JSONObject objJSON) {
@@ -92,6 +95,7 @@ public class User {
             this.setCompanyPhone(objJSON.getString("company_phone").equals("null") ? "" : objJSON.getString("company_phone"));
             this.setIsOwner(objJSON.getString("is_owner").equals("null") ? "" : objJSON.getString("is_owner"));
             this.setIsSalesMan(objJSON.getString("is_salesmane").equals("null") ? "" : objJSON.getString("is_salesmane"));
+            this.setToken(objJSON.getString("token").equals("null") ? "" : objJSON.getString("token"));
         } catch (JSONException e) {
             e.printStackTrace();
             Logger.writeToCrashlytics(e);
@@ -232,5 +236,13 @@ public class User {
 
     public void setIsSalesMan(String isSalesMan) {
         this.isSalesMan = isSalesMan;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

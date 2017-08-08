@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="glamour.mafatlal.com.glamour">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -28,11 +28,17 @@
             android:theme="@style/AppThemeBlack" />
         <activity
             android:name=".acRegistration"
-            android:theme="@style/AppThemeBlack"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="751fa4790f2065ef93f5dda03fb0d753cc38af42" />
+
+        <activity
+            android:name=".acHome"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack"></activity>
     </application>
 
 </manifest>

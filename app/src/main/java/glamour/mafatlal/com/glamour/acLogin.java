@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,22 +25,31 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
+import entity.User;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
+import utility.DateTimeUtils;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
 import utility.Logger;
+import utility.ServerResponse;
 import utility.URLMapping;
+
+import static java.security.AccessController.getContext;
 
 public class acLogin extends AppCompatActivity implements View.OnClickListener {
     Button btnRegister, btnForgotPassword, btnLogin;
-    MaterialEditText edUserName, edPassword;
+    MaterialEditText edEmailId, edPassword;
     Context mContext;
     AppCompatActivity ac;
     Handler handler = new Handler();
+    DotProgressBar dot_progress_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +58,11 @@ public class acLogin extends AppCompatActivity implements View.OnClickListener {
         ac = this;
         Helper.startFabric(mContext);
         setContentView(R.layout.ac_login);
+        dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        edUserName = (MaterialEditText) findViewById(R.id.edUserName);
+        edEmailId = (MaterialEditText) findViewById(R.id.edEmailId);
         edPassword = (MaterialEditText) findViewById(R.id.edPassword);
         btnForgotPassword.setPaintFlags(btnForgotPassword.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         btnRegister.setPaintFlags(btnRegister.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -62,6 +75,7 @@ public class acLogin extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin:
+                loginUser();
                 break;
             case R.id.btnForgotPassword:
                 forgotPassword();
@@ -71,6 +85,74 @@ public class acLogin extends AppCompatActivity implements View.OnClickListener {
                 startActivity(i);
                 break;
         }
+    }
+
+    private void loginUser() {
+        boolean isDataEntedProperly = true;
+        if (Helper.isFieldBlank(edEmailId.getText().toString())) {
+            edEmailId.setError(getString(R.string.strEnterEmailId));
+            Helper.requestFocus(ac, edEmailId);
+            isDataEntedProperly = false;
+        } else if (!Helper.isValidEmailId(edEmailId.getText().toString())) {
+            edEmailId.setError(getString(R.string.strEnterValidEmailId));
+            Helper.requestFocus(ac, edEmailId);
+            isDataEntedProperly = false;
+        } else if (Helper.isFieldBlank(edPassword.getText().toString())) {
+            edPassword.setError(getString(R.string.msgEnterPassword));
+            Helper.requestFocus(ac, edPassword);
+            isDataEntedProperly = false;
+        }
+        if (isDataEntedProperly) {
+            btnLogin.setEnabled(false);
+            final HttpEngine objHttpEngine = new HttpEngine();
+
+            final String android_id = Settings.Secure.getString(mContext.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            final String deviceName = Build.DEVICE + " " + Build.MODEL;
+            final String deviceVersion = Build.VERSION.RELEASE + "(" + Build.VERSION.SDK_INT + ")";
+            final String emaiID = edEmailId.getText().toString();
+            final String strPassword = edPassword.getText().toString();
+            dot_progress_bar.setVisibility(View.VISIBLE);
+            new Thread() {
+                public void run() {
+                    URLMapping um = ConstantVal.customerCredentialVerification();
+                    ServerResponse objServerResponse = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(),
+                            um.getParamNames(), new String[]{emaiID, strPassword, android_id, deviceName, deviceVersion, DateTimeUtils.getDate(new Date()), DateTimeUtils.getTime(new Date())});
+                    String result = Html.fromHtml(objServerResponse.getResponseString()).toString();
+                    if (result != null && !result.equals("")) {
+                        try {
+                            User objUser = new User();
+                            objUser.parseJSON(new JSONObject(result));
+                            if (objUser != null && !objUser.getToken().equals("")) {
+                                objUser.saveFiledsToPreferences(mContext);
+                                Intent i1 = new Intent(mContext, acHome.class);
+                                startActivity(i1);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            Helper.displaySnackbar(ac, result, ConstantVal.ToastBGColor.DANGER);
+                            Logger.writeToCrashlytics(e);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btnLogin.setEnabled(true);
+                                }
+                            });
+                        }
+                    }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //pd.dismiss();
+                            dot_progress_bar.clearAnimation();
+                            dot_progress_bar.setVisibility(View.GONE);
+                        }
+                    });
+                }
+            }.start();
+
+        }
+
     }
 
     private void forgotPassword() {
