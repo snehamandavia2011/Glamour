@@ -35,8 +35,7 @@
     <string name="strNoProblemItHappens">No Problem, It happens. \n\nEnter your email address below and we\'ll send new password.</string>
     <string name="strSendNewPassword">SEND NEW PASSWORD</string>
     <string name="msgEnterEmailNotExist">Entered email id is not exist, try again.</string>
-    <string name="msgForgotPasswordEmailConfirmation">
-    We have sent you an email with new password to your email, please follow instruction in the email to reset password.\n\n
+    <string name="msgForgotPasswordEmailConfirmation">We have sent you an email with new password to your email, please follow instruction in the email to reset password.\n\n
     <u>A note about spam filter,</u>
     \nIf you do not get an email from us within a few minutes please be sure to check your spam filter.\nThe email will be coming from \"no-reply@jobio.io\"
   </string>
@@ -117,5 +116,6 @@
     <string name="msgEnterCompanyLandmark">Enter company landmark</string>
     <string name="msgEnterCompanyPostCode">Enter company postcode</string>
     <string name="msgEnterCompanyCity">Enter company city</string>
-    <string name="title_activity_ac_home">acHome</string>
+    <string name="msgPasswordSend">Registration done. Password has been sent to your email address.</string>
+    <string name="strHome">Home</string>
 </resources>

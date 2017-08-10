@@ -213,6 +213,7 @@ public class acLogin extends AppCompatActivity implements View.OnClickListener {
         new AsyncTask() {
             boolean isDataEnteredProper = true;
             String email, newPassword;
+            ServerResponse sr;
 
             @Override
             protected void onPreExecute() {
@@ -235,49 +236,10 @@ public class acLogin extends AppCompatActivity implements View.OnClickListener {
             @Override
             protected Object doInBackground(Object[] params) {
                 if (isDataEnteredProper) {
-                    URLMapping umVerifyUser = ConstantVal.checkUserExistence();
                     URLMapping umForgotPassword = ConstantVal.resetPassword();
                     HttpEngine objHttpEngine = new HttpEngine();
-                    String[] dataVerifyUser = {email};
-                    final String strVerifyUserCode = objHttpEngine.getDataFromWebAPI(mContext, umVerifyUser.getUrl(), dataVerifyUser, umVerifyUser.getParamNames()).getResponseCode();
-                    if (strVerifyUserCode.equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                        String[] data = {email};
-                        final String result = objHttpEngine.getDataFromWebAPI(mContext, umForgotPassword.getUrl(), data, umForgotPassword.getParamNames()).getResponseString();
-                        if (result != null && result.length() > 0) {
-                            try {
-                                JSONObject objJSON = new JSONObject(result);
-                                newPassword = objJSON.getString("password");
-                            } catch (Exception e) {
-                                Logger.writeToCrashlytics(e);
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        msgError.setVisibility(View.VISIBLE);
-                                        msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, result));
-                                    }
-                                });
-                                //Helper.displaySnackbar(ac, result);
-                            }
-                        }
-                    } else {
-                        if (strVerifyUserCode.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    msgError.setVisibility(View.VISIBLE);
-                                    msgError.setText(mContext.getString(R.string.strInvalidUserName));
-                                }
-                            });
-                        } else {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    msgError.setVisibility(View.VISIBLE);
-                                    msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, strVerifyUserCode));
-                                }
-                            });
-                        }
-                    }
+                    String[] data = {email, DateTimeUtils.getDate(new Date()), DateTimeUtils.getTime(new Date())};
+                    sr = objHttpEngine.getDataFromWebAPI(mContext, umForgotPassword.getUrl(), umForgotPassword.getParamNames(), data);
                 }
                 return null;
             }
@@ -287,9 +249,30 @@ public class acLogin extends AppCompatActivity implements View.OnClickListener {
                 super.onPostExecute(o);
                 dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
-                if (newPassword != null && newPassword.length() > 0) {
-                    lyConfirmation.setVisibility(View.VISIBLE);
-                    lyInput.setVisibility(View.GONE);
+                if (isDataEnteredProper) {
+                    if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
+                        msgError.setVisibility(View.VISIBLE);
+                        msgError.setText(mContext.getString(R.string.strInvalidUserName));
+                    } else if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        try {
+                            JSONObject objJSON = new JSONObject(sr.getResponseString());
+                            newPassword = objJSON.getString("password");
+                            lyConfirmation.setVisibility(View.VISIBLE);
+                            lyInput.setVisibility(View.GONE);
+                        } catch (Exception e) {
+                            Logger.writeToCrashlytics(e);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    msgError.setVisibility(View.VISIBLE);
+                                    msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, sr.getResponseCode()));
+                                }
+                            });
+                        }
+                    } else {
+                        msgError.setVisibility(View.VISIBLE);
+                        msgError.setText(ConstantVal.ServerResponseCode.getMessage(ac, sr.getResponseCode()));
+                    }
                 }
             }
         }.execute();

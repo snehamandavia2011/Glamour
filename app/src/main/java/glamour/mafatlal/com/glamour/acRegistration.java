@@ -35,7 +35,7 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
     Helper objHelper = new Helper();
     Context mContext;
     AppCompatActivity ac;
-    MaterialEditText edFirstName, edLastName, edEmailId, edPassword, edConfirmPassword, edMobileNumber, edCompanyName, edCompanyPhoneNumber, edCompanyHouseNo, edCompanyStreet, edCompanyLandMark, edCompanyCity, edCompanyPostCode;
+    MaterialEditText edFirstName, edLastName, edEmailId, edMobileNumber, edCompanyName, edCompanyPhoneNumber, edCompanyHouseNo, edCompanyStreet, edCompanyLandMark, edCompanyCity, edCompanyPostCode;
     Spinner spnCompanyState;
     RadioButton rdRetailer, rdDealer;
     Button btnCancel, btnSave;
@@ -61,8 +61,6 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
         edFirstName = (MaterialEditText) findViewById(R.id.edFirstName);
         edLastName = (MaterialEditText) findViewById(R.id.edLastName);
         edEmailId = (MaterialEditText) findViewById(R.id.edEmailId);
-        edPassword = (MaterialEditText) findViewById(R.id.edPassword);
-        edConfirmPassword = (MaterialEditText) findViewById(R.id.edConfirmPassword);
         edMobileNumber = (MaterialEditText) findViewById(R.id.edMobileNumber);
         edCompanyName = (MaterialEditText) findViewById(R.id.edCompanyName);
         edCompanyPhoneNumber = (MaterialEditText) findViewById(R.id.edCompanyPhoneNumber);
@@ -123,18 +121,6 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
                     isDataEnteredProper = false;
                     edEmailId.setError(getString(R.string.strEnterValidEmailId));
                     Helper.requestFocus(ac, edEmailId);
-                } else if (Helper.isFieldBlank(edPassword.getText().toString())) {
-                    isDataEnteredProper = false;
-                    edPassword.setError(getString(R.string.msgEnterPassword));
-                    Helper.requestFocus(ac, edPassword);
-                } else if (Helper.isFieldBlank(edConfirmPassword.getText().toString())) {
-                    isDataEnteredProper = false;
-                    edConfirmPassword.setError(getString(R.string.msgEnterConfirmPassword));
-                    Helper.requestFocus(ac, edConfirmPassword);
-                } else if (!edPassword.getText().toString().equals((edConfirmPassword.getText().toString()))) {
-                    isDataEnteredProper = false;
-                    edConfirmPassword.setError(getString(R.string.msgPasswordConfirmShouldSame));
-                    Helper.requestFocus(ac, edConfirmPassword);
                 } else if (Helper.isFieldBlank(edMobileNumber.getText().toString())) {
                     isDataEnteredProper = false;
                     edMobileNumber.setError(getString(R.string.msgEnterMobileNumber));
@@ -186,7 +172,7 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
                     else
                         isOwner = "N";
                     data = new String[]{edFirstName.getText().toString(), edLastName.getText().toString(), edEmailId.getText().toString(),
-                            edPassword.getText().toString(), edMobileNumber.getText().toString(), userType, edCompanyName.getText().toString(),
+                            edMobileNumber.getText().toString(), userType, edCompanyName.getText().toString(),
                             edCompanyPhoneNumber.getText().toString(), edCompanyHouseNo.getText().toString(), edCompanyStreet.getText().toString(),
                             edCompanyLandMark.getText().toString(), edCompanyCity.getText().toString(), spnCompanyState.getSelectedItem().toString(),
                             "India", edCompanyPostCode.getText().toString(), isOwner, isSalesMan, DateTimeUtils.getDate(new Date()), DateTimeUtils.getTime(new Date())};
@@ -212,7 +198,13 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
                 rlMainContent.setVisibility(View.VISIBLE);
                 if (isDataEnteredProper) {
                     if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                        ((AppCompatActivity) mContext).finish();
+                        Helper.displaySnackbar((AppCompatActivity) mContext, mContext.getString(R.string.msgPasswordSend), ConstantVal.ToastBGColor.SUCCESS).setCallback(new TSnackbar.Callback() {
+                            @Override
+                            public void onDismissed(TSnackbar snackbar, int event) {
+                                super.onDismissed(snackbar, event);
+                                ((AppCompatActivity) mContext).finish();
+                            }
+                        });
                     } else {
                         Helper.displaySnackbar((AppCompatActivity) mContext, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()), ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
                             @Override

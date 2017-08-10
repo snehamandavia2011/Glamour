@@ -163,32 +163,6 @@
                             android:layout_marginBottom="@dimen/margin">
 
                             <me.zhanghai.android.materialedittext.MaterialEditText
-                                android:id="@+id/edPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/strPassword"
-                                android:inputType="textPassword" />
-                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
-
-                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin">
-
-                            <me.zhanghai.android.materialedittext.MaterialEditText
-                                android:id="@+id/edConfirmPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/strConfirmPassword"
-                                android:inputType="textPassword" />
-                        </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
-
-                        <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin">
-
-                            <me.zhanghai.android.materialedittext.MaterialEditText
                                 android:id="@+id/edMobileNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

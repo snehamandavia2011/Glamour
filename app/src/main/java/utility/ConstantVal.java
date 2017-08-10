@@ -61,7 +61,7 @@ public class ConstantVal {
                     return ctx.getString(R.string.strClientError);
                 } else if (intCode == Integer.parseInt(BLANK_RESPONSE)) {
                     return ctx.getString(R.string.strDatacannotReceive);
-                }else if (intCode == Integer.parseInt(USER_ALREADY_EXISTS)) {
+                } else if (intCode == Integer.parseInt(USER_ALREADY_EXISTS)) {
                     return ctx.getString(R.string.strEmailIdAlreadyExists);
                 }
                 return strCode;
@@ -92,13 +92,13 @@ public class ConstantVal {
     }
 
     public static URLMapping resetPassword() {
-        String[] paramNames = {"email_id"};
-        String URL = getWebURLPrefix() + "Credentialsmanager/resetPassword";
+        String[] paramNames = {"to_email", "date", "time"};
+        String URL = getWebURLPrefix() + "Emailmanager/resetPassword";
         return new URLMapping(paramNames, URL);
     }
 
     public static URLMapping registerUser() {
-        String[] paramNames = {"fisrtName", "lastName", "emailId", "password", "mobileNumber", "userType", "companyName", "companyPhone", "companyHouseNo", "companyStreet", "companyLandmark", "companyCity", "companyState", "companyCountry", "companyPostCode", "isOwner", "isSalesMan", "date", "time"};
+        String[] paramNames = {"fisrtName", "lastName", "emailId", "mobileNumber", "userType", "companyName", "companyPhone", "companyHouseNo", "companyStreet", "companyLandmark", "companyCity", "companyState", "companyCountry", "companyPostCode", "isOwner", "isSalesMan", "date", "time"};
         String URL = getWebURLPrefix() + "Credentialsmanager/registerUser";
         return new URLMapping(paramNames, URL);
     }
