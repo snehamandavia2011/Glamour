@@ -8,5 +8,5 @@
     <dimen name="spinnerHeight">40dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dorProgressBarheight">50dp</dimen>
-
+    <dimen name="listViewDividerHeight">1dp</dimen>
 </resources>

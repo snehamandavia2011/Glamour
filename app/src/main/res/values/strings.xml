@@ -118,4 +118,15 @@
     <string name="msgEnterCompanyCity">Enter company city</string>
     <string name="msgPasswordSend">Registration done. Password has been sent to your email address.</string>
     <string name="strHome">Home</string>
+    <string name="strShopping">Shopping</string>
+    <string name="strProfile">Profile</string>
+    <string name="strBasket">Basket</string>
+    <string name="msgNoCategory">No category</string>
+    <string name="msgViewYourProfile">View your profile</string>
+    <string name="msgEditProfile">Edit Profile</string>
+    <string name="strSetting">Setting</string>
+    <string name="strOrder">Order</string>
+    <string name="title_activity_ac_profile">acProfile</string>
+    <string name="strChangePassword">Change password</string>
+    <string name="strLogout">Logout</string>
 </resources>

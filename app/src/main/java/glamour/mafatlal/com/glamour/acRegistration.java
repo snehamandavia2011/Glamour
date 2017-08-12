@@ -50,7 +50,7 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
         ac = this;
         Helper.startFabric(mContext);
         setContentView(R.layout.ac_registration);
-        objHelper.setActionBar(this, getString(R.string.strRegistration));
+        objHelper.setActionBar(this, getString(R.string.strRegistration), true);
         intializeControl();
     }
 

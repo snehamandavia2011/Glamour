@@ -38,7 +38,11 @@
         <activity
             android:name=".acHome"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeBlack"></activity>
+            android:theme="@style/AppThemeBlack" />
+        <activity
+            android:name=".acProfile"
+            android:label="@string/title_activity_ac_profile"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

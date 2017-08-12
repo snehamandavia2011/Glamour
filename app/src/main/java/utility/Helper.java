@@ -131,17 +131,20 @@ public class Helper {
         return isValid;
     }
 
-    public void setActionBar(final AppCompatActivity ac, final String text) {//Back button navigation
+    Toolbar toolbar;
+
+    public void setActionBar(final AppCompatActivity ac, final String text, final boolean needToShowBAckButton) {//Back button navigation
         new AsyncTask() {
-            Toolbar toolbar;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                toolbar = (Toolbar) ac.findViewById(R.id.toolbar);
-                ac.setSupportActionBar(toolbar);
-                ac.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ac.getResources()
-                        .getColor(R.color.red)));
+                if (toolbar == null) {
+                    toolbar = (Toolbar) ac.findViewById(R.id.toolbar);
+                    ac.setSupportActionBar(toolbar);
+                    ac.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ac.getResources()
+                            .getColor(R.color.red)));
+                }
             }
 
             @Override
@@ -155,14 +158,16 @@ public class Helper {
                 ac.invalidateOptionsMenu();
                 ActionBar actionBar = ac.getSupportActionBar();
                 actionBar.setDisplayShowHomeEnabled(true);
+                actionBar.setDisplayShowCustomEnabled(true);
                 actionBar.setBackgroundDrawable(new ColorDrawable(ac.getResources()
                         .getColor(R.color.red)));
                 LayoutInflater mInflater = (LayoutInflater) ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View v = mInflater.inflate(R.layout.home_action, null, true);
-                ((TextView) v.findViewById(R.id.txtName)).setText(text);
+                View v = mInflater.inflate(R.layout.home_action, null);
                 actionBar.setCustomView(v);
                 actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-                actionBar.setDisplayHomeAsUpEnabled(true);
+                if (needToShowBAckButton)
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                ((TextView) v.findViewById(R.id.txtName)).setText(text);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

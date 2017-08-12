@@ -2,11 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    xmlns:rdv="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/my_toolbar" />
+    <include layout="@layout/my_toolbar"></include>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <include layout="@layout/bottom_menu"></include>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tab"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:id="@+id/lyMainContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <ListView
+                        android:id="@+id/lvlAsset"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></ListView>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lyNoContent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@color/red"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:src="@drawable/ic_category_big" />
+
+                    <TextView
+                        style="@style/styBigWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/margin"
+                        android:gravity="center"
+                        android:text="@string/msgNoCategory" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <utility.DotProgressBar
+                android:id="@+id/dot_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dorProgressBarheight"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                custom:amount="5"
+                custom:duration="@android:integer/config_shortAnimTime"
+                custom:endColor="@color/red"
+                custom:startColor="@color/red" />
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>
+

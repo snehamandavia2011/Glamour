@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar"></include>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <include layout="@layout/bottom_menu"></include>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tab"
+            android:orientation="vertical"
+            android:padding="@dimen/paddingBig">
+
+            <LinearLayout
+                android:id="@+id/lyPersonalInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_user_grey_small" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtCustomerName"
+                        style="@style/stySubTitleBlackSingleLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:text="Sneha mandavia" />
+
+                    <TextView
+                        style="@style/stySubTitleGreySingleLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:text="@string/msgViewYourProfile" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@color/red" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/stySubTitleBlackSingleLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:text="@string/msgEditProfile" />
+
+                <Button
+                    android:id="@+id/btnEditPersonalInfor"
+                    style="@style/stySubTitleBlackSingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/ic_profile_button"
+                    android:drawableRight="@drawable/ic_profile_right_arrow"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:text="@string/strPersonalDetail" />
+
+                <Button
+                    android:id="@+id/btnEditCompanyDetail"
+                    style="@style/stySubTitleBlackSingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/ic_profile_button"
+                    android:drawableRight="@drawable/ic_profile_right_arrow"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:text="@string/strCompanyDetail" />
+
+                <Button
+                    android:id="@+id/btnEditCompanyAddress"
+                    style="@style/stySubTitleBlackSingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/ic_profile_button"
+                    android:drawableRight="@drawable/ic_profile_right_arrow"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:text="@string/strCompanyAddress" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@color/red" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/stySubTitleBlackSingleLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:text="@string/strSetting" />
+
+                <Button
+                    android:id="@+id/btnChangePassword"
+                    style="@style/stySubTitleBlackSingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/ic_profile_button"
+                    android:drawableRight="@drawable/ic_profile_right_arrow"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:text="@string/strChangePassword" />
+
+                <Button
+                    android:id="@+id/btnLogout"
+                    style="@style/stySubTitleBlackSingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/ic_profile_button"
+                    android:drawableRight="@drawable/ic_profile_right_arrow"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="@dimen/padding"
+                    android:text="@string/strLogout" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

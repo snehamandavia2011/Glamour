@@ -14,6 +14,8 @@
     <color name="warning">#FF9800</color>
     <color name="danger">#F44336</color>
     <color name="promptBgColor">#012939</color>
+    <color name="transparent_black">#77000000</color>
+    <color name="transparent_red">#77FB1A19</color>
 
 </resources>
 

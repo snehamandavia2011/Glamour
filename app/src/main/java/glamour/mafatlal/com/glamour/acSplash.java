@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import entity.User;
+import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
 
@@ -36,9 +38,16 @@ public class acSplash extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(mContext, acLogin.class);
-                            startActivity(i);
-                            finish();
+                            final String tokenId = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
+                            if (tokenId.equals("")) {
+                                Intent i = new Intent(mContext, acLogin.class);
+                                startActivity(i);
+                                finish();
+                            }else{
+                                Intent i = new Intent(mContext, acHome.class);
+                                startActivity(i);
+                                finish();
+                            }
                         }
                     });
                 }

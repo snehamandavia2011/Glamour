@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/lyHome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"
+        android:background="@color/red"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/imgHome"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:src="@drawable/ic_home_white" />
+
+        <TextView
+            android:id="@+id/textHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:text="@string/strHome"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="45dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/lyOrder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"
+        android:background="@color/red"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/imgOrder"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:src="@drawable/ic_order_white" />
+
+        <TextView
+            android:id="@+id/textOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:text="@string/strOrder"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="45dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/lyProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"
+        android:background="@color/red"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:src="@drawable/ic_profile_white" />
+
+        <TextView
+            android:id="@+id/textProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:text="@string/strProfile"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="45dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/lyBasket"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"
+        android:background="@color/red"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/imgBasket"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:src="@drawable/ic_basket_white" />
+
+        <TextView
+            android:id="@+id/txtBasket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:text="@string/strBasket"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
+</LinearLayout>
