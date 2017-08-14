@@ -13,7 +13,40 @@ import utility.Logger;
  */
 
 public class User {
-    private String firstName, lastName, emailId, password, mobileNumber, userType, companyName, companyPhone, companyHouseNo, companyStreet, companyLandmark, companyPostCode, companyCity, companyState, companyCountry, isOwner, isSalesMan,token;
+    private String firstName, lastName, emailId, password, mobileNumber, userType, companyName, companyPhone, companyHouseNo, companyStreet, companyLandmark, companyPostCode, companyCity, companyState, companyCountry, isOwner, isSalesMan, token;
+
+    public User(String emailId, String password) {
+        this.emailId = emailId;
+        this.password = password;
+    }
+
+    public User(String companyHouseNo, String companyStreet, String companyLandmark, String companyPostCode, String companyCity, String companyState, String companyCountry) {
+        this.companyHouseNo = companyHouseNo;
+        this.companyStreet = companyStreet;
+        this.companyLandmark = companyLandmark;
+        this.companyPostCode = companyPostCode;
+        this.companyCity = companyCity;
+        this.companyState = companyState;
+        this.companyCountry = companyCountry;
+    }
+
+    public User(String firstName, String lastName, String mobileNumber, String userType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobileNumber = mobileNumber;
+        this.userType = userType;
+    }
+
+    public User(String emailId, String companyName, String companyPhone, String isOwner, String isSalesMan) {
+        this.emailId = emailId;
+        this.companyName = companyName;
+        this.companyPhone = companyPhone;
+        this.isOwner = isOwner;
+        this.isSalesMan = isSalesMan;
+    }
+
+    public User() {
+    }
 
     public class Fields {
         public static final String FIRST_NAME = "first_name";
@@ -78,8 +111,37 @@ public class User {
         Helper.setStringPreference(c, Fields.TOKEN, this.getToken());
     }
 
+    public void saveCompanyAddressToPreference(Context c) {
+        Helper.setStringPreference(c, Fields.COMPANY_HOUSE_NO, this.getCompanyHouseNo());
+        Helper.setStringPreference(c, Fields.COMPANY_STREET, this.getCompanyStreet());
+        Helper.setStringPreference(c, Fields.COMPANY_LANDMARK, this.getCompanyLandmark());
+        Helper.setStringPreference(c, Fields.COMPANY_POST_CODE, this.getCompanyPostCode());
+        Helper.setStringPreference(c, Fields.COMPANY_CITY, this.getCompanyCity());
+        Helper.setStringPreference(c, Fields.COMPANY_STATE, this.getCompanyState());
+        Helper.setStringPreference(c, Fields.COMPANY_COUNTRY, this.getCompanyCountry());
+    }
+
+    public void savePersonalDetailToPreference(Context c) {
+        Helper.setStringPreference(c, Fields.FIRST_NAME, this.getFirstName());
+        Helper.setStringPreference(c, Fields.LAST_NAME, this.getLastName());
+        Helper.setStringPreference(c, Fields.MOBILE_NUMBER, this.getMobileNumber());
+        Helper.setStringPreference(c, Fields.USER_TYPE, this.getUserType());
+    }
+
+    public void saveCompanyDetailToPreference(Context c) {
+        Helper.setStringPreference(c, Fields.COMPANY_NAME, this.getCompanyName());
+        Helper.setStringPreference(c, Fields.COMPANY_PHONE, this.getCompanyPhone());
+        Helper.setStringPreference(c, Fields.IS_OWNER, this.getIsOwner());
+        Helper.setStringPreference(c, Fields.IS_SALES_MAN, this.getIsSalesMan());
+    }
+
+    public void savePasswordDetailToPreference(Context c){
+        Helper.setStringPreference(c, Fields.PASSWORD, this.getPassword());
+    }
+
     public void parseJSON(JSONObject objJSON) {
         try {
+            this.setPassword(objJSON.getString("password").equals("null") ? "" : objJSON.getString("password"));
             this.setFirstName(objJSON.getString("first_name").equals("null") ? "" : objJSON.getString("first_name"));
             this.setLastName(objJSON.getString("last_name").equals("null") ? "" : objJSON.getString("last_name"));
             this.setMobileNumber(objJSON.getString("contact_no").equals("null") ? "" : objJSON.getString("contact_no"));

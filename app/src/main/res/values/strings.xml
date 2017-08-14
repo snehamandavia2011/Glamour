@@ -129,4 +129,11 @@
     <string name="title_activity_ac_profile">acProfile</string>
     <string name="strChangePassword">Change password</string>
     <string name="strLogout">Logout</string>
+    <string name="title_activity_ac_view_profile">acViewProfile</string>
+    <string name="strName">Name</string>
+    <string name="strIsOwner">Is Owner? :</string>
+    <string name="strIsSalesman">Is Salesman? :</string>
+    <string name="strEnterOldPassword">Enter old password</string>
+    <string name="strEnterNewPassword">Enter new password</string>
+    <string name="msgInvalidOldPassword">Invalid old password</string>
 </resources>
