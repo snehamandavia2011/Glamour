@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+import entity.Category;
 import entity.User;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
@@ -125,6 +126,12 @@ public class acLogin extends AppCompatActivity implements View.OnClickListener {
                             objUser.parseJSON(new JSONObject(result));
                             if (objUser != null && !objUser.getToken().equals("")) {
                                 objUser.saveFiledsToPreferences(mContext);
+                                try {
+                                    Category.loadCategoryFromServer(mContext).join();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Logger.writeToCrashlytics(e);
+                                }
                                 Intent i1 = new Intent(mContext, acHome.class);
                                 startActivity(i1);
                                 finish();

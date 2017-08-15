@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnPositive"
+            style="@style/stySubTitleWhiteSingleLine"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/buttonHeight"
+            android:background="@color/transparent" />
+
+        <Button
+            android:id="@+id/btnNegative"
+            style="@style/stySubTitleWhiteSingleLine"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/buttonHeight"
+            android:background="@color/transparent" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtText"
+        style="@style/styDescWhiteSingleLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/ly" />
+</RelativeLayout>

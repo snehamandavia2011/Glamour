@@ -95,6 +95,7 @@ public class TabManager {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(ac, acHome.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     ac.startActivity(i);
                 }
             });
@@ -123,6 +124,7 @@ public class TabManager {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(ac, acProfile.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     ac.startActivity(i);
                 }
             });

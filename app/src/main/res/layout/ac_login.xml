@@ -33,7 +33,6 @@
             android:id="@+id/dot_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dorProgressBarheight"
-            android:layout_centerInParent="true"
             android:visibility="gone"
             custom:amount="5"
             custom:duration="@android:integer/config_mediumAnimTime"

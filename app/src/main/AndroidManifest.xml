@@ -46,6 +46,10 @@
         <activity
             android:name=".acViewProfile"
             android:label="@string/title_activity_ac_view_profile"
+            android:theme="@style/AppThemeBlack" />
+        <activity
+            android:name=".acSubCategory"
+            android:label="@string/title_activity_ac_view_profile"
             android:theme="@style/AppThemeBlack"></activity>
     </application>
 

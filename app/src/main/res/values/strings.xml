@@ -136,4 +136,7 @@
     <string name="strEnterOldPassword">Enter old password</string>
     <string name="strEnterNewPassword">Enter new password</string>
     <string name="msgInvalidOldPassword">Invalid old password</string>
+    <string name="msgLogoutConfirmation">Are you sure you want to logout?</string>
+    <string name="title_activity_ac_sub_category">acSubCategory</string>
+
 </resources>

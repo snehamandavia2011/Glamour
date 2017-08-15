@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:clickable="true"
     android:id="@+id/rlContainer"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true">
 
-    <GridView
-        android:id="@+id/gvItems"
+    <ImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnWidth="2dp"
-        android:numColumns="3"></GridView>
+        android:layout_height="wrap_content"></ImageView>
 
     <TextView
-        android:clickable="true"
         android:id="@+id/txtName"
         style="@style/stySubTitleWhiteSingleLine"
         android:layout_width="match_parent"

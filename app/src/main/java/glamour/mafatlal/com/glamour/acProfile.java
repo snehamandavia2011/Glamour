@@ -28,7 +28,9 @@ import org.json.JSONObject;
 
 import entity.User;
 import me.zhanghai.android.materialedittext.MaterialEditText;
+import utility.ConfimationSnackbar;
 import utility.ConstantVal;
+import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
@@ -87,6 +89,7 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
                 changePassword();
                 break;
             case R.id.btnLogout:
+                logoutUser();
                 break;
         }
     }
@@ -152,7 +155,8 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
                         if (isDataEnteredProper) {
                             dot_progress_bar.setVisibility(View.VISIBLE);
                             String strEmail = Helper.getStringPreference(mContext, User.Fields.EMAILID, "");
-                            data = new String[]{strEmail, edNewPassword.getText().toString()};
+                            String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
+                            data = new String[]{strEmail, edNewPassword.getText().toString(), token};
                             objUser = new User(strEmail, edNewPassword.getText().toString());
                         }
                     }
@@ -259,8 +263,9 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
                             else if (rdRetailer.isChecked())
                                 userType = ConstantVal.UserType.RETAILER;
                             String strEmail = Helper.getStringPreference(mContext, User.Fields.EMAILID, "");
+                            String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
                             data = new String[]{edFirstName.getText().toString(), edLastName.getText().toString(), strEmail,
-                                    edMobileNumber.getText().toString(), userType};
+                                    edMobileNumber.getText().toString(), userType, token};
                             objUser = new User(edFirstName.getText().toString(), edLastName.getText().toString(),
                                     edMobileNumber.getText().toString(), userType);
                         }
@@ -357,8 +362,9 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
                                 isOwner = "Y";
                             else
                                 isOwner = "N";
+                            String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
                             data = new String[]{strEmail, edCompanyName.getText().toString(),
-                                    edCompanyPhoneNumber.getText().toString(), isOwner, isSalesMan};
+                                    edCompanyPhoneNumber.getText().toString(), isOwner, isSalesMan, token};
                             objUser = new User(strEmail, edCompanyName.getText().toString(),
                                     edCompanyPhoneNumber.getText().toString(), isOwner, isSalesMan);
                         }
@@ -488,9 +494,10 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
                         if (isDataEnteredProper) {
                             dot_progress_bar.setVisibility(View.VISIBLE);
                             String strEmail = Helper.getStringPreference(mContext, User.Fields.EMAILID, "");
+                            String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
                             data = new String[]{strEmail, edCompanyHouseNo.getText().toString(), edCompanyStreet.getText().toString(),
                                     edCompanyLandMark.getText().toString(), edCompanyCity.getText().toString(),
-                                    spnCompanyState.getSelectedItem().toString(), "India", edCompanyPostCode.getText().toString()};
+                                    spnCompanyState.getSelectedItem().toString(), "India", edCompanyPostCode.getText().toString(), token};
                             objUser = new User(edCompanyHouseNo.getText().toString(), edCompanyStreet.getText().toString(),
                                     edCompanyLandMark.getText().toString(), edCompanyPostCode.getText().toString(),
                                     edCompanyCity.getText().toString(), spnCompanyState.getSelectedItem().toString(), "India");
@@ -533,22 +540,63 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
         dialog.show();
     }
 
+    private void logoutUser() {
+        final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac, ConstantVal.ToastBGColor.WARNING);
+        snackbar.showSnackBar(ac.getString(R.string.msgLogoutConfirmation), ac.getString(R.string.strLogout), ac.getString(R.string.strCancel), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //expire the token of server
+                new AsyncTask() {
+                    ServerResponse sr;
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                    }
+
+                    @Override
+                    protected Object doInBackground(Object[] params) {
+                        String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
+                        String userId = String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0));
+                        URLMapping objURLMapping = ConstantVal.logoutUser();
+                        HttpEngine objHttpEngine = new HttpEngine();
+                        sr = objHttpEngine.getDataFromWebAPI(ac, objURLMapping.getUrl(), objURLMapping.getParamNames(), new String[]{userId, token});
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        super.onPostExecute(o);
+                        snackbar.dismissSnackBar();
+                        if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                            logOutUser();
+                        } else {
+                            Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()), ConstantVal.ToastBGColor.INFO);
+                        }
+                    }
+                }.execute();
+            }
+        }, null);
+    }
+
+    private void logOutUser() {
+        User.clearCache(mContext);
+        DataBase db = new DataBase(mContext);
+        db.open();
+        db.cleanAll();
+        db.close();
+        Intent i = new Intent(ac, acLogin.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        ac.startActivity(i);
+    }
+
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Helper.clearAllTable(mContext);
             finish();
         }
         return false;
-    }
-
-    private int getStatePosition(String state) {
-        Logger.debug("state:" + state);
-        String[] arrstate = getResources().getStringArray(R.array.arrState);
-        for (int i = 0; i < arrstate.length; i++) {
-            if (arrstate[i].equals(state)) {
-                return i;
-            }
-        }
-        return -1;
     }
 }

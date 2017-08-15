@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -12,14 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import asyncmanager.asyncLoadCommonData;
 import entity.Category;
 import glamour.mafatlal.com.glamour.R;
 import glamour.mafatlal.com.glamour.acHome;
+import glamour.mafatlal.com.glamour.acSubCategory;
 import utility.Logger;
 
 /**
@@ -29,7 +33,7 @@ import utility.Logger;
 public class CategoryAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView txtName;
-        GridView gvItems;
+        ImageView img;
         RelativeLayout rlContainer;
     }
 
@@ -66,24 +70,38 @@ public class CategoryAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.rlContainer = (RelativeLayout) convertView.findViewById(R.id.rlContainer);
             holder.txtName = (TextView) convertView.findViewById(R.id.txtName);
-            holder.gvItems = (GridView) convertView.findViewById(R.id.gvItems);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Category objCategory = arrCategory.get(position);
-        holder.txtName.setText(objCategory.getCategoryName());
-        ArrayList<Bitmap> arr = new ArrayList<>();
-        arr.add(null);
-        arr.add(null);
-        arr.add(null);
-        holder.gvItems.setAdapter(new CategoryImageAdapter(mContext, arr));
+        final Category objCategory = arrCategory.get(position);
+        holder.txtName.setText(objCategory.getCategory_name());
+        //holder.img.setImageResource();
         holder.rlContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(mContext, acSubCategory.class);
+                i.putExtra("category_id", objCategory.getId());
+                i.putExtra("category_name", objCategory.getCategory_name());
+                mContext.startActivity(i);
             }
         });
+        if (!objCategory.isImageLoaded()) {
+            new asyncLoadCommonData(mContext).loadCategoryImage(holder.img, objCategory);
+        }
+
         return convertView;
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
+
 }

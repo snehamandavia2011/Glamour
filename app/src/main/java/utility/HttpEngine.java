@@ -80,6 +80,8 @@ public class HttpEngine {
                     strResponse = res.toString();
                     if (strResponse == null || strResponse.equals("")) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.BLANK_RESPONSE, ConstantVal.ServerResponseCode.BLANK_RESPONSE);
+                    } else if (strResponse.equals(ConstantVal.ServerResponseCode.SESSION_EXPIRED)) {
+                        objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.SESSION_EXPIRED, ConstantVal.ServerResponseCode.SESSION_EXPIRED);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.INVALID_LOGIN)) {
                         objServerResponse = new ServerResponse(ConstantVal.ServerResponseCode.INVALID_LOGIN, ConstantVal.ServerResponseCode.INVALID_LOGIN);
                     } else if (strResponse.equals(ConstantVal.ServerResponseCode.SESSION_EXISTS)) {

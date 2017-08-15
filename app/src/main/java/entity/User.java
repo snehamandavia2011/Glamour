@@ -13,6 +13,7 @@ import utility.Logger;
  */
 
 public class User {
+    private int id;
     private String firstName, lastName, emailId, password, mobileNumber, userType, companyName, companyPhone, companyHouseNo, companyStreet, companyLandmark, companyPostCode, companyCity, companyState, companyCountry, isOwner, isSalesMan, token;
 
     public User(String emailId, String password) {
@@ -49,6 +50,7 @@ public class User {
     }
 
     public class Fields {
+        public static final String ID = "id";
         public static final String FIRST_NAME = "first_name";
         public static final String LAST_NAME = "last_name";
         public static final String EMAILID = "emailId";
@@ -70,6 +72,7 @@ public class User {
     }
 
     public static void clearCache(Context c) {
+        Helper.clearPreference(c, Fields.ID);
         Helper.clearPreference(c, Fields.FIRST_NAME);
         Helper.clearPreference(c, Fields.LAST_NAME);
         Helper.clearPreference(c, Fields.EMAILID);
@@ -91,6 +94,7 @@ public class User {
     }
 
     public void saveFiledsToPreferences(Context c) {
+        Helper.setIntPreference(c, Fields.ID, this.getId());
         Helper.setStringPreference(c, Fields.FIRST_NAME, this.getFirstName());
         Helper.setStringPreference(c, Fields.LAST_NAME, this.getLastName());
         Helper.setStringPreference(c, Fields.EMAILID, this.getEmailId());
@@ -135,12 +139,13 @@ public class User {
         Helper.setStringPreference(c, Fields.IS_SALES_MAN, this.getIsSalesMan());
     }
 
-    public void savePasswordDetailToPreference(Context c){
+    public void savePasswordDetailToPreference(Context c) {
         Helper.setStringPreference(c, Fields.PASSWORD, this.getPassword());
     }
 
     public void parseJSON(JSONObject objJSON) {
         try {
+            this.setId(objJSON.getString("id").equals("null") ? 0 : objJSON.getInt("id"));
             this.setPassword(objJSON.getString("password").equals("null") ? "" : objJSON.getString("password"));
             this.setFirstName(objJSON.getString("first_name").equals("null") ? "" : objJSON.getString("first_name"));
             this.setLastName(objJSON.getString("last_name").equals("null") ? "" : objJSON.getString("last_name"));
@@ -306,5 +311,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

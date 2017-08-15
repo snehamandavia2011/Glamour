@@ -2,6 +2,9 @@ package utility;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
+import entity.Category;
 import glamour.mafatlal.com.glamour.R;
 
 /**
@@ -33,6 +36,7 @@ public class ConstantVal {
         public static final String PARSE_ERROR = "002";
         public static String SERVER_NOT_RESPONDING = "003";
         public static String REQUEST_TIMEOUT = "004";//30 seconds
+        public static String SESSION_EXPIRED = "005";//value
         public static String INVALID_LOGIN = "006";//value receive from server as response
         public static String SERVER_ERROR = "007";
         public static String SUCCESS = "008";
@@ -51,6 +55,8 @@ public class ConstantVal {
                     return ctx.getString(R.string.strServerNotResponding);
                 } else if (intCode == Integer.parseInt(REQUEST_TIMEOUT)) {
                     return ctx.getString(R.string.strRequestTimeout);
+                } else if (intCode == Integer.parseInt(SESSION_EXPIRED)) {
+                    return ctx.getString(R.string.strSessionExpire);
                 } else if (intCode == Integer.parseInt(INVALID_LOGIN)) {
                     return ctx.getString(R.string.strInvalidUserNameAndPassword);
                 } else if (intCode == Integer.parseInt(SERVER_ERROR)) {
@@ -104,27 +110,45 @@ public class ConstantVal {
     }
 
     public static URLMapping updatePersonalInfo() {
-        String[] paramNames = {"fisrtName", "lastName", "emailId", "mobileNumber", "userType"};
+        String[] paramNames = {"fisrtName", "lastName", "emailId", "mobileNumber", "userType", "token"};
         String URL = getWebURLPrefix() + "Credentialsmanager/updatePersonalInfo";
         return new URLMapping(paramNames, URL);
     }
 
 
     public static URLMapping updateCompanyDetail() {
-        String[] paramNames = {"emailId", "companyName", "companyPhone", "isOwner", "isSalesMan"};
+        String[] paramNames = {"emailId", "companyName", "companyPhone", "isOwner", "isSalesMan", "token"};
         String URL = getWebURLPrefix() + "Credentialsmanager/updateCompanyDetail";
         return new URLMapping(paramNames, URL);
     }
 
     public static URLMapping updateCompanyAddress() {
-        String[] paramNames = {"emailId", "companyHouseNo", "companyStreet", "companyLandmark", "companyCity", "companyState", "companyCountry", "companyPostCode"};
+        String[] paramNames = {"emailId", "companyHouseNo", "companyStreet", "companyLandmark", "companyCity", "companyState", "companyCountry", "companyPostCode", "token"};
         String URL = getWebURLPrefix() + "Credentialsmanager/updateCompanyAddress";
         return new URLMapping(paramNames, URL);
     }
 
     public static URLMapping changePassword() {
-        String[] paramNames = {"emailId", "new_password"};
+        String[] paramNames = {"emailId", "new_password", "token"};
         String URL = getWebURLPrefix() + "Credentialsmanager/changePassword";
+        return new URLMapping(paramNames, URL);
+    }
+
+    public static URLMapping logoutUser() {
+        String[] paramNames = {"userID", "token"};
+        String URL = getWebURLPrefix() + "Credentialsmanager/logoutUser";
+        return new URLMapping(paramNames, URL);
+    }
+
+    public static URLMapping getProductCategory() {
+        String[] paramNames = {"token"};
+        String URL = getWebURLPrefix() + "Productmanager/getProductCategory";
+        return new URLMapping(paramNames, URL);
+    }
+
+    public static URLMapping loadPhoto(Context c) {
+        String[] paramNames = {"id", "table_index", "token"};//0:category
+        String URL = getWebURLPrefix() + "Common/loadPhoto";
         return new URLMapping(paramNames, URL);
     }
 }

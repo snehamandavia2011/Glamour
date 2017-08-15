@@ -3,6 +3,8 @@ package utility;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -193,33 +197,6 @@ public class Helper {
         return true;
     }
 
-    public static synchronized void logOutUser(Context ctx, boolean isNeedTosendBroadcast) {
-        boolean isSessionExists = Helper.getBooleanPreference(ctx, ConstantVal.IS_SESSION_EXISTS, false);
-        if (isSessionExists) {
-            try {
-                Helper.clearPreference(ctx, ConstantVal.IS_SESSION_EXISTS);
-                /*DataBase db = new DataBase(ctx);
-                db.open();
-                db.cleanLogoutTable();
-                db.close();*/
-            } catch (Exception e) {
-                Logger.writeToCrashlytics(e);
-                e.printStackTrace();
-            }
-            if (isNeedTosendBroadcast) {
-                Intent intent = new Intent();
-                intent.setAction(ConstantVal.BroadcastAction.SESSION_EXPIRE);
-                ctx.sendBroadcast(intent);
-            } else {
-                AppCompatActivity ac = (AppCompatActivity) ctx;
-                Intent i = new Intent(ac, acLogin.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                ac.startActivity(i);
-                ac.finish();
-            }
-        }
-    }
-
     public static TSnackbar displaySnackbar(final AppCompatActivity ac, final String result, int toastType) {
         final Context ctx = ac;
         TSnackbar snackbar = TSnackbar
@@ -231,5 +208,23 @@ public class Helper {
         textView.setMaxLines(3);
         snackbar.show();
         return snackbar;
+    }
+
+    public static void clearAllTable(Context mContext) {
+        DataBase db = new DataBase(mContext);
+        db.open();
+        db.cleanAll();
+        db.close();
+    }
+
+    public static Bitmap convertBase64ImageToBitmap(String strBase64) {
+        try {
+            byte[] decodedString = Base64.decode(strBase64.getBytes(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            return decodedByte;
+        } catch (Exception e) {
+            Logger.writeToCrashlytics(e);
+            return null;
+        }
     }
 }
