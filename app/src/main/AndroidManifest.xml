@@ -45,11 +45,19 @@
             android:theme="@style/AppThemeBlack" />
         <activity
             android:name=".acViewProfile"
-            android:label="@string/title_activity_ac_view_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeBlack" />
         <activity
             android:name=".acSubCategory"
-            android:label="@string/title_activity_ac_view_profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack" />
+        <activity
+            android:name=".acProductList"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack"></activity>
+        <activity
+            android:name=".acRefine"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeBlack"></activity>
     </application>
 

@@ -56,7 +56,7 @@ public class asyncLoadCommonData {
                     String id = String.valueOf(objCategory.getId());
                     final HttpEngine objHttpEngine = new HttpEngine();
                     final String tokenId = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
-                    final URLMapping um = ConstantVal.loadPhoto(mContext);
+                    final URLMapping um = ConstantVal.loadPhoto();
                     ServerResponse sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), um.getParamNames(), new String[]{id, String.valueOf(0), tokenId});
                     strServerResponse = sr.getResponseCode();
                     photo = parsePhoto(sr.getResponseString());
@@ -113,7 +113,7 @@ public class asyncLoadCommonData {
     }
 
     private boolean setPostExecutionPhotoToImageView(String strBase64, ImageView img, String serverResponse, View.OnClickListener imgClick) {
-        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
         img.setLayoutParams(rparam);
         try {

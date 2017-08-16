@@ -138,5 +138,21 @@
     <string name="msgInvalidOldPassword">Invalid old password</string>
     <string name="msgLogoutConfirmation">Are you sure you want to logout?</string>
     <string name="title_activity_ac_sub_category">acSubCategory</string>
-
+    <string name="title_activity_ac_product_list">acProductList</string>
+    <string-array name="arrSort">
+        <item>Price:High to Low</item>
+        <item>Price:Low to Heigh</item>
+        <item>What\'s new</item>
+        <item>Popularity</item>
+    </string-array>
+    <string-array name="arrRefine">
+        <item>Price</item>
+        <item>Size</item>
+    </string-array>
+    <string name="strSort">Sort:</string>
+    <string name="strRefine1">Refine</string>
+    <string name="strRefine">Refine:</string>
+    <string name="strApply">Apply</string>
+    <string name="title_activity_ac_refine">acRefine</string>
+    <string name="strReset">Reset</string>
 </resources>

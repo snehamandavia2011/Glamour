@@ -18,4 +18,8 @@ public class ServerResponse {
     public String getResponseCode() {
         return responseCode;
     }
+
+    public void setResponseCode(String responseCode) {
+        this.responseCode = responseCode;
+    }
 }

@@ -2,6 +2,7 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import asyncmanager.asyncLoadCommonData;
 import entity.Category;
 import glamour.mafatlal.com.glamour.R;
+import glamour.mafatlal.com.glamour.acProductList;
+import glamour.mafatlal.com.glamour.acSubCategory;
 
 /**
  * Created by SAI on 8/11/2017.
@@ -65,12 +68,15 @@ public class SubCategoryAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Category objCategory = arrCategory.get(position);
+        final Category objCategory = arrCategory.get(position);
         holder.txtName.setText(objCategory.getCategory_name());
         holder.rlContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(mContext, acProductList.class);
+                i.putExtra("sub_category_id", objCategory.getId());
+                i.putExtra("sub_category_name", objCategory.getCategory_name());
+                mContext.startActivity(i);
             }
         });
         if (!objCategory.isImageLoaded()) {

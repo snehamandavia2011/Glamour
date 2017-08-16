@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -71,7 +72,9 @@ public class acSubCategory extends AppCompatActivity {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
+                dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
+                ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
                 if (arrCategory != null && arrCategory.size() > 0) {
                     lyMainContent.setVisibility(View.VISIBLE);
                     lyNoContent.setVisibility(View.GONE);
