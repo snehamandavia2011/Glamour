@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import entity.Category;
+import entity.ProductMaster;
 import entity.SizeMaster;
 import glamour.mafatlal.com.glamour.R;
 
@@ -15,6 +16,15 @@ import glamour.mafatlal.com.glamour.R;
 public class ConstantVal {
     public static final String IS_SESSION_EXISTS = "is_session_exists";
     public static ArrayList<SizeMaster> arrSizeMaster;
+    public static int MIN_PRICE;
+    public static int MAX_PRICE;
+    public static int SELECTED_MIN_PRICE;
+    public static int SELECTED_MAX_PRICE;
+    public static ArrayList<ProductMaster> arrProduct;
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String TIME_FORMAT = "HH:mm:ss";
+    public static final int REQUEST_REFINE = 1;
+    public static final int RESPONSE_REFINE = 2;
 
     public static class UserType {
         public static final String RETAILER = "Retailer";
@@ -163,6 +173,12 @@ public class ConstantVal {
     public static URLMapping getSizeList() {
         String[] paramNames = {"token"};//0:category
         String URL = getWebURLPrefix() + "Common/getSizeList";
+        return new URLMapping(paramNames, URL);
+    }
+
+    public static URLMapping getProductList() {
+        String[] paramNames = {"token", "category_id"};
+        String URL = getWebURLPrefix() + "Productmanager/getProductList";
         return new URLMapping(paramNames, URL);
     }
 }

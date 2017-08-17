@@ -93,10 +93,15 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <ListView
-                        android:id="@+id/lvlProduct"
+                    <GridView
+                        android:id="@+id/gvProduct"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></ListView>
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:horizontalSpacing="@dimen/margin"
+                        android:numColumns="2"
+                        android:verticalSpacing="@dimen/margin"></GridView>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -110,15 +115,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@color/red"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="@dimen/margin"
-                        android:src="@drawable/ic_category_big" />
+                        android:layout_margin="@dimen/margin" />
 
                     <TextView
                         style="@style/styBigWhite"
@@ -127,7 +130,7 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/margin"
                         android:gravity="center"
-                        android:text="@string/msgNoCategory" />
+                        android:text="@string/msgNoProduct" />
                 </LinearLayout>
             </RelativeLayout>
 

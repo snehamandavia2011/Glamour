@@ -1,6 +1,7 @@
 package glamour.mafatlal.com.glamour;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -80,8 +81,13 @@ public class acSubCategory extends AppCompatActivity {
                     lyNoContent.setVisibility(View.GONE);
                     lvlCategory.setAdapter(new SubCategoryAdapter(mContext, arrCategory));
                 } else {
-                    lyMainContent.setVisibility(View.GONE);
-                    lyNoContent.setVisibility(View.VISIBLE);
+                    //lyMainContent.setVisibility(View.GONE);
+                    //lyNoContent.setVisibility(View.VISIBLE);
+                    Intent i = new Intent(mContext, acProductList.class);
+                    i.putExtra("sub_category_id", category_id);
+                    i.putExtra("sub_category_name", category_name);
+                    mContext.startActivity(i);
+                    finish();
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

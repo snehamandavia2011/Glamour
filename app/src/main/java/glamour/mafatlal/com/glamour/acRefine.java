@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
+import java.util.ArrayList;
+
 import adapter.RefineCriteriaAdapter;
 import adapter.SizeAdapter;
 import utility.ConstantVal;
@@ -28,7 +30,6 @@ import utility.Helper;
 import utility.Logger;
 
 public class acRefine extends AppCompatActivity {
-    int minPrice, maxPrice;
     TextView txtMinMaxPrice;
     AppCompatActivity ac;
     Button btnApply;
@@ -57,7 +58,8 @@ public class acRefine extends AppCompatActivity {
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setResult(ConstantVal.RESPONSE_REFINE);
+                finish();
             }
         });
         setActionBar();
@@ -101,16 +103,16 @@ public class acRefine extends AppCompatActivity {
     }
 
     private void setPriceVal() {
-        minPrice = 0;
-        maxPrice = 10000;
-        txtMinMaxPrice.setText(minPrice + " - " + maxPrice);
-        rangPrice.setRangeValues(minPrice, maxPrice);
+        txtMinMaxPrice.setText(ConstantVal.SELECTED_MIN_PRICE + " - " + ConstantVal.SELECTED_MAX_PRICE);
+        rangPrice.setRangeValues(ConstantVal.MIN_PRICE, ConstantVal.MAX_PRICE);
+        rangPrice.setSelectedMinValue(ConstantVal.SELECTED_MIN_PRICE);
+        rangPrice.setSelectedMaxValue(ConstantVal.SELECTED_MAX_PRICE);
         rangPrice.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
-                minPrice = minValue;
-                maxPrice = maxValue;
-                txtMinMaxPrice.setText(minPrice + " - " + maxPrice);
+                ConstantVal.SELECTED_MIN_PRICE = minValue;
+                ConstantVal.SELECTED_MAX_PRICE = maxValue;
+                txtMinMaxPrice.setText(minValue + " - " + maxValue);
             }
         });
     }

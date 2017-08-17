@@ -122,6 +122,7 @@
     <string name="strProfile">Profile</string>
     <string name="strBasket">Basket</string>
     <string name="msgNoCategory">No category</string>
+    <string name="msgNoProduct">No product</string>
     <string name="msgViewYourProfile">View your profile</string>
     <string name="msgEditProfile">Edit Profile</string>
     <string name="strSetting">Setting</string>

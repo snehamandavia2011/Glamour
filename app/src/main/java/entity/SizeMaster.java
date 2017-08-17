@@ -18,11 +18,13 @@ public class SizeMaster {
     int id;
     String size;
     boolean isSelected;
+    boolean isInRefineCriteria;
 
-    public SizeMaster(int id, String size, boolean isSelected) {
+    public SizeMaster(int id, String size, boolean isSelected, boolean isInRefineCriteria) {
         this.id = id;
         this.size = size;
         this.isSelected = isSelected;
+        this.isInRefineCriteria = isInRefineCriteria;
     }
 
     public int getId() {
@@ -49,13 +51,21 @@ public class SizeMaster {
         isSelected = selected;
     }
 
+    public boolean isInRefineCriteria() {
+        return isInRefineCriteria;
+    }
+
+    public void setInRefineCriteria(boolean inRefineCriteria) {
+        isInRefineCriteria = inRefineCriteria;
+    }
+
     public static ArrayList<SizeMaster> parseArray(String strJSON) {
         try {
             JSONArray arrJSON = new JSONArray(strJSON);
             ArrayList<SizeMaster> arrColor = new ArrayList<>();
             for (int i = 0; i < arrJSON.length(); i++) {
                 JSONObject objJSON = arrJSON.getJSONObject(i);
-                SizeMaster objColorMaster = new SizeMaster(objJSON.getInt("id"), objJSON.getString("size"), false);
+                SizeMaster objColorMaster = new SizeMaster(objJSON.getInt("id"), objJSON.getString("size"), false, true);
                 arrColor.add(objColorMaster);
             }
             return arrColor;

@@ -26,8 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -226,5 +231,25 @@ public class Helper {
             Logger.writeToCrashlytics(e);
             return null;
         }
+    }
+
+    public static Date convertStringToDate(String strDate, String strFormate) {
+        if (!strDate.equals("null") || !strDate.equals("")) {
+            DateFormat df = new SimpleDateFormat(strFormate);
+            try {
+                return df.parse(strDate);
+            } catch (ParseException e) {
+                Logger.writeToCrashlytics(e);
+                return new Date(0);
+            }
+        } else {
+            return new Date(0);
+        }
+    }
+
+    public static String getCurrencySymbol() {
+        Locale defaultLocale = Locale.getDefault();
+        Currency currency = Currency.getInstance(defaultLocale);
+        return currency.getSymbol();
     }
 }

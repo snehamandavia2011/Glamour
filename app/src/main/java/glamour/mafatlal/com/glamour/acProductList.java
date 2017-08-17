@@ -5,14 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,25 +13,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
-import adapter.RefineCriteriaAdapter;
+import adapter.ProductAdapter;
 import adapter.SortAdapter;
-import entity.Category;
+import entity.ProductMaster;
 import entity.SizeMaster;
 import entity.User;
-import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
 import utility.DotProgressBar;
 import utility.Helper;
@@ -54,13 +46,14 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
     Helper objHelper = new Helper();
     Context mContext;
     AppCompatActivity ac;
-    ListView lvlProduct;
+    GridView gvProduct;
     DotProgressBar dot_progress_bar;
     RelativeLayout lyNoContent, lyMainContent;
     int sub_category_id;
     String sub_category_name;
-    int currentSortPosition = 0, currentSelectedRefineCriteriaPosition = 0;
-
+    int currentSortPosition = 0;
+    ProductAdapter adpProduct;
+    ArrayList<ProductMaster> arrProductRefined;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +61,7 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.ac_product_list);
         mContext = this;
         ac = this;
+        ConstantVal.arrProduct = null;
         Helper.startFabric(mContext);
         if (this.getIntent().getExtras() != null) {
             sub_category_id = this.getIntent().getIntExtra("sub_category_id", 0);
@@ -76,7 +70,7 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
         objHelper.setActionBar(this, sub_category_name, true);
         lyMainContent = (RelativeLayout) findViewById(R.id.lyMainContent);
         lyNoContent = (RelativeLayout) findViewById(R.id.lyNoContent);
-        lvlProduct = (ListView) findViewById(R.id.lvlProduct);
+        gvProduct = (GridView) findViewById(R.id.gvProduct);
         dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
         lySort = (LinearLayout) findViewById(R.id.lySort);
         lyRefine = (LinearLayout) findViewById(R.id.lyRefine);
@@ -90,7 +84,7 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
 
     private void setData() {
         txtSortVal.setText(getResources().getStringArray(R.array.arrSort)[currentSortPosition]);
-        txtRefineVal.setText(getResources().getStringArray(R.array.arrRefine)[currentSelectedRefineCriteriaPosition]);
+        txtRefineVal.setText(getResources().getStringArray(R.array.arrRefine)[0] + ", " + getResources().getStringArray(R.array.arrRefine)[1]);
         getSize();
     }
 
@@ -143,6 +137,8 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                             }
                         });
                     }
+                } else {
+                    loadProductData();
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -150,10 +146,18 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
 
     private void loadProductData() {
         new AsyncTask() {
-            ServerResponse sr = new ServerResponse("008", "008");
+            ServerResponse sr;
 
             @Override
             protected Object doInBackground(Object[] params) {
+                if (ConstantVal.arrProduct == null) {
+                    String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
+                    URLMapping um = ConstantVal.getProductList();
+                    HttpEngine objHttpEngine = new HttpEngine();
+                    sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), um.getParamNames(), new String[]{token, String.valueOf(sub_category_id)});
+                    if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS))
+                        ConstantVal.arrProduct = ProductMaster.parseJSON(sr.getResponseString());
+                }
                 return null;
             }
 
@@ -172,7 +176,24 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                         }
                     });
                 } else {
-                    lyMainContent.setVisibility(View.VISIBLE);
+                    if (ConstantVal.arrProduct != null && ConstantVal.arrProduct.size() > 0) {
+                        arrProductRefined = new ArrayList<ProductMaster>();
+                        for (ProductMaster obj : ConstantVal.arrProduct) {
+                            arrProductRefined.add(obj);
+                        }
+                        lyMainContent.setVisibility(View.VISIBLE);
+                        lyNoContent.setVisibility(View.GONE);
+                        adpProduct = new ProductAdapter(mContext, arrProductRefined);
+                        gvProduct.setAdapter(adpProduct);
+
+                        //default sort order and default min and max price
+                        sortPriceHighToLow();
+                        ConstantVal.MIN_PRICE = ConstantVal.SELECTED_MIN_PRICE = arrProductRefined.get(arrProductRefined.size() - 1).getPrice();
+                        ConstantVal.MAX_PRICE = ConstantVal.SELECTED_MAX_PRICE = arrProductRefined.get(0).getPrice();
+                    } else {
+                        lyNoContent.setVisibility(View.VISIBLE);
+                        lyMainContent.setVisibility(View.GONE);
+                    }
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -186,11 +207,38 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.lyRefine:
                 Intent i = new Intent(mContext, acRefine.class);
-                startActivity(i);
+                startActivityForResult(i, ConstantVal.REQUEST_REFINE);
                 break;
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ConstantVal.REQUEST_REFINE && resultCode == ConstantVal.RESPONSE_REFINE) {
+            Logger.debug(ConstantVal.SELECTED_MIN_PRICE + " " + ConstantVal.SELECTED_MAX_PRICE);
+            new AsyncTask() {
+                @Override
+                protected Object doInBackground(Object[] params) {
+                    arrProductRefined.clear();
+                    for (int i = 0; i < ConstantVal.arrProduct.size(); i++) {
+                        ProductMaster objProductMaster = ConstantVal.arrProduct.get(i);
+                        if (objProductMaster.getPrice() >= ConstantVal.SELECTED_MIN_PRICE && objProductMaster.getPrice() <= ConstantVal.SELECTED_MAX_PRICE) {
+                            arrProductRefined.add(objProductMaster);
+                        }
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+                    super.onPostExecute(o);
+                    adpProduct.notifyDataSetChanged();
+                    performSorting();
+                }
+            }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    }
 
     private void showSortDialog() {
         LayoutInflater infalInflater = (LayoutInflater) mContext
@@ -205,12 +253,27 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                 currentSortPosition = position;
                 txtSortVal.setText(getResources().getStringArray(R.array.arrSort)[currentSortPosition]);
                 dialog.dismiss();
+                performSorting();
             }
         });
         dialog.setCancelable(true);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    private void performSorting() {
+        switch (currentSortPosition) {
+            case 0://price high to low
+                sortPriceHighToLow();
+                break;
+            case 1://low to high
+                sortPriceLowToHigh();
+                break;
+            case 2://whats new
+                whatsNew();
+                break;
+        }
     }
 
     @Override
@@ -229,5 +292,35 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sortPriceLowToHigh() {
+        Collections.sort(arrProductRefined, new Comparator<ProductMaster>() {
+            @Override
+            public int compare(ProductMaster p1, ProductMaster p2) {
+                return p1.getPrice() - p2.getPrice();
+            }
+        });
+        adpProduct.notifyDataSetChanged();
+    }
+
+    private void sortPriceHighToLow() {
+        Collections.sort(arrProductRefined, new Comparator<ProductMaster>() {
+            @Override
+            public int compare(ProductMaster p1, ProductMaster p2) {
+                return p2.getPrice() - p1.getPrice();
+            }
+        });
+        adpProduct.notifyDataSetChanged();
+    }
+
+    private void whatsNew() {
+        Collections.sort(arrProductRefined, new Comparator<ProductMaster>() {
+            @Override
+            public int compare(ProductMaster p1, ProductMaster p2) {
+                return new Date(p2.getDateTime()).compareTo(new Date(p1.getDateTime()));
+            }
+        });
+        adpProduct.notifyDataSetChanged();
     }
 }

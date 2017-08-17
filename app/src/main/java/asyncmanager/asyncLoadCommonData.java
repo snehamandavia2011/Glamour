@@ -12,11 +12,15 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import org.json.JSONObject;
 
+import java.io.InputStream;
+
 import entity.Category;
+import entity.ProductImage;
 import entity.User;
 import glamour.mafatlal.com.glamour.R;
 import utility.ConstantVal;
@@ -160,5 +164,42 @@ public class asyncLoadCommonData {
             Logger.writeToCrashlytics(e);
         }
         return photo;
+    }
+
+    public void loadProductImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView img) {
+        new AsyncTask() {
+            Bitmap mIcon11 = null;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                pb.setVisibility(View.VISIBLE);
+                img.setVisibility(View.GONE);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                String urldisplay = objProductImage.getImage_thumb();
+                try {
+                    InputStream in = new java.net.URL(urldisplay).openStream();
+                    mIcon11 = BitmapFactory.decodeStream(in);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (mIcon11 != null) {
+                    img.setImageBitmap(mIcon11);
+                    pb.setVisibility(View.GONE);
+                    img.setVisibility(View.VISIBLE);
+                    objProductImage.setBmpThumb(mIcon11);
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }
