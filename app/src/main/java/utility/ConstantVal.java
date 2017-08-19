@@ -16,6 +16,7 @@ import glamour.mafatlal.com.glamour.R;
 public class ConstantVal {
     public static final String IS_SESSION_EXISTS = "is_session_exists";
     public static ArrayList<SizeMaster> arrSizeMaster;
+    public static ArrayList<SizeMaster> ARR_SELECTED_SIZE=new ArrayList<>();
     public static int MIN_PRICE;
     public static int MAX_PRICE;
     public static int SELECTED_MIN_PRICE;

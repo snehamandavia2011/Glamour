@@ -19,6 +19,7 @@ import entity.Category;
 import entity.SizeMaster;
 import glamour.mafatlal.com.glamour.R;
 import glamour.mafatlal.com.glamour.acSubCategory;
+import utility.ConstantVal;
 
 /**
  * Created by SAI on 8/16/2017.
@@ -76,13 +77,24 @@ public class SizeAdapter extends BaseAdapter {
         holder.btnSize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (objSizeMaster.isSelected())
+                if (objSizeMaster.isSelected()) {
                     objSizeMaster.setSelected(false);
-                else
+                    removeFromSize(objSizeMaster);
+                } else {
                     objSizeMaster.setSelected(true);
+                    ConstantVal.ARR_SELECTED_SIZE.add(objSizeMaster);
+                }
                 notifyDataSetChanged();
             }
         });
         return convertView;
+    }
+
+    private void removeFromSize(SizeMaster objSizeMaster) {
+        for (int i = 0; i < ConstantVal.ARR_SELECTED_SIZE.size(); i++) {
+            SizeMaster obj = ConstantVal.ARR_SELECTED_SIZE.get(i);
+            if (obj.getId() == objSizeMaster.getId())
+                ConstantVal.ARR_SELECTED_SIZE.remove(i);
+        }
     }
 }

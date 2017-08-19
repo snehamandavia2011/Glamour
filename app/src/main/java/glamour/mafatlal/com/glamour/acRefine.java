@@ -25,11 +25,13 @@ import java.util.ArrayList;
 
 import adapter.RefineCriteriaAdapter;
 import adapter.SizeAdapter;
+import entity.SizeMaster;
 import utility.ConstantVal;
 import utility.Helper;
 import utility.Logger;
 
 public class acRefine extends AppCompatActivity {
+    SizeAdapter adpSize;
     TextView txtMinMaxPrice;
     AppCompatActivity ac;
     Button btnApply;
@@ -118,7 +120,8 @@ public class acRefine extends AppCompatActivity {
     }
 
     private void setSizeVal() {
-        gvSize.setAdapter(new SizeAdapter(mContext, ConstantVal.arrSizeMaster));
+        adpSize = new SizeAdapter(mContext, ConstantVal.arrSizeMaster);
+        gvSize.setAdapter(adpSize);
     }
 
     public void setActionBar() {
@@ -157,7 +160,15 @@ public class acRefine extends AppCompatActivity {
                 ((Button) v.findViewById(R.id.btnReset)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        for (SizeMaster s : ConstantVal.arrSizeMaster) {
+                            s.setSelected(false);
+                        }
+                        adpSize.notifyDataSetChanged();
+                        ConstantVal.ARR_SELECTED_SIZE.clear();
+                        ConstantVal.SELECTED_MIN_PRICE = ConstantVal.MIN_PRICE;
+                        ConstantVal.SELECTED_MAX_PRICE = ConstantVal.MAX_PRICE;
+                        rangPrice.setSelectedMinValue(ConstantVal.SELECTED_MIN_PRICE);
+                        rangPrice.setSelectedMaxValue(ConstantVal.SELECTED_MAX_PRICE);
                     }
                 });
 

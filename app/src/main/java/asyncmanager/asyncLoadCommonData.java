@@ -87,8 +87,8 @@ public class asyncLoadCommonData {
         }.execute();
     }
 
-    public static void setPreExecutionPhotoToImageView(Context ctx, String strBase64, ImageView img, View.OnClickListener imgClick) {
-        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+    public void setPreExecutionPhotoToImageView(Context ctx, String strBase64, ImageView img, View.OnClickListener imgClick) {
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int) mContext.getResources().getDimension(R.dimen.heightOfCategoryImage));
         rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
         img.setLayoutParams(rparam);
         if (strBase64 != null && strBase64.length() > 0) {
@@ -101,7 +101,7 @@ public class asyncLoadCommonData {
                 img.setImageResource(0);
                 img.setBackgroundDrawable(new BitmapDrawable(ctx.getResources(), bmp));
                 try {
-                    img.setScaleType(ImageView.ScaleType.FIT_START);
+                    img.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 } catch (Exception e) {
                     Logger.writeToCrashlytics(e);
                 }
@@ -117,7 +117,7 @@ public class asyncLoadCommonData {
     }
 
     private boolean setPostExecutionPhotoToImageView(String strBase64, ImageView img, String serverResponse, View.OnClickListener imgClick) {
-        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, (int) mContext.getResources().getDimension(R.dimen.heightOfCategoryImage));
         rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
         img.setLayoutParams(rparam);
         try {
@@ -125,7 +125,7 @@ public class asyncLoadCommonData {
                 strBase64 = strBase64.substring(strBase64.indexOf(",") + 1);
             }
             try {
-                img.setScaleType(ImageView.ScaleType.FIT_START);
+                img.setScaleType(ImageView.ScaleType.FIT_CENTER);
             } catch (Exception e) {
                 e.printStackTrace();
                 Logger.writeToCrashlytics(e);

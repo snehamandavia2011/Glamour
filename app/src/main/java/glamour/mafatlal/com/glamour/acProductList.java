@@ -190,6 +190,10 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                         sortPriceHighToLow();
                         ConstantVal.MIN_PRICE = ConstantVal.SELECTED_MIN_PRICE = arrProductRefined.get(arrProductRefined.size() - 1).getPrice();
                         ConstantVal.MAX_PRICE = ConstantVal.SELECTED_MAX_PRICE = arrProductRefined.get(0).getPrice();
+                        ConstantVal.ARR_SELECTED_SIZE.clear();
+                        for (SizeMaster s : ConstantVal.arrSizeMaster) {
+                            s.setSelected(false);
+                        }
                     } else {
                         lyNoContent.setVisibility(View.VISIBLE);
                         lyMainContent.setVisibility(View.GONE);
@@ -217,6 +221,11 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ConstantVal.REQUEST_REFINE && resultCode == ConstantVal.RESPONSE_REFINE) {
             Logger.debug(ConstantVal.SELECTED_MIN_PRICE + " " + ConstantVal.SELECTED_MAX_PRICE);
+            if (ConstantVal.ARR_SELECTED_SIZE.size() > 0) {
+                for (SizeMaster obj : ConstantVal.ARR_SELECTED_SIZE) {
+                    Logger.debug(obj.getId() + ",");
+                }
+            }
             new AsyncTask() {
                 @Override
                 protected Object doInBackground(Object[] params) {
@@ -225,6 +234,16 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                         ProductMaster objProductMaster = ConstantVal.arrProduct.get(i);
                         if (objProductMaster.getPrice() >= ConstantVal.SELECTED_MIN_PRICE && objProductMaster.getPrice() <= ConstantVal.SELECTED_MAX_PRICE) {
                             arrProductRefined.add(objProductMaster);
+                        }
+                        if (ConstantVal.ARR_SELECTED_SIZE.size() > 0) {//if this array is empty then show all size product
+                            for (int j = 0; j < arrProductRefined.size(); j++) {
+                                ArrayList<Integer> arrSizeId = arrProductRefined.get(j).getSize_id();
+                                //check if product size Id exists in selected size
+                                boolean isExists = isSizeExists(arrSizeId);
+                                if (!isExists) {
+                                    arrProductRefined.remove(j);
+                                }
+                            }
                         }
                     }
                     return null;
@@ -238,6 +257,19 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                 }
             }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
+    }
+
+    private boolean isSizeExists(ArrayList<Integer> arrSizeId) {
+        boolean isExists = false;
+        for (SizeMaster objSize : ConstantVal.ARR_SELECTED_SIZE) {
+            for (Integer size : arrSizeId) {
+                if (objSize.getId() == size) {
+                    isExists = true;
+                    return isExists;
+                }
+            }
+        }
+        return isExists;
     }
 
     private void showSortDialog() {
