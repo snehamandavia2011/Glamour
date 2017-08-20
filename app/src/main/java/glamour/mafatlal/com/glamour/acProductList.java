@@ -58,11 +58,11 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ac_product_list);
         mContext = this;
         ac = this;
-        ConstantVal.arrProduct = null;
         Helper.startFabric(mContext);
+        setContentView(R.layout.ac_product_list);
+        ConstantVal.arrProduct = null;
         if (this.getIntent().getExtras() != null) {
             sub_category_id = this.getIntent().getIntExtra("sub_category_id", 0);
             sub_category_name = this.getIntent().getStringExtra("sub_category_name");

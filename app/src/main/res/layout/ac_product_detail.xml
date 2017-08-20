@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+    xmlns:rdv="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar"></include>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <include layout="@layout/bottom_menu"></include>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tab"
+            android:background="@color/white">
+
+            <ScrollView
+                android:id="@+id/lyMainContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rlImageContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/heightOfProductImage"
+                        android:layout_marginBottom="@dimen/margin">
+
+                        <ImageView
+                            android:id="@+id/imgProduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitCenter"
+                            android:visibility="gone" />
+
+                        <ProgressBar
+                            android:id="@+id/pb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding">
+
+                        <TextView
+                            android:id="@+id/txtProductName"
+                            style="@style/stySubTitleBlackSingleLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin" />
+
+                        <TextView
+                            android:id="@+id/txtProductPrice"
+                            style="@style/stySubTitleBlackSingleLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/stySubTitleBlackSingleLine"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="1"
+                                android:text="@string/strSelectSize" />
+
+                            <TextView
+                                android:id="@+id/txtSizeChart"
+                                style="@style/stySubTitleBlueSingleLine"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:text="@string/strSizeChart" />
+                        </LinearLayout>
+
+                        <GridView
+                            android:id="@+id/gvSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:horizontalSpacing="@dimen/margin"
+                            android:numColumns="5"
+                            android:verticalSpacing="@dimen/margin"></GridView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin">
+
+                            <TextView
+                                style="@style/stySubTitleBlackSingleLine"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/strStockAvailable" />
+
+                            <TextView
+                                android:id="@+id/txtStockAvail"
+                                style="@style/stySubTitleBlackSingleLine"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/stySubTitleBlackSingleLine"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:text="@string/strQty" />
+
+                            <com.travijuu.numberpicker.library.NumberPicker
+                                android:id="@+id/qtyPicker"
+                                android:layout_width="130dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="@dimen/margin"
+                                numberpicker:focusable="false"
+                                numberpicker:max="100"
+                                numberpicker:min="0"
+                                numberpicker:unit="1"
+                                numberpicker:value="1" />
+                        </LinearLayout>
+
+                        <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+                            style="@style/btnRed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:layout_marginTop="@dimen/margin"
+                            android:paddingBottom="@dimen/padding"
+                            android:paddingLeft="@dimen/paddingBig"
+                            android:paddingRight="@dimen/paddingBig"
+                            android:paddingTop="@dimen/padding"
+                            rdv:rdv_rippleAnimationDuration="600"
+                            rdv:rdv_rippleAnimationFrames="60"
+                            rdv:rdv_rippleAnimationPeakFrame="15"
+                            rdv:rdv_rippleColor="@color/white"
+                            rdv:rdv_rippleMaxAlpha="0.8"
+                            rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+                            <Button
+                                android:id="@+id/btnAddtoBag"
+                                style="@style/btnRed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/buttonHeight"
+                                android:drawableLeft="@drawable/ic_add_to_cart"
+                                android:text="@string/strAddToBag" />
+                        </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <utility.DotProgressBar
+                android:id="@+id/dot_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dorProgressBarheight"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                custom:amount="5"
+                custom:duration="@android:integer/config_shortAnimTime"
+                custom:endColor="@color/red"
+                custom:startColor="@color/red" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

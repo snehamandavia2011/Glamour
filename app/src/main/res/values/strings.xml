@@ -127,10 +127,8 @@
     <string name="msgEditProfile">Edit Profile</string>
     <string name="strSetting">Setting</string>
     <string name="strOrder">Order</string>
-    <string name="title_activity_ac_profile">acProfile</string>
     <string name="strChangePassword">Change password</string>
     <string name="strLogout">Logout</string>
-    <string name="title_activity_ac_view_profile">acViewProfile</string>
     <string name="strName">Name</string>
     <string name="strIsOwner">Is Owner? :</string>
     <string name="strIsSalesman">Is Salesman? :</string>
@@ -138,8 +136,6 @@
     <string name="strEnterNewPassword">Enter new password</string>
     <string name="msgInvalidOldPassword">Invalid old password</string>
     <string name="msgLogoutConfirmation">Are you sure you want to logout?</string>
-    <string name="title_activity_ac_sub_category">acSubCategory</string>
-    <string name="title_activity_ac_product_list">acProductList</string>
     <string-array name="arrSort">
         <item>Price:High to Low</item>
         <item>Price:Low to Heigh</item>
@@ -154,6 +150,10 @@
     <string name="strRefine1">Refine</string>
     <string name="strRefine">Refine:</string>
     <string name="strApply">Apply</string>
-    <string name="title_activity_ac_refine">acRefine</string>
     <string name="strReset">Reset</string>
+    <string name="strSelectSize">Select Size</string>
+    <string name="strSizeChart">Size Chart</string>
+    <string name="strQty">Quantity</string>
+    <string name="strAddToBag">ADD TO BAG</string>
+    <string name="strStockAvailable">Stock Available: </string>
 </resources>

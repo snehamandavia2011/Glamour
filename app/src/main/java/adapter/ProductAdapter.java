@@ -2,6 +2,7 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import asyncmanager.asyncLoadCommonData;
 import entity.ProductImage;
 import entity.ProductMaster;
 import glamour.mafatlal.com.glamour.R;
+import glamour.mafatlal.com.glamour.acProductDetail;
 import utility.Helper;
 
 /**
@@ -82,7 +84,9 @@ public class ProductAdapter extends BaseAdapter {
         holder.lyContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(mContext, acProductDetail.class);
+                i.putExtra("productId", objProductMaster.getId());
+                mContext.startActivity(i);
             }
         });
         try {

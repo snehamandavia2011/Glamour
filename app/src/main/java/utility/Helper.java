@@ -252,4 +252,9 @@ public class Helper {
         Currency currency = Currency.getInstance(defaultLocale);
         return currency.getSymbol();
     }
+
+    public static int getScreenWidth(AppCompatActivity ac){
+        int width = ac.getWindowManager().getDefaultDisplay().getWidth();
+        return width;
+    }
 }

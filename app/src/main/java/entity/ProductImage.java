@@ -2,11 +2,13 @@ package entity;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by SAI on 8/17/2017.
  */
 
-public class ProductImage {
+public class ProductImage{
     String image_thumb, image;
     Bitmap bmpThumb;
 

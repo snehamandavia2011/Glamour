@@ -48,6 +48,13 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="stySubTitleBlueSingleLine">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/light_blue_A400</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
     <style name="stySubTitleGreySingleLine">
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@android:color/darker_gray</item>
@@ -132,6 +139,13 @@
 
     <style name="styBigWhite">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="styBigRed">
+        <item name="android:textColor">@color/red</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>

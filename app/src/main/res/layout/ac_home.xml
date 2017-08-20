@@ -62,15 +62,14 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:scaleType="fitCenter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/margin"
-                        android:src="@drawable/ic_category_big" />
+                        android:scaleType="fitCenter" />
 
                     <TextView
-                        style="@style/styBigWhite"
+                        style="@style/styBigRed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

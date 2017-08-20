@@ -16,7 +16,7 @@ import glamour.mafatlal.com.glamour.R;
 public class ConstantVal {
     public static final String IS_SESSION_EXISTS = "is_session_exists";
     public static ArrayList<SizeMaster> arrSizeMaster;
-    public static ArrayList<SizeMaster> ARR_SELECTED_SIZE=new ArrayList<>();
+    public static ArrayList<SizeMaster> ARR_SELECTED_SIZE = new ArrayList<>();
     public static int MIN_PRICE;
     public static int MAX_PRICE;
     public static int SELECTED_MIN_PRICE;
@@ -93,9 +93,7 @@ public class ConstantVal {
 
     private static String getWebURLPrefix() {
         return "https://stackio.co/mWebApi/v1/";
-        //return "http://" + QRCode + ".gojobio.co/mWebApi/v1/";
-        //return "http://10.0.2.2:80/Electrasync_API_new/index.php/";//for emulator
-        //return "http://10.0.3.2/jobio_mobile_webapi/index.php/";//for genymotion
+        //return "http://45.249.111.13/~glamourapp/mWebApi/v1/";
     }
 
     public static URLMapping customerCredentialVerification() {

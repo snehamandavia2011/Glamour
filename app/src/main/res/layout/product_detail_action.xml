@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rdv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="0dp">
+
+    <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+        android:id="@+id/rplShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="left"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_marginLeft="@dimen/marginBig"
+        android:layout_marginRight="@dimen/marginBig"
+        rdv:rdv_rippleAnimationDuration="600"
+        rdv:rdv_rippleAnimationFrames="60"
+        rdv:rdv_rippleAnimationPeakFrame="15"
+        rdv:rdv_rippleColor="@color/white"
+        rdv:rdv_rippleMaxAlpha="0.8"
+        rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+        <ImageButton
+            android:id="@+id/btnShare"
+            style="@style/btnRed"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/buttonHeight"
+            android:src="@drawable/ic_export" />
+    </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+
+    <com.thomsonreuters.rippledecoratorview.RippleDecoratorView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_marginRight="@dimen/marginBig"
+        android:layout_toLeftOf="@id/rplShare"
+        rdv:rdv_rippleAnimationDuration="600"
+        rdv:rdv_rippleAnimationFrames="60"
+        rdv:rdv_rippleAnimationPeakFrame="15"
+        rdv:rdv_rippleColor="@color/white"
+        rdv:rdv_rippleMaxAlpha="0.8"
+        rdv:rdv_rippleRadius="@dimen/rippleRadius">
+
+        <ImageButton
+            android:id="@+id/btnAddToCart"
+            style="@style/btnRed"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/buttonHeight"
+            android:src="@drawable/ic_add_to_cart" />
+    </com.thomsonreuters.rippledecoratorview.RippleDecoratorView>
+</RelativeLayout>

@@ -117,7 +117,7 @@ public class asyncLoadCommonData {
     }
 
     private boolean setPostExecutionPhotoToImageView(String strBase64, ImageView img, String serverResponse, View.OnClickListener imgClick) {
-        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, (int) mContext.getResources().getDimension(R.dimen.heightOfCategoryImage));
+        RelativeLayout.LayoutParams rparam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int) mContext.getResources().getDimension(R.dimen.heightOfCategoryImage));
         rparam.addRule(RelativeLayout.CENTER_IN_PARENT);
         img.setLayoutParams(rparam);
         try {
@@ -193,11 +193,13 @@ public class asyncLoadCommonData {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
+                pb.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
                 if (mIcon11 != null) {
                     img.setImageBitmap(mIcon11);
-                    pb.setVisibility(View.GONE);
-                    img.setVisibility(View.VISIBLE);
                     objProductImage.setBmpThumb(mIcon11);
+                } else {
+                    img.setImageResource(R.drawable.ic_nopic);
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

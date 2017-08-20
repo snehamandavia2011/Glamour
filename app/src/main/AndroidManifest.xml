@@ -54,9 +54,13 @@
         <activity
             android:name=".acProductList"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeBlack"></activity>
+            android:theme="@style/AppThemeBlack" />
         <activity
             android:name=".acRefine"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack" />
+        <activity
+            android:name=".acProductDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeBlack"></activity>
     </application>

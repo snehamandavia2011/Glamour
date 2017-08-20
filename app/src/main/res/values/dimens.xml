@@ -10,4 +10,6 @@
     <dimen name="dorProgressBarheight">50dp</dimen>
     <dimen name="listViewDividerHeight">1dp</dimen>
     <dimen name="heightOfCategoryImage">200dp</dimen>
+    <dimen name="heightOfProductImage">300dp</dimen>
+
 </resources>

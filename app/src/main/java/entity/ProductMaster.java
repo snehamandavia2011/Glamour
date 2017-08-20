@@ -3,6 +3,7 @@ package entity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import utility.ConstantVal;
@@ -13,7 +14,7 @@ import utility.Logger;
  * Created by SAI on 8/17/2017.
  */
 
-public class ProductMaster {
+public class ProductMaster{
     int id, price;
     String gender, product_name, product_description, cost, available_stock;
     long dateTime;
