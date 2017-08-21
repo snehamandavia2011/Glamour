@@ -115,7 +115,7 @@ public class acRegistration extends AppCompatActivity implements View.OnClickLis
                     Helper.requestFocus(ac, edLastName);
                 } else if (Helper.isFieldBlank(edEmailId.getText().toString())) {
                     isDataEnteredProper = false;
-                    edEmailId.setError(getString(R.string.strEmailId));
+                    edEmailId.setError(getString(R.string.strEnterEmailId));
                     Helper.requestFocus(ac, edEmailId);
                 } else if (!Helper.isValidEmailId(edEmailId.getText().toString())) {
                     isDataEnteredProper = false;

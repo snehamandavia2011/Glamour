@@ -40,7 +40,7 @@
     \nIf you do not get an email from us within a few minutes please be sure to check your spam filter.\nThe email will be coming from \"no-reply@jobio.io\"
   </string>
     <string name="strDone">Done</string>
-    <string name="strEnterEmailId">Enter EmailId</string>
+    <string name="strEnterEmailId">Enter your EmailId</string>
     <string name="strEnterValidEmailId">Enter valid EmailId</string>
     <string name="strInternetNotAvaiable">Internet service is not available</string>
     <string name="strUnableToParseData">Unable to parse data</string>
@@ -123,6 +123,7 @@
     <string name="strBasket">Basket</string>
     <string name="msgNoCategory">No category</string>
     <string name="msgNoProduct">No product</string>
+    <string name="msgNoProductAdded">No product added.</string>
     <string name="msgViewYourProfile">View your profile</string>
     <string name="msgEditProfile">Edit Profile</string>
     <string name="strSetting">Setting</string>
@@ -156,4 +157,7 @@
     <string name="strQty">Quantity</string>
     <string name="strAddToBag">ADD TO BAG</string>
     <string name="strStockAvailable">Stock Available: </string>
+    <string name="msgSelectSize">Select size</string>
+    <string name="msgItemAddedToBag">Product added to basket.</string>
+    <string name="title_activity_ac_basket">acBasket</string>
 </resources>

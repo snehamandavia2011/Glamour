@@ -20,11 +20,15 @@ public class DataBase {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(TABLE_0_CREATE);
+            db.execSQL(TABLE_1_CREATE);
+            db.execSQL(TABLE_2_CREATE);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " + category_master);
+            db.execSQL("DROP TABLE IF EXISTS " + basket);
+            db.execSQL("DROP TABLE IF EXISTS " + basket_items);
             onCreate(db);
         }
     }
@@ -37,14 +41,31 @@ public class DataBase {
 
     public static final String category_master = "category_master";
     public static final int category_master_int = 0;
+    public static final String basket = "basket";
+    public static final int basket_int = 1;
+    public static final String basket_items = "basket_items";
+    public static final int basket_items_int = 2;
 
-    String[][] tables = new String[][]{{"_ID", "id", "parent_id", "category_name", "category_description", "category_for", "image"}};
+    String[][] tables = new String[][]{{"_ID", "id", "parent_id", "category_name", "category_description", "category_for", "image"},
+            {"_ID", "is_order_place", "is_order_place_successfully", "user_id"}, {"_ID", "basket_id", "product_id", "name",
+            "sizeId", "size", "quantity", "price", "image"}};
 
     private static final String TABLE_0_CREATE = "create table "
             + category_master
             + "(_ID integer primary key autoincrement,"
             + "id text not null,parent_id text not null, category_name text not null," +
             "category_description text not null,category_for text not null,image text not null);";
+
+    private static final String TABLE_1_CREATE = "create table "
+            + basket
+            + "(_ID integer primary key autoincrement,"
+            + "is_order_place text not null,is_order_place_successfully text not null, user_id text not null);";
+
+    private static final String TABLE_2_CREATE = "create table "
+            + basket_items
+            + "(_ID integer primary key autoincrement,"
+            + "basket_id text not null,product_id text not null, name text not null,sizeId text not null," +
+            "size text not null,quantity text not null,price text not null,image text not null);";
 
     public DataBase(Context ctx) {
         HCtx = ctx;
@@ -58,12 +79,28 @@ public class DataBase {
 
     public void cleanAll() {
         sqLiteDb.delete(category_master, null, null);
+        Cursor curBasket = fetch(DataBase.basket, "is_order_place_successfully='Y'");
+        if (curBasket != null && curBasket.getCount() > 0) {
+            curBasket.moveToFirst();
+            do {
+                int basket_id = curBasket.getInt(0);
+                sqLiteDb.delete(DataBase.basket, "_ID=" + basket_id, null);
+                sqLiteDb.delete(DataBase.basket_items, "basket_id=" + basket_id, null);
+            } while (curBasket.moveToNext());
+        }
+        curBasket.close();
     }
 
     public void cleanTable(int tableNo) {
         switch (tableNo) {
             case category_master_int:
                 sqLiteDb.delete(category_master, null, null);
+                break;
+            case basket_int:
+                sqLiteDb.delete(basket, null, null);
+                break;
+            case basket_items_int:
+                sqLiteDb.delete(basket_items, null, null);
                 break;
             default:
                 break;

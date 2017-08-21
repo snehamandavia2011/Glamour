@@ -48,7 +48,7 @@
                 android:id="@+id/edEmailId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/strEmailId"
+                android:hint="@string/strEnterEmailId"
                 android:inputType="textEmailAddress" />
         </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 

@@ -127,7 +127,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="@string/strFirstName"
-                                    android:inputType="text" />
+                                    android:inputType="text"
+                                    android:maxLength="50" />
                             </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
                             <me.zhanghai.android.materialedittext.MaterialTextInputLayout
@@ -140,7 +141,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="@string/strLastName"
-                                    android:inputType="text" />
+                                    android:inputType="text"
+                                    android:maxLength="50" />
                             </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
                         </LinearLayout>
 
@@ -153,7 +155,7 @@
                                 android:id="@+id/edEmailId"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/strEmailId"
+                                android:hint="@string/strEnterEmailId"
                                 android:inputType="textEmailAddress" />
                         </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
@@ -163,6 +165,7 @@
                             android:layout_marginBottom="@dimen/margin">
 
                             <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:maxLength="13"
                                 android:id="@+id/edMobileNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -233,6 +236,7 @@
                             android:layout_marginTop="@dimen/margin">
 
                             <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:maxLength="50"
                                 android:id="@+id/edCompanyName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -246,6 +250,7 @@
                             android:layout_marginBottom="@dimen/margin">
 
                             <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:maxLength="13"
                                 android:id="@+id/edCompanyPhoneNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -314,6 +319,7 @@
                                 android:layout_weight="1">
 
                                 <me.zhanghai.android.materialedittext.MaterialEditText
+                                    android:maxLength="15"
                                     android:id="@+id/edCompanyHouseNo"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"

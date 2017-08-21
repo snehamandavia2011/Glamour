@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -245,6 +246,15 @@ public class Helper {
         } else {
             return new Date(0);
         }
+    }
+
+    public static String getEncoded64ImageStringFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+        byte[] byteFormat = stream.toByteArray();
+        String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
+        Logger.debug(imgString);
+        return imgString;
     }
 
     public static String getCurrencySymbol() {

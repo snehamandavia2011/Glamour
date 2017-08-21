@@ -58,6 +58,7 @@
                 android:layout_weight="1">
 
                 <me.zhanghai.android.materialedittext.MaterialEditText
+                    android:maxLength="50"
                     android:id="@+id/edFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,6 +72,7 @@
                 android:layout_weight="1">
 
                 <me.zhanghai.android.materialedittext.MaterialEditText
+                    android:maxLength="50"
                     android:id="@+id/edLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,6 +87,7 @@
             android:layout_marginBottom="@dimen/margin">
 
             <me.zhanghai.android.materialedittext.MaterialEditText
+                android:maxLength="13"
                 android:id="@+id/edMobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

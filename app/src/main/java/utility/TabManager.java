@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import glamour.mafatlal.com.glamour.R;
+import glamour.mafatlal.com.glamour.acBasket;
 import glamour.mafatlal.com.glamour.acHome;
 import glamour.mafatlal.com.glamour.acProfile;
 
@@ -132,13 +133,14 @@ public class TabManager {
     }
 
     private static void handleBasketClick(final AppCompatActivity ac, LinearLayout lyBasket) {
-        if (ac.getClass() == acHome.class) {
+        if (ac.getClass() == acBasket.class) {
             lyBasket.setOnClickListener(null);
         } else {
             lyBasket.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(ac, acHome.class);
+                    Intent i = new Intent(ac, acBasket.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     ac.startActivity(i);
                 }
             });

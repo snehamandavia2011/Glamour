@@ -1,6 +1,8 @@
 package glamour.mafatlal.com.glamour;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -33,7 +36,9 @@ import asyncmanager.asyncLoadCommonData;
 import entity.ProductImage;
 import entity.ProductMaster;
 import entity.SizeMaster;
+import entity.User;
 import utility.ConstantVal;
+import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.Logger;
@@ -143,12 +148,100 @@ public class acProductDetail extends AppCompatActivity {
                     txtSizeChart.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            LayoutInflater infalInflater = (LayoutInflater) mContext
+                                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            final Dialog dialog = new Dialog(mContext);
+                            View view = infalInflater.inflate(R.layout.dlg_size_chart, null, true);
+                            ((ImageButton) view.findViewById(R.id.btnClose)).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.setCancelable(false);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+                            dialog.setContentView(view);
+                            dialog.show();
                         }
                     });
+
+                    btnAddtoBag.setOnClickListener(addToBagClcik);
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private View.OnClickListener addToBagClcik = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new AsyncTask() {
+                SizeMaster objSelectedSize;
+                int qty;
+                boolean isItemAdded = false;
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    qty = qtyPicker.getValue();
+                }
+
+                @Override
+                protected Object doInBackground(Object[] params) {
+                    objSelectedSize = getSelectedSize();
+                    if (objSelectedSize != null) {
+                        long basket_id;
+                        DataBase db = new DataBase(mContext);
+                        db.open();
+                        try {
+                            Cursor cur = db.fetch(DataBase.basket, "is_order_place='N'", "'desc'");
+                            if (cur != null && cur.getCount() > 0) {
+                                cur.moveToFirst();
+                                basket_id = cur.getLong(0);
+                            } else {
+                                basket_id = db.insert(DataBase.basket, DataBase.basket_int, new String[]{"N", "N", String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0))});
+                            }
+                            cur.close();
+                            ProductImage objImage = objProduct.getProductImage().get(0);
+                            String base64Image = "";
+                            if (objImage.getBmpThumb() != null) {
+                                base64Image = Helper.getEncoded64ImageStringFromBitmap(objImage.getBmpThumb());
+                            }
+                            db.insert(DataBase.basket_items, DataBase.basket_items_int, new String[]{String.valueOf(basket_id), String.valueOf(objProduct.getId()),
+                                    objProduct.getProduct_name(), String.valueOf(objSelectedSize.getId()), objSelectedSize.getSize(), String.valueOf(qty), String.valueOf(objProduct.getPrice()),
+                                    base64Image});
+                            isItemAdded = true;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Logger.writeToCrashlytics(e);
+                        } finally {
+                            db.close();
+                        }
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+                    super.onPostExecute(o);
+                    if (objSelectedSize != null) {
+                        if (isItemAdded) {
+                            Helper.displaySnackbar(ac, getString(R.string.msgItemAddedToBag), ConstantVal.ToastBGColor.INFO);
+                        }
+                    } else {
+                        Helper.displaySnackbar(ac, getString(R.string.msgSelectSize), ConstantVal.ToastBGColor.INFO);
+                    }
+                }
+            }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    };
+
+    private SizeMaster getSelectedSize() {
+        for (SizeMaster s : arrProductSize) {
+            if (s.isSelected()) {
+                return s;
+            }
+        }
+        return null;
     }
 
     private void setActionBar() {
@@ -189,12 +282,7 @@ public class acProductDetail extends AppCompatActivity {
 
                     }
                 });
-                ((ImageButton) v.findViewById(R.id.btnAddToCart)).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
+                ((ImageButton) v.findViewById(R.id.btnAddToCart)).setOnClickListener(addToBagClcik);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

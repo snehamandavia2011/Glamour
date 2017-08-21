@@ -43,6 +43,7 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
     Helper objHelper = new Helper();
     Context mContext;
     AppCompatActivity ac;
+    TextView txtCustomerName;
     LinearLayout lyPersonalInformation;
     Button btnEditPersonalInfor, btnEditCompanyDetail, btnEditCompanyAddress, btnChangePassword, btnLogout;
 
@@ -55,6 +56,8 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.ac_profile);
         objHelper.setActionBar(this, getString(R.string.strProfile), false);
         TabManager.setCurrentSelection(TabManager.PROFILE, ac);
+        txtCustomerName = (TextView) findViewById(R.id.txtCustomerName);
+        txtCustomerName.setText(Helper.getStringPreference(mContext, User.Fields.FIRST_NAME, "") + " " + Helper.getStringPreference(mContext, User.Fields.LAST_NAME, ""));
         lyPersonalInformation = (LinearLayout) findViewById(R.id.lyPersonalInformation);
         btnEditPersonalInfor = (Button) findViewById(R.id.btnEditPersonalInfor);
         btnEditCompanyDetail = (Button) findViewById(R.id.btnEditCompanyDetail);
