@@ -153,6 +153,7 @@
     <string name="strApply">Apply</string>
     <string name="strReset">Reset</string>
     <string name="strSelectSize">Select Size</string>
+    <string name="strSize">Size</string>
     <string name="strSizeChart">Size Chart</string>
     <string name="strQty">Quantity</string>
     <string name="strAddToBag">ADD TO BAG</string>
@@ -160,4 +161,8 @@
     <string name="msgSelectSize">Select size</string>
     <string name="msgItemAddedToBag">Product added to basket.</string>
     <string name="title_activity_ac_basket">acBasket</string>
+    <string name="msgDescNotAvail">Description is not available.</string>
+    <string name="msgItemRemove">Are you sure you want to remove this product from basket?</string>
+    <string name="strBasketTotal">Basket total</string>
+    <string name="strSendOrder">Send Order</string>
 </resources>

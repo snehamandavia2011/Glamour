@@ -207,7 +207,7 @@ public class acProductDetail extends AppCompatActivity {
                                 base64Image = Helper.getEncoded64ImageStringFromBitmap(objImage.getBmpThumb());
                             }
                             db.insert(DataBase.basket_items, DataBase.basket_items_int, new String[]{String.valueOf(basket_id), String.valueOf(objProduct.getId()),
-                                    objProduct.getProduct_name(), String.valueOf(objSelectedSize.getId()), objSelectedSize.getSize(), String.valueOf(qty), String.valueOf(objProduct.getPrice()),
+                                    objProduct.getProduct_name(), objProduct.getProduct_description(), String.valueOf(objSelectedSize.getId()), objSelectedSize.getSize(), String.valueOf(qty), String.valueOf(objProduct.getPrice()),
                                     base64Image});
                             isItemAdded = true;
                         } catch (Exception e) {
