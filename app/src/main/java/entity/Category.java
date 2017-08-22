@@ -139,15 +139,19 @@ public class Category {
     public static Thread loadCategoryFromServer(final Context mContext) {
         Thread t = new Thread() {
             public void run() {
-                ServerResponse sr;
-                String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
-                URLMapping objURLMapping = ConstantVal.getProductCategory();
-                HttpEngine objHttpEngine = new HttpEngine();
-                sr = objHttpEngine.getDataFromWebAPI(mContext, objURLMapping.getUrl(), objURLMapping.getParamNames(), new String[]{token});
-                if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                    ArrayList<Category> arrCategory = parseData(sr.getResponseString());
-                    if (arrCategory != null)
-                        saveDataToLocalDatabase(arrCategory, mContext);
+                try {
+                    ServerResponse sr;
+                    String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
+                    URLMapping objURLMapping = ConstantVal.getProductCategory();
+                    HttpEngine objHttpEngine = new HttpEngine();
+                    sr = objHttpEngine.getDataFromWebAPI(mContext, objURLMapping.getUrl(), objURLMapping.getParamNames(), new String[]{token});
+                    if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                        ArrayList<Category> arrCategory = parseData(sr.getResponseString());
+                        if (arrCategory != null)
+                            saveDataToLocalDatabase(arrCategory, mContext);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         };
