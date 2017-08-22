@@ -14,15 +14,15 @@ import utility.Logger;
  * Created by SAI on 8/17/2017.
  */
 
-public class ProductMaster{
-    int id, price;
+public class ProductMaster {
+    int id, price, order_count;
     String gender, product_name, product_description, cost, available_stock;
     long dateTime;
     ArrayList<Integer> size_id;
     ArrayList<String> feature_name;
     ArrayList<ProductImage> productImage;
 
-    public ProductMaster(int id, String gender, String product_name, String product_description, String cost, int price, String available_stock, long dateTime, ArrayList<Integer> size_id, ArrayList<String> feature_name, ArrayList<ProductImage> productImage) {
+    public ProductMaster(int id, String gender, String product_name, String product_description, String cost, int price, String available_stock, long dateTime, ArrayList<Integer> size_id, ArrayList<String> feature_name, ArrayList<ProductImage> productImage, int order_count) {
         this.id = id;
         this.gender = gender;
         this.product_name = product_name;
@@ -34,6 +34,7 @@ public class ProductMaster{
         this.size_id = size_id;
         this.feature_name = feature_name;
         this.productImage = productImage;
+        this.order_count = order_count;
     }
 
     public int getId() {
@@ -124,6 +125,14 @@ public class ProductMaster{
         this.dateTime = dateTime;
     }
 
+    public int getOrder_count() {
+        return order_count;
+    }
+
+    public void setOrder_count(int order_count) {
+        this.order_count = order_count;
+    }
+
     public static ArrayList<ProductMaster> parseJSON(String strJSON) {
         ArrayList<ProductMaster> arrProductMaster = null;
         try {
@@ -140,6 +149,7 @@ public class ProductMaster{
                 String available_stock = objJSON.getString("available_stock").equals("null") ? "" : objJSON.getString("available_stock");
                 String date = objJSON.getString("date").equals("null") ? "" : objJSON.getString("date");
                 String time = objJSON.getString("time").equals("null") ? "" : objJSON.getString("time");
+                int order_count = objJSON.getString("order_count").equals("null") ? 0 : objJSON.getInt("order_count");
                 long datetime = Helper.convertStringToDate(date + " " + time, ConstantVal.DATE_FORMAT + " " + ConstantVal.TIME_FORMAT).getTime();
                 JSONArray JSONarrSize = objJSON.getJSONArray("size");
                 ArrayList<Integer> arrSize = new ArrayList<>();
@@ -157,7 +167,7 @@ public class ProductMaster{
                     JSONObject objImage = JSONarrImage.getJSONObject(intImage);
                     arrImage.add(new ProductImage(objImage.getString("image_thumb"), objImage.getString("image")));
                 }
-                arrProductMaster.add(new ProductMaster(id, gender, product_name, product_description, cost, price, available_stock, datetime, arrSize, arrFeature, arrImage));
+                arrProductMaster.add(new ProductMaster(id, gender, product_name, product_description, cost, price, available_stock, datetime, arrSize, arrFeature, arrImage, order_count));
             }
         } catch (Exception e) {
             e.printStackTrace();

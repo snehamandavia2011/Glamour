@@ -305,6 +305,9 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
             case 2://whats new
                 whatsNew();
                 break;
+            case 3://popularity
+                popularity();
+                break;
         }
     }
 
@@ -351,6 +354,16 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
             @Override
             public int compare(ProductMaster p1, ProductMaster p2) {
                 return new Date(p2.getDateTime()).compareTo(new Date(p1.getDateTime()));
+            }
+        });
+        adpProduct.notifyDataSetChanged();
+    }
+
+    private void popularity(){
+        Collections.sort(arrProductRefined, new Comparator<ProductMaster>() {
+            @Override
+            public int compare(ProductMaster p1, ProductMaster p2) {
+                return new Date(p2.getOrder_count()).compareTo(new Date(p1.getOrder_count()));
             }
         });
         adpProduct.notifyDataSetChanged();

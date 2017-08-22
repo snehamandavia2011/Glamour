@@ -98,8 +98,8 @@ public class asyncLoadCommonData {
                 img.setImageResource(R.drawable.ic_nopic);
                 img.setBackgroundResource(0);
             } else {
-                img.setImageResource(0);
-                img.setBackgroundDrawable(new BitmapDrawable(ctx.getResources(), bmp));
+                img.setImageBitmap(bmp);
+                img.setBackgroundResource(R.color.transparent);
                 try {
                     img.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 } catch (Exception e) {
@@ -137,8 +137,8 @@ public class asyncLoadCommonData {
                     img.setImageResource(R.drawable.ic_nopic);
                 }
             } else {
-                img.setImageResource(0);
-                img.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), bmp));
+                img.setImageBitmap(bmp);
+                img.setBackgroundResource(R.color.transparent);
                 if (imgClick != null) {
                     img.setTag(bmp);
                     img.setOnClickListener(imgClick);

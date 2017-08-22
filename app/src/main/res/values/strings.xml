@@ -8,7 +8,7 @@
     <string name="strRegistration">Registration</string>
     <string name="strFirstName">First Name</string>
     <string name="strLastName">Last Name</string>
-    <string name="strEmailId">EmailId</string>
+    <string name="strEmailId">Email Id</string>
     <string name="strMobileNumber">Mobile Number</string>
     <string name="strConfirmPassword">Confirm Password</string>
     <string name="strPersonalDetail">Personal Detail</string>
@@ -40,8 +40,8 @@
     \nIf you do not get an email from us within a few minutes please be sure to check your spam filter.\nThe email will be coming from \"no-reply@jobio.io\"
   </string>
     <string name="strDone">Done</string>
-    <string name="strEnterEmailId">Enter your EmailId</string>
-    <string name="strEnterValidEmailId">Enter valid EmailId</string>
+    <string name="strEnterEmailId">Enter your Email Id</string>
+    <string name="strEnterValidEmailId">Enter valid Email Id</string>
     <string name="strInternetNotAvaiable">Internet service is not available</string>
     <string name="strUnableToParseData">Unable to parse data</string>
     <string name="strServerNotResponding">Server not responding</string>
@@ -165,4 +165,5 @@
     <string name="msgItemRemove">Are you sure you want to remove this product from basket?</string>
     <string name="strBasketTotal">Basket total</string>
     <string name="strSendOrder">Send Order</string>
+    <string name="strOrderPlaceSuccess">Your order has been place successfully.</string>
 </resources>

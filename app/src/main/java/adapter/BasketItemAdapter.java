@@ -78,7 +78,11 @@ public class BasketItemAdapter extends BaseAdapter {
         }
         final BasketItem objBasketItem = arrBasketItem.get(position);
         holder.txtProductQty.setText(mContext.getString(R.string.strQty) + ": " + objBasketItem.getQuantity());
-        holder.txtProductPrice.setText(Helper.getCurrencySymbol() + objBasketItem.getPrice());
+        try {
+            holder.txtProductPrice.setText(Helper.getCurrencySymbol() + (Integer.parseInt(objBasketItem.getPrice()) * Integer.parseInt(objBasketItem.getQuantity())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.txtProductSize.setText(mContext.getString(R.string.strSize) + ": " + objBasketItem.getSize());
         holder.txtProductName.setText(objBasketItem.getName());
         if (objBasketItem.getDesc().equals("")) {

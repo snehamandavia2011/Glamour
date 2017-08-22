@@ -180,4 +180,10 @@ public class ConstantVal {
         String URL = getWebURLPrefix() + "Productmanager/getProductList";
         return new URLMapping(paramNames, URL);
     }
+
+    public static URLMapping placeOrder() {
+        String[] paramNames = {"token", "customer_id", "order_item", "date", "time"};
+        String URL = getWebURLPrefix() + "Productmanager/placeOrder";
+        return new URLMapping(paramNames, URL);
+    }
 }

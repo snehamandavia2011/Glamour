@@ -1,6 +1,7 @@
 package glamour.mafatlal.com.glamour;
 
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Paint;
@@ -106,7 +107,7 @@ public class acProductDetail extends AppCompatActivity {
                         for (int sizeId : objProduct.getSize_id()) {
                             for (SizeMaster objSizeMaster : ConstantVal.arrSizeMaster) {
                                 if (sizeId == objSizeMaster.getId()) {
-                                    arrProductSize.add(objSizeMaster);
+                                    arrProductSize.add(new SizeMaster(objSizeMaster.getId(), objSizeMaster.getSize(), false));
                                 }
                             }
                         }
@@ -206,9 +207,19 @@ public class acProductDetail extends AppCompatActivity {
                             if (objImage.getBmpThumb() != null) {
                                 base64Image = Helper.getEncoded64ImageStringFromBitmap(objImage.getBmpThumb());
                             }
-                            db.insert(DataBase.basket_items, DataBase.basket_items_int, new String[]{String.valueOf(basket_id), String.valueOf(objProduct.getId()),
-                                    objProduct.getProduct_name(), objProduct.getProduct_description(), String.valueOf(objSelectedSize.getId()), objSelectedSize.getSize(), String.valueOf(qty), String.valueOf(objProduct.getPrice()),
-                                    base64Image});
+                            String where = "basket_id=" + basket_id + " and sizeId=" + objSelectedSize.getId() + " and product_id=" + objProduct.getId();
+                            Cursor curBaseketItem = db.fetch(DataBase.basket_items, where);
+                            if (curBaseketItem != null && curBaseketItem.getCount() > 0) {
+                                curBaseketItem.moveToFirst();
+                                int currentQuantity = curBaseketItem.getInt(7);
+                                ContentValues cv = new ContentValues();
+                                cv.put("quantity", (currentQuantity + 1));
+                                db.update(DataBase.basket_items, DataBase.basket_items_int, where, cv);
+                            } else {
+                                db.insert(DataBase.basket_items, DataBase.basket_items_int, new String[]{String.valueOf(basket_id), String.valueOf(objProduct.getId()),
+                                        objProduct.getProduct_name(), objProduct.getProduct_description(), String.valueOf(objSelectedSize.getId()), objSelectedSize.getSize(), String.valueOf(qty), String.valueOf(objProduct.getPrice()),
+                                        base64Image});
+                            }
                             isItemAdded = true;
                         } catch (Exception e) {
                             e.printStackTrace();
