@@ -586,7 +586,7 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
         User.clearCache(mContext);
         DataBase db = new DataBase(mContext);
         db.open();
-        db.cleanAll();
+        db.cleanWhileLogout();
         db.close();
         Intent i = new Intent(ac, acLogin.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -597,7 +597,7 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Helper.clearAllTable(mContext);
+            Helper.clearOnCloseApp(mContext);
             finish();
         }
         return false;

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import glamour.mafatlal.com.glamour.R;
 import glamour.mafatlal.com.glamour.acBasket;
 import glamour.mafatlal.com.glamour.acHome;
+import glamour.mafatlal.com.glamour.acOrder;
 import glamour.mafatlal.com.glamour.acProfile;
 
 import static glamour.mafatlal.com.glamour.R.id.lyHome;
@@ -104,13 +105,14 @@ public class TabManager {
     }
 
     private static void handleOrderClick(final AppCompatActivity ac, LinearLayout lyOrder) {
-        if (ac.getClass() == acHome.class) {
+        if (ac.getClass() == acOrder.class) {
             lyOrder.setOnClickListener(null);
         } else {
             lyOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(ac, acHome.class);
+                    Intent i = new Intent(ac, acOrder.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     ac.startActivity(i);
                 }
             });

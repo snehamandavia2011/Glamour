@@ -22,6 +22,7 @@ public class ConstantVal {
     public static int SELECTED_MIN_PRICE;
     public static int SELECTED_MAX_PRICE;
     public static ArrayList<ProductMaster> arrProduct;
+    public static final String DATE_TIME_FORMAT = "dd MMM, yyyy HH:mm";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String TIME_FORMAT = "HH:mm:ss";
     public static final int REQUEST_REFINE = 1;

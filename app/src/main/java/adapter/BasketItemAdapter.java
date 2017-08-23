@@ -34,12 +34,14 @@ public class BasketItemAdapter extends BaseAdapter {
     Context mContext;
     ArrayList<BasketItem> arrBasketItem;
     RelativeLayout lyNoContent, lyMainContent;
+    boolean isDeleteNeddtoShow;
 
-    public BasketItemAdapter(Context mContext, ArrayList<BasketItem> arrBasketItem, RelativeLayout lyNoContent, RelativeLayout lyMainContent) {
+    public BasketItemAdapter(Context mContext, ArrayList<BasketItem> arrBasketItem, RelativeLayout lyNoContent, RelativeLayout lyMainContent, boolean isDeleteNeddtoShow) {
         this.mContext = mContext;
         this.arrBasketItem = arrBasketItem;
         this.lyNoContent = lyNoContent;
         this.lyMainContent = lyMainContent;
+        this.isDeleteNeddtoShow = isDeleteNeddtoShow;
     }
 
     @Override
@@ -94,6 +96,11 @@ public class BasketItemAdapter extends BaseAdapter {
             holder.imgProduct.setImageResource(R.drawable.ic_nopic);
         } else {
             holder.imgProduct.setImageBitmap(Helper.convertBase64ImageToBitmap(objBasketItem.getImage()));
+        }
+        if (isDeleteNeddtoShow) {
+            holder.btnDelete.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnDelete.setVisibility(View.GONE);
         }
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

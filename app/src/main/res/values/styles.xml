@@ -76,6 +76,12 @@
         <item name="android:textSize">14sp</item>
         <item name="android:singleLine">true</item>
     </style>
+    <style name="styDescGreenSingleLine">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/Success</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
     <style name="styDescWhiteSingleLine">
         <item name="android:textAllCaps">false</item>

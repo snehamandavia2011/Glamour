@@ -64,8 +64,12 @@
             android:theme="@style/AppThemeBlack" />
         <activity
             android:name=".acBasket"
-            android:label="@string/title_activity_ac_basket"
-            android:theme="@style/AppTheme"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack" />
+        <activity
+            android:name=".acOrder"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeBlack"></activity>
     </application>
 
 </manifest>

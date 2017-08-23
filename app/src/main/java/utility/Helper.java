@@ -216,10 +216,10 @@ public class Helper {
         return snackbar;
     }
 
-    public static void clearAllTable(Context mContext) {
+    public static void clearOnCloseApp(Context mContext) {
         DataBase db = new DataBase(mContext);
         db.open();
-        db.cleanAll();
+        db.cleanWhileCloseApp();
         db.close();
     }
 

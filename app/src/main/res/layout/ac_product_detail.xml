@@ -106,14 +106,14 @@
                                 android:text="@string/strSizeChart" />
                         </LinearLayout>
 
-                        <GridView
+                        <utility.MyGridView
                             android:id="@+id/gvSize"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/margin"
                             android:horizontalSpacing="@dimen/margin"
                             android:numColumns="5"
-                            android:verticalSpacing="@dimen/margin"></GridView>
+                            android:verticalSpacing="@dimen/margin"></utility.MyGridView>
 
                         <LinearLayout
                             android:layout_width="match_parent"

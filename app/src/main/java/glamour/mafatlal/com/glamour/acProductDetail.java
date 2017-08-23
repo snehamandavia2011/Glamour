@@ -30,6 +30,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import adapter.SizeAdapter;
 import adapter.SizeAdapterForProductDetail;
@@ -43,6 +44,7 @@ import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
 import utility.Logger;
+import utility.MyGridView;
 import utility.TabManager;
 
 public class acProductDetail extends AppCompatActivity {
@@ -53,7 +55,7 @@ public class acProductDetail extends AppCompatActivity {
     Button btnAddtoBag;
     com.travijuu.numberpicker.library.NumberPicker qtyPicker;
     TextView txtStockAvail, txtSizeChart, txtProductPrice, txtProductName;
-    GridView gvSize;
+    utility.MyGridView gvSize;
     ImageView imgProduct;
     ProgressBar pb;
     ArrayList<SizeMaster> arrProductSize = new ArrayList<>();
@@ -85,7 +87,7 @@ public class acProductDetail extends AppCompatActivity {
                 txtProductPrice = (TextView) findViewById(R.id.txtProductPrice);
                 txtProductName = (TextView) findViewById(R.id.txtProductName);
                 btnAddtoBag = (Button) findViewById(R.id.btnAddtoBag);
-                gvSize = (GridView) findViewById(R.id.gvSize);
+                gvSize = (utility.MyGridView) findViewById(R.id.gvSize);
                 qtyPicker = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.qtyPicker);
                 imgProduct = (ImageView) findViewById(R.id.imgProduct);
                 pb = (ProgressBar) findViewById(R.id.pb);
@@ -194,12 +196,13 @@ public class acProductDetail extends AppCompatActivity {
                         DataBase db = new DataBase(mContext);
                         db.open();
                         try {
-                            Cursor cur = db.fetch(DataBase.basket, "is_order_place='N'", "'desc'");
+                            int customer_id = Helper.getIntPreference(mContext, User.Fields.ID, 0);
+                            Cursor cur = db.fetch(DataBase.basket, "is_order_place='N' and user_id=" + customer_id, "'desc'");
                             if (cur != null && cur.getCount() > 0) {
                                 cur.moveToFirst();
                                 basket_id = cur.getLong(0);
                             } else {
-                                basket_id = db.insert(DataBase.basket, DataBase.basket_int, new String[]{"N", "N", String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0))});
+                                basket_id = db.insert(DataBase.basket, DataBase.basket_int, new String[]{"N", "N", String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0)), String.valueOf(new Date().getTime()), ""});
                             }
                             cur.close();
                             ProductImage objImage = objProduct.getProductImage().get(0);

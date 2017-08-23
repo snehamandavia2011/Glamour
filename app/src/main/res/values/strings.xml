@@ -127,7 +127,7 @@
     <string name="msgViewYourProfile">View your profile</string>
     <string name="msgEditProfile">Edit Profile</string>
     <string name="strSetting">Setting</string>
-    <string name="strOrder">Order</string>
+    <string name="strOrder">Orders</string>
     <string name="strChangePassword">Change password</string>
     <string name="strLogout">Logout</string>
     <string name="strName">Name</string>
@@ -138,8 +138,8 @@
     <string name="msgInvalidOldPassword">Invalid old password</string>
     <string name="msgLogoutConfirmation">Are you sure you want to logout?</string>
     <string-array name="arrSort">
-        <item>Price:High to Low</item>
-        <item>Price:Low to Heigh</item>
+        <item>Price: High to Low</item>
+        <item>Price: Low to High</item>
         <item>What\'s new</item>
         <item>Popularity</item>
     </string-array>
@@ -156,7 +156,7 @@
     <string name="strSize">Size</string>
     <string name="strSizeChart">Size Chart</string>
     <string name="strQty">Quantity</string>
-    <string name="strAddToBag">ADD TO BAG</string>
+    <string name="strAddToBag">ADD TO BASKET</string>
     <string name="strStockAvailable">Stock Available: </string>
     <string name="msgSelectSize">Select size</string>
     <string name="msgItemAddedToBag">Product added to basket.</string>
@@ -165,5 +165,11 @@
     <string name="msgItemRemove">Are you sure you want to remove this product from basket?</string>
     <string name="strBasketTotal">Basket total</string>
     <string name="strSendOrder">Send Order</string>
-    <string name="strOrderPlaceSuccess">Your order has been place successfully.</string>
+    <string name="strOrderPlaceSuccess">Your order has been placed successfully.</string>
+    <string name="msgNoOrderFound">No order found</string>
+    <string name="strCreatedOn">Created On:</string>
+    <string name="strPlacedOn">Placed On:</string>
+    <string name="strNotSent">Not sent</string>
+    <string name="strSent">Sent</string>
+    <string name="strItemsInOrder">Items in order:</string>
 </resources>
