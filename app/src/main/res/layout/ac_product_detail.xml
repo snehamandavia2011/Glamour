@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
     xmlns:rdv="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -155,16 +154,41 @@
                                 android:layout_marginBottom="@dimen/margin"
                                 android:text="@string/strQty" />
 
-                            <com.travijuu.numberpicker.library.NumberPicker
-                                android:id="@+id/qtyPicker"
-                                android:layout_width="130dp"
+                            <RelativeLayout
+                                android:layout_width="150dp"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="@dimen/margin"
-                                numberpicker:focusable="true"
-                                numberpicker:max="9999"
-                                numberpicker:min="1"
-                                numberpicker:unit="1"
-                                numberpicker:value="1" />
+                                android:background="@drawable/grey_frame">
+
+                                <Button
+                                    android:id="@+id/btnMinus"
+                                    style="@style/styTitleRedSingleLine"
+                                    android:layout_width="40dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentLeft="true"
+                                    android:background="@color/transparent"
+                                    android:text="-" />
+
+                                <Button
+                                    android:id="@+id/btnPlus"
+                                    style="@style/styTitleRedSingleLine"
+                                    android:layout_width="40dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@color/transparent"
+                                    android:text="+" />
+
+                                <EditText
+                                    android:id="@+id/txtProductQty"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_toLeftOf="@id/btnPlus"
+                                    android:layout_toRightOf="@id/btnMinus"
+                                    android:background="@drawable/grey_frame1"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:text="1" />
+                            </RelativeLayout>
                         </LinearLayout>
 
                         <com.thomsonreuters.rippledecoratorview.RippleDecoratorView

@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -43,6 +45,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.DotProgressBar;
 import utility.Helper;
+import utility.InputFilterMinMax;
 import utility.Logger;
 import utility.MyGridView;
 import utility.TabManager;
@@ -52,7 +55,6 @@ public class acProductDetail extends AppCompatActivity {
     Context mContext;
     AppCompatActivity ac;
     Button btnAddtoBag;
-    com.travijuu.numberpicker.library.NumberPicker qtyPicker;
     TextView txtStockAvail, txtSizeChart, txtProductPrice, txtProductName, txtProductDesc;
     utility.MyGridView gvSize;
     ImageView imgProduct;
@@ -61,6 +63,8 @@ public class acProductDetail extends AppCompatActivity {
     ScrollView lyMainContent;
     DotProgressBar dot_progress_bar;
     TabManager objTabManager;
+    Button btnPlus, btnMinus;
+    EditText txtProductQty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +94,26 @@ public class acProductDetail extends AppCompatActivity {
                 txtProductDesc = (TextView) findViewById(R.id.txtProductDesc);
                 btnAddtoBag = (Button) findViewById(R.id.btnAddtoBag);
                 gvSize = (MyGridView) findViewById(R.id.gvSize);
-                qtyPicker = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.qtyPicker);
+                btnPlus = (Button) findViewById(R.id.btnPlus);
+                btnMinus = (Button) findViewById(R.id.btnMinus);
+                txtProductQty = (EditText) findViewById(R.id.txtProductQty);
+                txtProductQty.setFilters(new InputFilter[]{new InputFilterMinMax(1, 5000)});
                 imgProduct = (ImageView) findViewById(R.id.imgProduct);
                 pb = (ProgressBar) findViewById(R.id.pb);
                 dot_progress_bar.setVisibility(View.VISIBLE);
+                btnPlus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editProductQuantity(+1);
+                    }
+                });
+
+                btnMinus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editProductQuantity(-1);
+                    }
+                });
             }
 
             @Override
@@ -182,6 +202,18 @@ public class acProductDetail extends AppCompatActivity {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+    private void editProductQuantity(int increamentBy) {
+        try {
+            int currentQty = Integer.parseInt(txtProductQty.getText().toString());
+            int newQty = currentQty + increamentBy;
+            if (newQty <= 0)
+                return;
+            txtProductQty.setText("" + (currentQty + increamentBy));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private View.OnClickListener addToBagClcik = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -193,7 +225,7 @@ public class acProductDetail extends AppCompatActivity {
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
-                    qty = qtyPicker.getValue();
+                    qty = Integer.parseInt(txtProductQty.getText().toString());
                 }
 
                 @Override
