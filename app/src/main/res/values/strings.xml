@@ -172,4 +172,6 @@
     <string name="strNotSent">Not sent</string>
     <string name="strSent">Sent</string>
     <string name="strItemsInOrder">Items in order:</string>
+    <string name="strLoggingOut">Logging out</string>
+    <string name="strNA">NA</string>
 </resources>

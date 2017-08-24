@@ -79,13 +79,15 @@ public class ProductAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final ProductMaster objProductMaster = arrProduct.get(position);
-        holder.txtProductName.setText(objProductMaster.getProduct_name());
+        String strProductId = objProductMaster.getProduct_id().equals("") ? mContext.getString(R.string.strNA) : objProductMaster.getProduct_id();
+        holder.txtProductName.setText(objProductMaster.getProduct_name() + " (" + strProductId + ")");
         holder.txtProductPrice.setText(Helper.getCurrencySymbol() + objProductMaster.getPrice());
         holder.lyContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, acProductDetail.class);
                 i.putExtra("productId", objProductMaster.getId());
+                i.putExtra("productName", objProductMaster.getProduct_name());
                 mContext.startActivity(i);
             }
         });

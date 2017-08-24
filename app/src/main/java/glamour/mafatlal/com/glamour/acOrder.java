@@ -30,6 +30,7 @@ public class acOrder extends AppCompatActivity {
     ListView lvlOrder;
     ArrayList<Order> arrOrder;
     OrderAdapter adpOrder;
+    TabManager objTabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,8 @@ public class acOrder extends AppCompatActivity {
         lyMainContent = (RelativeLayout) findViewById(R.id.lyMainContent);
         lyNoContent = (RelativeLayout) findViewById(R.id.lyNoContent);
         lvlOrder = (ListView) findViewById(R.id.lvlOrder);
-        TabManager.setCurrentSelection(TabManager.ORDER, ac);
+        objTabManager = new TabManager(TabManager.ORDER, ac);
+        objTabManager.setCurrentSelection();
         setData();
     }
 

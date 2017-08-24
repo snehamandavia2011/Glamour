@@ -93,8 +93,8 @@ public class ConstantVal {
     }
 
     private static String getWebURLPrefix() {
-        return "https://stackio.co/mWebApi/v1/";
-        //return "http://45.249.111.13/~glamourapp/mWebApi/v1/";
+        //return "https://stackio.co/mWebApi/v1/";
+        return "http://45.249.111.13/~glamourapp/mWebApi/v1/";
     }
 
     public static URLMapping customerCredentialVerification() {

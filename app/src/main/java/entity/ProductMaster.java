@@ -16,15 +16,16 @@ import utility.Logger;
 
 public class ProductMaster {
     int id, price, order_count;
-    String gender, product_name, product_description, cost, available_stock;
+    String gender, product_id, product_name, product_description, cost, available_stock;
     long dateTime;
     ArrayList<Integer> size_id;
     ArrayList<String> feature_name;
     ArrayList<ProductImage> productImage;
 
-    public ProductMaster(int id, String gender, String product_name, String product_description, String cost, int price, String available_stock, long dateTime, ArrayList<Integer> size_id, ArrayList<String> feature_name, ArrayList<ProductImage> productImage, int order_count) {
+    public ProductMaster(int id, String gender, String product_id, String product_name, String product_description, String cost, int price, String available_stock, long dateTime, ArrayList<Integer> size_id, ArrayList<String> feature_name, ArrayList<ProductImage> productImage, int order_count) {
         this.id = id;
         this.gender = gender;
+        this.product_id = product_id;
         this.product_name = product_name;
         this.product_description = product_description;
         this.cost = cost;
@@ -35,6 +36,14 @@ public class ProductMaster {
         this.feature_name = feature_name;
         this.productImage = productImage;
         this.order_count = order_count;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
     public int getId() {
@@ -141,6 +150,7 @@ public class ProductMaster {
             for (int i = 0; i < arrJSON.length(); i++) {
                 JSONObject objJSON = arrJSON.getJSONObject(i);
                 int id = objJSON.getString("id").equals("null") ? 0 : objJSON.getInt("id");
+                String product_id = objJSON.getString("product_id").equals("null") ? "" : objJSON.getString("product_id");
                 String gender = objJSON.getString("gender").equals("null") ? "" : objJSON.getString("gender");
                 String product_name = objJSON.getString("product_name").equals("null") ? "" : objJSON.getString("product_name");
                 String product_description = objJSON.getString("product_description").equals("null") ? "" : objJSON.getString("product_description");
@@ -167,7 +177,7 @@ public class ProductMaster {
                     JSONObject objImage = JSONarrImage.getJSONObject(intImage);
                     arrImage.add(new ProductImage(objImage.getString("image_thumb"), objImage.getString("image")));
                 }
-                arrProductMaster.add(new ProductMaster(id, gender, product_name, product_description, cost, price, available_stock, datetime, arrSize, arrFeature, arrImage, order_count));
+                arrProductMaster.add(new ProductMaster(id, gender, product_id, product_name, product_description, cost, price, available_stock, datetime, arrSize, arrFeature, arrImage, order_count));
             }
         } catch (Exception e) {
             e.printStackTrace();

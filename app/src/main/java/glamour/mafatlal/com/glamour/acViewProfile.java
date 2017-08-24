@@ -21,6 +21,7 @@ public class acViewProfile extends AppCompatActivity {
     Context mContext;
     AppCompatActivity ac;
     TextView txtUserType, txtMobileNumber, txtEmailId, txtName, txtCompanyName, txtCompanyPhone, isOwner, txtCompanyNumber, txtCompanyStreet, txtCompanyLandmark, txtCity, txtState, txtPostCode, isSalesman;
+    TabManager objTabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,8 @@ public class acViewProfile extends AppCompatActivity {
         Helper.startFabric(mContext);
         setContentView(R.layout.ac_view_profile);
         objHelper.setActionBar(this, getString(R.string.strProfile), true);
-        TabManager.setCurrentSelection(TabManager.PROFILE, ac);
+        objTabManager = new TabManager(TabManager.PROFILE, ac);
+        objTabManager.setCurrentSelection();
         setData();
     }
 

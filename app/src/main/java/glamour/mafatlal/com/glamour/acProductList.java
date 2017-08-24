@@ -54,6 +54,7 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
     int currentSortPosition = 0;
     ProductAdapter adpProduct;
     ArrayList<ProductMaster> arrProductRefined;
+    TabManager objTabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,8 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
         txtRefineVal = (TextView) findViewById(R.id.txtRefineVal);
         lySort.setOnClickListener(this);
         lyRefine.setOnClickListener(this);
-        TabManager.setCurrentSelection(TabManager.HOME, ac);
+        objTabManager = new TabManager(TabManager.HOME, ac);
+        objTabManager.setCurrentSelection();
         setData();
     }
 
@@ -359,7 +361,7 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
         adpProduct.notifyDataSetChanged();
     }
 
-    private void popularity(){
+    private void popularity() {
         Collections.sort(arrProductRefined, new Comparator<ProductMaster>() {
             @Override
             public int compare(ProductMaster p1, ProductMaster p2) {

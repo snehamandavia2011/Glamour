@@ -48,19 +48,19 @@ import utility.MyGridView;
 import utility.TabManager;
 
 public class acProductDetail extends AppCompatActivity {
-    Toolbar toolbar;
     ProductMaster objProduct;
     Context mContext;
     AppCompatActivity ac;
     Button btnAddtoBag;
     com.travijuu.numberpicker.library.NumberPicker qtyPicker;
-    TextView txtStockAvail, txtSizeChart, txtProductPrice, txtProductName;
+    TextView txtStockAvail, txtSizeChart, txtProductPrice, txtProductName, txtProductDesc;
     utility.MyGridView gvSize;
     ImageView imgProduct;
     ProgressBar pb;
     ArrayList<SizeMaster> arrProductSize = new ArrayList<>();
     ScrollView lyMainContent;
     DotProgressBar dot_progress_bar;
+    TabManager objTabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +69,9 @@ public class acProductDetail extends AppCompatActivity {
         ac = this;
         Helper.startFabric(mContext);
         setContentView(R.layout.ac_product_detail);
-        TabManager.setCurrentSelection(TabManager.HOME, ac);
-        setActionBar();
+        objTabManager = new TabManager(TabManager.HOME, ac);
+        objTabManager.setCurrentSelection();
+        new Helper().setActionBar(ac, this.getIntent().getStringExtra("productName"), true);
         setData();
     }
 
@@ -86,6 +87,7 @@ public class acProductDetail extends AppCompatActivity {
                 txtSizeChart.setPaintFlags(txtSizeChart.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 txtProductPrice = (TextView) findViewById(R.id.txtProductPrice);
                 txtProductName = (TextView) findViewById(R.id.txtProductName);
+                txtProductDesc = (TextView) findViewById(R.id.txtProductDesc);
                 btnAddtoBag = (Button) findViewById(R.id.btnAddtoBag);
                 gvSize = (utility.MyGridView) findViewById(R.id.gvSize);
                 qtyPicker = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.qtyPicker);
@@ -135,7 +137,13 @@ public class acProductDetail extends AppCompatActivity {
                     } else {
                         new asyncLoadCommonData(mContext).loadProductImage(objImage, pb, imgProduct);
                     }
-                    txtProductName.setText(objProduct.getProduct_name());
+                    String strProductId = objProduct.getProduct_id().equals("") ? mContext.getString(R.string.strNA) : objProduct.getProduct_id();
+                    txtProductName.setText(objProduct.getProduct_name() + " (" + strProductId + ")");
+                    if (objProduct.getProduct_description().equals("")) {
+                        txtProductDesc.setText(mContext.getString(R.string.msgDescNotAvail));
+                    } else {
+                        txtProductDesc.setText(objProduct.getProduct_description());
+                    }
                     txtProductPrice.setText(Helper.getCurrencySymbol() + "" + objProduct.getPrice());
                     try {
                         if (Integer.parseInt(objProduct.getAvailable_stock()) > 0) {
@@ -240,6 +248,7 @@ public class acProductDetail extends AppCompatActivity {
                     if (objSelectedSize != null) {
                         if (isItemAdded) {
                             Helper.displaySnackbar(ac, getString(R.string.msgItemAddedToBag), ConstantVal.ToastBGColor.INFO);
+                            objTabManager.updateBasketItemCounter();
                         }
                     } else {
                         Helper.displaySnackbar(ac, getString(R.string.msgSelectSize), ConstantVal.ToastBGColor.INFO);
@@ -256,49 +265,6 @@ public class acProductDetail extends AppCompatActivity {
             }
         }
         return null;
-    }
-
-    private void setActionBar() {
-        new AsyncTask() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                if (toolbar == null) {
-                    toolbar = (Toolbar) ac.findViewById(R.id.toolbar);
-                    ac.setSupportActionBar(toolbar);
-                    ac.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ac.getResources()
-                            .getColor(R.color.red)));
-                }
-            }
-
-            @Override
-            protected Object doInBackground(Object[] params) {
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-                ac.invalidateOptionsMenu();
-                ActionBar actionBar = ac.getSupportActionBar();
-                actionBar.setDisplayShowHomeEnabled(true);
-                actionBar.setDisplayShowCustomEnabled(true);
-                actionBar.setBackgroundDrawable(new ColorDrawable(ac.getResources()
-                        .getColor(R.color.red)));
-                LayoutInflater mInflater = (LayoutInflater) ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View v = mInflater.inflate(R.layout.product_detail_action, null);
-                actionBar.setCustomView(v);
-                actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                ((ImageButton) v.findViewById(R.id.btnShare)).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-                ((ImageButton) v.findViewById(R.id.btnAddToCart)).setOnClickListener(addToBagClcik);
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

@@ -103,31 +103,52 @@
         android:layout_height="45dp"
         android:background="@color/white" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lyBasket"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_weight="1"
         android:background="@color/red"
-        android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/padding">
 
-        <ImageView
-            android:id="@+id/imgBasket"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginBottom="@dimen/margin"
-            android:src="@drawable/ic_basket_white" />
-
         <TextView
-            android:id="@+id/txtBasket"
+            android:id="@+id/itemCountInBasket"
+            style="@style/styDescRedSingleLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:text="@string/strBasket"
-            android:textColor="@color/white"
-            android:textSize="14dp" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:background="@drawable/badge_item_count_white"
+            android:paddingBottom="@dimen/paddingSmall"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:paddingTop="@dimen/paddingSmall"
+            android:text="1"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgBasket"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="@dimen/margin"
+                android:src="@drawable/ic_basket_white" />
+
+            <TextView
+                android:id="@+id/txtBasket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:text="@string/strBasket"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

@@ -35,6 +35,7 @@ public class acSubCategory extends AppCompatActivity {
     ArrayList<Category> arrCategory;
     int category_id;
     String category_name;
+    TabManager objTabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,8 @@ public class acSubCategory extends AppCompatActivity {
         lyNoContent = (RelativeLayout) findViewById(R.id.lyNoContent);
         lvlCategory = (ListView) findViewById(R.id.lvlAsset);
         dot_progress_bar = (DotProgressBar) findViewById(R.id.dot_progress_bar);
-        TabManager.setCurrentSelection(TabManager.HOME, ac);
+        objTabManager = new TabManager(TabManager.HOME, ac);
+        objTabManager.setCurrentSelection();
         setData();
     }
 

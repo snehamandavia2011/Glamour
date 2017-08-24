@@ -24,6 +24,7 @@ import utility.DataBase;
 import utility.Helper;
 import utility.HttpEngine;
 import utility.ServerResponse;
+import utility.TabManager;
 import utility.URLMapping;
 
 /**
@@ -35,13 +36,15 @@ public class BasketItemAdapter extends BaseAdapter {
     ArrayList<BasketItem> arrBasketItem;
     RelativeLayout lyNoContent, lyMainContent;
     boolean isDeleteNeddtoShow;
+    TabManager objTabManager;
 
-    public BasketItemAdapter(Context mContext, ArrayList<BasketItem> arrBasketItem, RelativeLayout lyNoContent, RelativeLayout lyMainContent, boolean isDeleteNeddtoShow) {
+    public BasketItemAdapter(TabManager objTabManager, Context mContext, ArrayList<BasketItem> arrBasketItem, RelativeLayout lyNoContent, RelativeLayout lyMainContent, boolean isDeleteNeddtoShow) {
         this.mContext = mContext;
         this.arrBasketItem = arrBasketItem;
         this.lyNoContent = lyNoContent;
         this.lyMainContent = lyMainContent;
         this.isDeleteNeddtoShow = isDeleteNeddtoShow;
+        this.objTabManager = objTabManager;
     }
 
     @Override
@@ -130,6 +133,7 @@ public class BasketItemAdapter extends BaseAdapter {
                             @Override
                             protected void onPostExecute(Object o) {
                                 super.onPostExecute(o);
+                                objTabManager.updateBasketItemCounter();
                                 if (arrBasketItem.size() <= 0) {
                                     lyNoContent.setVisibility(View.VISIBLE);
                                     lyMainContent.setVisibility(View.GONE);

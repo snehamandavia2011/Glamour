@@ -125,7 +125,7 @@ public class OrderAdapter extends BaseAdapter {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 if (arrBasketItem != null && arrBasketItem.size() > 0) {
-                    lvl.setAdapter(new BasketItemAdapter(mContext, arrBasketItem, null, null, false));
+                    lvl.setAdapter(new BasketItemAdapter(null, mContext, arrBasketItem, null, null, false));
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

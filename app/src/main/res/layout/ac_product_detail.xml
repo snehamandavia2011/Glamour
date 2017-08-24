@@ -75,6 +75,13 @@
                             android:layout_marginBottom="@dimen/margin" />
 
                         <TextView
+                            android:id="@+id/txtProductDesc"
+                            style="@style/styDescGreyMultiLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin" />
+
+                        <TextView
                             android:id="@+id/txtProductPrice"
                             style="@style/stySubTitleBlackSingleLine"
                             android:layout_width="wrap_content"
@@ -153,9 +160,9 @@
                                 android:layout_width="130dp"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="@dimen/margin"
-                                numberpicker:focusable="false"
-                                numberpicker:max="100"
-                                numberpicker:min="0"
+                                numberpicker:focusable="true"
+                                numberpicker:max="9999"
+                                numberpicker:min="1"
                                 numberpicker:unit="1"
                                 numberpicker:value="1" />
                         </LinearLayout>

@@ -2,6 +2,7 @@ package utility;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
@@ -9,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import entity.User;
 import glamour.mafatlal.com.glamour.R;
 import glamour.mafatlal.com.glamour.acBasket;
 import glamour.mafatlal.com.glamour.acHome;
@@ -29,19 +32,31 @@ public class TabManager {
     public static final int PROFILE = 2;
     public static final int BASKET = 3;
 
-    public static void setCurrentSelection(final int currentTab, final AppCompatActivity ac) {
-        new AsyncTask() {
-            LinearLayout lyHome, lyOrder, lyProfile, lyBasket;
-            ImageView imgHome, imgOrder, imgProfile, imgBasket;
-            TextView txtHome, textOrder, textProfile, txtBAsket;
+    TextView itemCountInBasket;
+    LinearLayout lyHome, lyOrder, lyProfile;
+    RelativeLayout lyBasket;
+    ImageView imgHome, imgOrder, imgProfile, imgBasket;
+    TextView txtHome, textOrder, textProfile, txtBAsket;
+    int intItemCountInBasket;
+    int currentTab;
+    AppCompatActivity ac;
 
+    public TabManager(int currentTab, AppCompatActivity ac) {
+        this.currentTab = currentTab;
+        this.ac = ac;
+
+    }
+
+    public void setCurrentSelection() {
+        new AsyncTask() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                itemCountInBasket = (TextView) ac.findViewById(R.id.itemCountInBasket);
                 lyHome = (LinearLayout) ac.findViewById(R.id.lyHome);
                 lyOrder = (LinearLayout) ac.findViewById(R.id.lyOrder);
                 lyProfile = (LinearLayout) ac.findViewById(R.id.lyProfile);
-                lyBasket = (LinearLayout) ac.findViewById(R.id.lyBasket);
+                lyBasket = (RelativeLayout) ac.findViewById(R.id.lyBasket);
                 imgHome = (ImageView) ac.findViewById(R.id.imgHome);
                 imgOrder = (ImageView) ac.findViewById(R.id.imgOrder);
                 imgProfile = (ImageView) ac.findViewById(R.id.imgProfile);
@@ -54,12 +69,20 @@ public class TabManager {
 
             @Override
             protected Object doInBackground(Object[] params) {
+                setIntItemCountInBasket();
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
+                Logger.debug("intItemCountInBasket:" + intItemCountInBasket);
+                if (intItemCountInBasket > 0) {
+                    itemCountInBasket.setText(intItemCountInBasket + "");
+                    itemCountInBasket.setVisibility(View.VISIBLE);
+                } else {
+                    itemCountInBasket.setVisibility(View.GONE);
+                }
                 if (currentTab == HOME) {
                     setSelection(ac, lyHome, imgHome, R.drawable.ic_home_red, txtHome);
                     setDeSelection(ac, lyOrder, imgOrder, R.drawable.ic_order_white, textOrder);
@@ -89,7 +112,47 @@ public class TabManager {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private static void handleHomeClick(final AppCompatActivity ac, LinearLayout lyHome) {
+    public void setIntItemCountInBasket() {
+        DataBase db = new DataBase(ac);
+        db.open();
+        Cursor cur = db.fetch(DataBase.basket, "is_order_place='N' and user_id=" + Helper.getIntPreference(ac, User.Fields.ID, 1), "'desc'");
+        try {
+            if (cur != null && cur.getCount() > 0) {
+                cur.moveToFirst();
+                long basket_id = cur.getLong(0);
+                this.intItemCountInBasket = db.getCounts(DataBase.basket_items, "basket_id=" + basket_id);
+            }
+        } catch (Exception e) {
+            this.intItemCountInBasket = 0;
+        } finally {
+            cur.close();
+            db.close();
+        }
+
+    }
+
+    public void updateBasketItemCounter() {
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                setIntItemCountInBasket();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (intItemCountInBasket > 0) {
+                    itemCountInBasket.setText(intItemCountInBasket + "");
+                    itemCountInBasket.setVisibility(View.VISIBLE);
+                } else {
+                    itemCountInBasket.setVisibility(View.GONE);
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void handleHomeClick(final AppCompatActivity ac, LinearLayout lyHome) {
         if (ac.getClass() == acHome.class) {
             lyHome.setOnClickListener(null);
         } else {
@@ -104,7 +167,7 @@ public class TabManager {
         }
     }
 
-    private static void handleOrderClick(final AppCompatActivity ac, LinearLayout lyOrder) {
+    private void handleOrderClick(final AppCompatActivity ac, LinearLayout lyOrder) {
         if (ac.getClass() == acOrder.class) {
             lyOrder.setOnClickListener(null);
         } else {
@@ -119,7 +182,7 @@ public class TabManager {
         }
     }
 
-    private static void handleProfileClick(final AppCompatActivity ac, LinearLayout lyProfile) {
+    private void handleProfileClick(final AppCompatActivity ac, LinearLayout lyProfile) {
         if (ac.getClass() == acProfile.class) {
             lyProfile.setOnClickListener(null);
         } else {
@@ -134,7 +197,7 @@ public class TabManager {
         }
     }
 
-    private static void handleBasketClick(final AppCompatActivity ac, LinearLayout lyBasket) {
+    private void handleBasketClick(final AppCompatActivity ac, LinearLayout lyBasket) {
         if (ac.getClass() == acBasket.class) {
             lyBasket.setOnClickListener(null);
         } else {
@@ -149,17 +212,54 @@ public class TabManager {
         }
     }
 
-    private static void setSelection(AppCompatActivity ac, LinearLayout ly, ImageView img, int imgResource, TextView txt) {
+    private void handleBasketClick(final AppCompatActivity ac, RelativeLayout lyBasket) {
+        if (ac.getClass() == acBasket.class) {
+            lyBasket.setOnClickListener(null);
+        } else {
+            lyBasket.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(ac, acBasket.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    ac.startActivity(i);
+                }
+            });
+        }
+    }
+
+    private void setSelection(AppCompatActivity ac, LinearLayout ly, ImageView img, int imgResource, TextView txt) {
         ly.setBackgroundDrawable(new ColorDrawable(ac.getResources()
                 .getColor(R.color.white)));
         txt.setTextColor(ContextCompat.getColor(ac, R.color.red));
         img.setImageResource(imgResource);
+        itemCountInBasket.setTextColor(ContextCompat.getColor(ac, R.color.white));
+        itemCountInBasket.setBackgroundResource(R.drawable.badge_item_count_red);
     }
 
-    private static void setDeSelection(AppCompatActivity ac, LinearLayout ly, ImageView img, int imgResource, TextView txt) {
+    private void setDeSelection(AppCompatActivity ac, LinearLayout ly, ImageView img, int imgResource, TextView txt) {
         ly.setBackgroundDrawable(new ColorDrawable(ac.getResources()
                 .getColor(R.color.red)));
         txt.setTextColor(ContextCompat.getColor(ac, R.color.white));
         img.setImageResource(imgResource);
+        itemCountInBasket.setTextColor(ContextCompat.getColor(ac, R.color.red));
+        itemCountInBasket.setBackgroundResource(R.drawable.badge_item_count_white);
+    }
+
+    private void setSelection(AppCompatActivity ac, RelativeLayout ly, ImageView img, int imgResource, TextView txt) {
+        ly.setBackgroundDrawable(new ColorDrawable(ac.getResources()
+                .getColor(R.color.white)));
+        txt.setTextColor(ContextCompat.getColor(ac, R.color.red));
+        img.setImageResource(imgResource);
+        itemCountInBasket.setTextColor(ContextCompat.getColor(ac, R.color.white));
+        itemCountInBasket.setBackgroundResource(R.drawable.badge_item_count_red);
+    }
+
+    private void setDeSelection(AppCompatActivity ac, RelativeLayout ly, ImageView img, int imgResource, TextView txt) {
+        ly.setBackgroundDrawable(new ColorDrawable(ac.getResources()
+                .getColor(R.color.red)));
+        txt.setTextColor(ContextCompat.getColor(ac, R.color.white));
+        img.setImageResource(imgResource);
+        itemCountInBasket.setTextColor(ContextCompat.getColor(ac, R.color.red));
+        itemCountInBasket.setBackgroundResource(R.drawable.badge_item_count_white);
     }
 }

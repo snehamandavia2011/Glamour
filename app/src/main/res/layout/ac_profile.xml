@@ -10,6 +10,8 @@
     <include layout="@layout/my_toolbar"></include>
 
     <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/lyMainScreen"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/white">
@@ -169,5 +171,32 @@
                     android:text="@string/strLogout" />
             </LinearLayout>
         </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lyLogoutScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <utility.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dorProgressBarheight"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/margin"
+            custom:amount="5"
+            custom:duration="@android:integer/config_shortAnimTime"
+            custom:endColor="@color/red"
+            custom:startColor="@color/red" />
+
+        <TextView
+            style="@style/stySubTitleRedSingleLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dot_progress_bar"
+            android:layout_centerHorizontal="true"
+            android:text="@string/strLoggingOut" />
     </RelativeLayout>
 </LinearLayout>

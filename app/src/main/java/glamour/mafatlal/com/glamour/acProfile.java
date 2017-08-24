@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
     TextView txtCustomerName;
     LinearLayout lyPersonalInformation;
     Button btnEditPersonalInfor, btnEditCompanyDetail, btnEditCompanyAddress, btnChangePassword, btnLogout;
+    RelativeLayout lyMainScreen, lyLogoutScreen;
+    TabManager objTabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,10 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
         Helper.startFabric(mContext);
         setContentView(R.layout.ac_profile);
         objHelper.setActionBar(this, getString(R.string.strProfile), false);
-        TabManager.setCurrentSelection(TabManager.PROFILE, ac);
+        objTabManager = new TabManager(TabManager.PROFILE, ac);
+        objTabManager.setCurrentSelection();
+        lyMainScreen = (RelativeLayout) findViewById(R.id.lyMainScreen);
+        lyLogoutScreen = (RelativeLayout) findViewById(R.id.lyLogoutScreen);
         txtCustomerName = (TextView) findViewById(R.id.txtCustomerName);
         txtCustomerName.setText(Helper.getStringPreference(mContext, User.Fields.FIRST_NAME, "") + " " + Helper.getStringPreference(mContext, User.Fields.LAST_NAME, ""));
         lyPersonalInformation = (LinearLayout) findViewById(R.id.lyPersonalInformation);
@@ -544,42 +550,38 @@ public class acProfile extends AppCompatActivity implements View.OnClickListener
     }
 
     private void logoutUser() {
-        final ConfimationSnackbar snackbar = new ConfimationSnackbar(ac, ConstantVal.ToastBGColor.WARNING);
-        snackbar.showSnackBar(ac.getString(R.string.msgLogoutConfirmation), ac.getString(R.string.strLogout), ac.getString(R.string.strCancel), new View.OnClickListener() {
+        new AsyncTask() {
+            ServerResponse sr;
+
             @Override
-            public void onClick(View v) {
-                //expire the token of server
-                new AsyncTask() {
-                    ServerResponse sr;
-
-                    @Override
-                    protected void onPreExecute() {
-                        super.onPreExecute();
-                    }
-
-                    @Override
-                    protected Object doInBackground(Object[] params) {
-                        String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
-                        String userId = String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0));
-                        URLMapping objURLMapping = ConstantVal.logoutUser();
-                        HttpEngine objHttpEngine = new HttpEngine();
-                        sr = objHttpEngine.getDataFromWebAPI(ac, objURLMapping.getUrl(), objURLMapping.getParamNames(), new String[]{userId, token});
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Object o) {
-                        super.onPostExecute(o);
-                        snackbar.dismissSnackBar();
-                        if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
-                            logOutUser();
-                        } else {
-                            Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()), ConstantVal.ToastBGColor.INFO);
-                        }
-                    }
-                }.execute();
+            protected void onPreExecute() {
+                super.onPreExecute();
+                lyMainScreen.setVisibility(View.GONE);
+                lyLogoutScreen.setVisibility(View.VISIBLE);
             }
-        }, null);
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                String token = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
+                String userId = String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0));
+                URLMapping objURLMapping = ConstantVal.logoutUser();
+                HttpEngine objHttpEngine = new HttpEngine();
+                sr = objHttpEngine.getDataFromWebAPI(ac, objURLMapping.getUrl(), objURLMapping.getParamNames(), new String[]{userId, token});
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    logOutUser();
+                } else {
+                    Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()), ConstantVal.ToastBGColor.INFO);
+                    lyMainScreen.setVisibility(View.VISIBLE);
+                    lyLogoutScreen.setVisibility(View.GONE);
+                }
+            }
+        }.execute();
     }
 
     private void logOutUser() {
