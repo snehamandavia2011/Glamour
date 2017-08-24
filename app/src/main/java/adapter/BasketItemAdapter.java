@@ -125,7 +125,7 @@ public class BasketItemAdapter extends BaseAdapter {
                             protected Object doInBackground(Object[] params) {
                                 DataBase db = new DataBase(mContext);
                                 db.open();
-                                db.delete(DataBase.basket_items, DataBase.basket_items_int, "basket_id=" + objBasketItem.getBasket_id() + " and product_id=" + objBasketItem.getProduct_id());
+                                db.delete(DataBase.basket_items, DataBase.basket_items_int, "basket_id=" + objBasketItem.getBasket_id() + " and product_id=" + objBasketItem.getProduct_id() + " and sizeId=" + objBasketItem.getSizeId());
                                 db.close();
                                 return null;
                             }

@@ -89,7 +89,7 @@ public class acProductDetail extends AppCompatActivity {
                 txtProductName = (TextView) findViewById(R.id.txtProductName);
                 txtProductDesc = (TextView) findViewById(R.id.txtProductDesc);
                 btnAddtoBag = (Button) findViewById(R.id.btnAddtoBag);
-                gvSize = (utility.MyGridView) findViewById(R.id.gvSize);
+                gvSize = (MyGridView) findViewById(R.id.gvSize);
                 qtyPicker = (com.travijuu.numberpicker.library.NumberPicker) findViewById(R.id.qtyPicker);
                 imgProduct = (ImageView) findViewById(R.id.imgProduct);
                 pb = (ProgressBar) findViewById(R.id.pb);
