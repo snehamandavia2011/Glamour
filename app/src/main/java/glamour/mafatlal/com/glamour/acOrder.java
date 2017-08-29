@@ -65,7 +65,7 @@ public class acOrder extends AppCompatActivity {
                     arrOrder = new ArrayList<Order>();
                     do {
                         int basketItemCount = db.getCounts(DataBase.basket_items, "basket_id=" + cur.getInt(0));
-                        arrOrder.add(new Order(cur.getString(0), cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4), cur.getString(5), String.valueOf(basketItemCount)));
+                        arrOrder.add(new Order(cur.getString(0), cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4), cur.getString(5), String.valueOf(basketItemCount), cur.getString(6)));
                     } while (cur.moveToNext());
                 }
                 cur.close();

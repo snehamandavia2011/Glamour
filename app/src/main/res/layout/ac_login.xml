@@ -29,12 +29,13 @@
         android:paddingLeft="@dimen/paddingBig"
         android:paddingRight="@dimen/paddingBig">
 
-        <utility.DotProgressBar
+        <com.github.silvestrpredko.dotprogressbar.DotProgressBar
             android:id="@+id/dot_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dorProgressBarheight"
             android:visibility="gone"
             custom:amount="5"
+            custom:animationDirection="left"
             custom:duration="@android:integer/config_mediumAnimTime"
             custom:endColor="@color/red"
             custom:startColor="@color/red" />

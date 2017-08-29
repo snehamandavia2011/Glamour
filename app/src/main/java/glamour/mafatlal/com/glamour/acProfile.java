@@ -5,11 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,19 +20,14 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.androidadvance.topsnackbar.TSnackbar;
-
-import org.json.JSONObject;
+import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 
 import entity.User;
 import me.zhanghai.android.materialedittext.MaterialEditText;
-import utility.ConfimationSnackbar;
 import utility.ConstantVal;
 import utility.DataBase;
-import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
-import utility.Logger;
 import utility.ServerResponse;
 import utility.TabManager;
 import utility.URLMapping;

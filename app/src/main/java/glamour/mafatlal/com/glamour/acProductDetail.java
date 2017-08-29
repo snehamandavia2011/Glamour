@@ -5,36 +5,28 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import adapter.SizeAdapter;
 import adapter.SizeAdapterForProductDetail;
 import asyncmanager.asyncLoadCommonData;
 import entity.ProductImage;
@@ -43,7 +35,6 @@ import entity.SizeMaster;
 import entity.User;
 import utility.ConstantVal;
 import utility.DataBase;
-import utility.DotProgressBar;
 import utility.Helper;
 import utility.InputFilterMinMax;
 import utility.Logger;
@@ -97,7 +88,7 @@ public class acProductDetail extends AppCompatActivity {
                 btnPlus = (Button) findViewById(R.id.btnPlus);
                 btnMinus = (Button) findViewById(R.id.btnMinus);
                 txtProductQty = (EditText) findViewById(R.id.txtProductQty);
-                txtProductQty.setFilters(new InputFilter[]{new InputFilterMinMax(1, 5000)});
+                txtProductQty.setFilters(new InputFilter[]{new InputFilterMinMax(1, 9999)});
                 imgProduct = (ImageView) findViewById(R.id.imgProduct);
                 pb = (ProgressBar) findViewById(R.id.pb);
                 dot_progress_bar.setVisibility(View.VISIBLE);
@@ -208,6 +199,8 @@ public class acProductDetail extends AppCompatActivity {
             int newQty = currentQty + increamentBy;
             if (newQty <= 0)
                 return;
+            else if (newQty >= 10000)
+                return;
             txtProductQty.setText("" + (currentQty + increamentBy));
         } catch (Exception e) {
             e.printStackTrace();
@@ -242,7 +235,7 @@ public class acProductDetail extends AppCompatActivity {
                                 cur.moveToFirst();
                                 basket_id = cur.getLong(0);
                             } else {
-                                basket_id = db.insert(DataBase.basket, DataBase.basket_int, new String[]{"N", "N", String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0)), String.valueOf(new Date().getTime()), ""});
+                                basket_id = db.insert(DataBase.basket, DataBase.basket_int, new String[]{"N", "N", String.valueOf(Helper.getIntPreference(mContext, User.Fields.ID, 0)), String.valueOf(new Date().getTime()), "", ""});
                             }
                             cur.close();
                             ProductImage objImage = objProduct.getProductImage().get(0);

@@ -183,7 +183,7 @@ public class ConstantVal {
     }
 
     public static URLMapping placeOrder() {
-        String[] paramNames = {"token", "customer_id", "order_item", "date", "time"};
+        String[] paramNames = {"device_order_id","token", "customer_id", "order_item", "date", "time"};
         String URL = getWebURLPrefix() + "Productmanager/placeOrder";
         return new URLMapping(paramNames, URL);
     }

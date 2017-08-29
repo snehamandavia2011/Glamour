@@ -25,6 +25,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +37,6 @@ import entity.User;
 import me.zhanghai.android.materialedittext.MaterialEditText;
 import utility.ConstantVal;
 import utility.DateTimeUtils;
-import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
 import utility.Logger;

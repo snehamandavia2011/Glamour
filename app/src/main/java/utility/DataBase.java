@@ -47,7 +47,7 @@ public class DataBase {
     public static final int basket_items_int = 2;
 
     String[][] tables = new String[][]{{"_ID", "id", "parent_id", "category_name", "category_description", "category_for", "image"},
-            {"_ID", "is_order_place", "is_order_place_successfully", "user_id", "createdOn","sentOn"}, {"_ID", "basket_id", "product_id", "name", "desc",
+            {"_ID", "is_order_place", "is_order_place_successfully", "user_id", "createdOn","sentOn","order_number"}, {"_ID", "basket_id", "product_id", "name", "desc",
             "sizeId", "size", "quantity", "price", "image"}};
 
     private static final String TABLE_0_CREATE = "create table "
@@ -59,7 +59,7 @@ public class DataBase {
     private static final String TABLE_1_CREATE = "create table "
             + basket
             + "(_ID integer primary key autoincrement,"
-            + "is_order_place text not null,is_order_place_successfully text not null, user_id text not null, createdOn text not null,sentOn text not null);";
+            + "is_order_place text not null,is_order_place_successfully text not null, user_id text not null, createdOn text not null,sentOn text not null,order_number text not null);";
 
     private static final String TABLE_2_CREATE = "create table "
             + basket_items

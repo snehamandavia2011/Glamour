@@ -168,6 +168,7 @@
     <string name="strOrderPlaceSuccess">Your order has been placed successfully.</string>
     <string name="msgNoOrderFound">No order found</string>
     <string name="strCreatedOn">Created On:</string>
+    <string name="strOrderNumber">Order number:</string>
     <string name="strPlacedOn">Placed On:</string>
     <string name="strNotSent">Not sent</string>
     <string name="strSent">Sent</string>

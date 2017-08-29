@@ -42,7 +42,7 @@ public class OrderAdapter extends BaseAdapter {
         utility.MyListView lvlItems;
         LinearLayout lyContainer, lyPlacedOn;
         ImageButton btnResend;
-        TextView txtCreatedOn, txtPlacedOn, txtStatus;
+        TextView txtCreatedOn, txtPlacedOn, txtStatus, txtOrderNumber;
     }
 
     public OrderAdapter(Context mContext, ArrayList<Order> arrOrder) {
@@ -78,6 +78,7 @@ public class OrderAdapter extends BaseAdapter {
             holder.lvlItems = (utility.MyListView) convertView.findViewById(R.id.lvlItems);
             holder.txtCreatedOn = (TextView) convertView.findViewById(R.id.txtCreatedOn);
             holder.txtPlacedOn = (TextView) convertView.findViewById(R.id.txtPlacedOn);
+            holder.txtOrderNumber = (TextView) convertView.findViewById(R.id.txtOrderNumber);
             holder.txtStatus = (TextView) convertView.findViewById(R.id.txtStatus);
             holder.btnResend = (ImageButton) convertView.findViewById(R.id.btnResend);
             convertView.setTag(holder);
@@ -94,7 +95,9 @@ public class OrderAdapter extends BaseAdapter {
                 super.onPreExecute();
                 objOrder = arrOrder.get(position);
                 String strCreatedOn = DateTimeUtils.convertDateToString(new Date(Long.parseLong(objOrder.getCreatedOn())), (ConstantVal.DATE_TIME_FORMAT));
-                holder.txtCreatedOn.setText(strCreatedOn);
+                String strOrderNumber = objOrder.getOrder_number().equals("") ? mContext.getString(R.string.strNA) : objOrder.getOrder_number();
+                holder.txtCreatedOn.setText(strCreatedOn + strOrderNumber);
+                holder.txtOrderNumber.setText(strOrderNumber);
                 if (objOrder.getIs_order_place_successfully().equals("N")) {
                     holder.txtStatus.setText(mContext.getString(R.string.strNotSent).toUpperCase());
                     holder.txtStatus.setTextAppearance(mContext, R.style.styDescRedSingleLine);

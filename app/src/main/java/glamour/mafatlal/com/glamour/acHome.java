@@ -10,15 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
+
 import java.util.ArrayList;
 
 import adapter.CategoryAdapter;
 import entity.Category;
-import utility.ConstantVal;
-import utility.DataBase;
-import utility.DotProgressBar;
 import utility.Helper;
-import utility.Logger;
 import utility.TabManager;
 
 public class acHome extends AppCompatActivity {

@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidadvance.topsnackbar.TSnackbar;
+import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +33,6 @@ import entity.ProductMaster;
 import entity.SizeMaster;
 import entity.User;
 import utility.ConstantVal;
-import utility.DotProgressBar;
 import utility.Helper;
 import utility.HttpEngine;
 import utility.Logger;

@@ -5,9 +5,9 @@ package entity;
  */
 
 public class Order {
-    String basket_id, is_order_place, is_order_place_successfully, user_id, createdOn, placedOn, noOfItemInOrder;
+    String basket_id, is_order_place, is_order_place_successfully, user_id, createdOn, placedOn, noOfItemInOrder, order_number;
 
-    public Order(String basket_id, String is_order_place, String is_order_place_successfully, String user_id, String createdOn, String placedOn, String noOfItemInOrder) {
+    public Order(String basket_id, String is_order_place, String is_order_place_successfully, String user_id, String createdOn, String placedOn, String noOfItemInOrder, String order_number) {
         this.basket_id = basket_id;
         this.is_order_place = is_order_place;
         this.is_order_place_successfully = is_order_place_successfully;
@@ -15,6 +15,7 @@ public class Order {
         this.createdOn = createdOn;
         this.placedOn = placedOn;
         this.noOfItemInOrder = noOfItemInOrder;
+        this.order_number = order_number;
     }
 
     public String getBasket_id() {
@@ -71,5 +72,13 @@ public class Order {
 
     public void setNoOfItemInOrder(String noOfItemInOrder) {
         this.noOfItemInOrder = noOfItemInOrder;
+    }
+
+    public String getOrder_number() {
+        return order_number;
+    }
+
+    public void setOrder_number(String order_number) {
+        this.order_number = order_number;
     }
 }
