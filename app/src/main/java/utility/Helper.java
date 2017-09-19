@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -266,5 +268,39 @@ public class Helper {
     public static int getScreenWidth(AppCompatActivity ac){
         int width = ac.getWindowManager().getDefaultDisplay().getWidth();
         return width;
+    }
+
+    public static File getOutputMediaFile(String fileName, boolean storeAsPng, Context ctx) {
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        try {
+            if (Environment.getExternalStorageState().equals("mounted")) {
+                File mediaStorageDir = ctx.getExternalFilesDir(null);
+                File imageDir = new File(mediaStorageDir.getPath() + File.separator + "images");
+
+                // Create the storage directory if it does not exist
+                if (!mediaStorageDir.exists()) {
+                    if (!mediaStorageDir.mkdirs()) {
+                        Logger.debug("failed to create directory at " + mediaStorageDir.getAbsolutePath());
+                        return null;
+                    }
+                }
+                if (!imageDir.exists()) {
+                    if (!imageDir.mkdirs()) {
+                        Logger.debug("failed to create image storage directory at " + imageDir.getAbsolutePath());
+                        return null;
+                    }
+                }
+
+                String extension = storeAsPng ? ".png" : ".jpg";
+                return new File(imageDir.getPath() + File.separator + fileName + extension);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Logger.writeToCrashlytics(e);
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -96,7 +96,7 @@ public class ProductAdapter extends BaseAdapter {
             if (objImage.getBmpThumb() != null) {
                 holder.img.setImageBitmap(objImage.getBmpThumb());
             } else {
-                new asyncLoadCommonData(mContext).loadProductImage(objImage, holder.pb, holder.img);
+                new asyncLoadCommonData(mContext).loadProductListImage(objImage, holder.pb, holder.img);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,4 +105,13 @@ public class ProductAdapter extends BaseAdapter {
         return convertView;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
 }

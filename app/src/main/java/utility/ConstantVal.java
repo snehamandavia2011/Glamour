@@ -28,6 +28,11 @@ public class ConstantVal {
     public static final int REQUEST_REFINE = 1;
     public static final int RESPONSE_REFINE = 2;
 
+    public static class DIR_NAME {
+        public static final String CATEGORY = "category";
+        public static final String PRODUCT = "product";
+    }
+
     public static class UserType {
         public static final String RETAILER = "Retailer";
         public static final String DEALER = "Dealer";
@@ -94,7 +99,8 @@ public class ConstantVal {
 
     private static String getWebURLPrefix() {
         //return "https://stackio.co/mWebApi/v1/";
-        return "http://45.249.111.13/~glamourapp/mWebApi/v1/";
+        //return "http://45.249.111.13/~glamourapp/mWebApi/v1/";
+        return "http://glamourmafatlal.in/mWebApi/v1/";
     }
 
     public static URLMapping customerCredentialVerification() {
@@ -183,8 +189,14 @@ public class ConstantVal {
     }
 
     public static URLMapping placeOrder() {
-        String[] paramNames = {"device_order_id","token", "customer_id", "order_item", "date", "time"};
+        String[] paramNames = {"device_order_id", "token", "customer_id", "order_item", "date", "time"};
         String URL = getWebURLPrefix() + "Productmanager/placeOrder";
+        return new URLMapping(paramNames, URL);
+    }
+
+    public static URLMapping getBase64FromURL() {
+        String[] paramNames = {"url", "token"};
+        String URL = getWebURLPrefix() + "Common/getBase64";
         return new URLMapping(paramNames, URL);
     }
 }

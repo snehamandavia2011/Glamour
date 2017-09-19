@@ -169,7 +169,7 @@ public class acProductList extends AppCompatActivity implements View.OnClickList
                 dot_progress_bar.clearAnimation();
                 dot_progress_bar.setVisibility(View.GONE);
                 ((ViewGroup) dot_progress_bar.getParent()).removeView(dot_progress_bar);
-                if (!sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                if (sr != null && !sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
                     Helper.displaySnackbar(ac, ConstantVal.ServerResponseCode.getMessage(mContext, sr.getResponseCode()), ConstantVal.ToastBGColor.INFO).setCallback(new TSnackbar.Callback() {
                         @Override
                         public void onDismissed(TSnackbar snackbar, int event) {

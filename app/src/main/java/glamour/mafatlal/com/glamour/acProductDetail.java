@@ -143,10 +143,10 @@ public class acProductDetail extends AppCompatActivity {
                 if (objProduct != null) {
                     ProductImage objImage = objProduct.getProductImage().get(0);
                     if (objImage.getBmpThumb() != null) {
-                        imgProduct.setVisibility(View.VISIBLE);
-                        imgProduct.setImageBitmap(objImage.getBmpThumb());
-                    } else {
-                        new asyncLoadCommonData(mContext).loadProductImage(objImage, pb, imgProduct);
+                        //  imgProduct.setVisibility(View.VISIBLE);
+                        //imgProduct.setImageBitmap(objImage.getBmpThumb());
+                        //} else {
+                        new asyncLoadCommonData(mContext).loadProductDetailImage(objImage, pb, imgProduct);
                     }
                     String strProductId = objProduct.getProduct_id().equals("") ? mContext.getString(R.string.strNA) : objProduct.getProduct_id();
                     txtProductName.setText(objProduct.getProduct_name() + " (" + strProductId + ")");

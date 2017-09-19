@@ -128,7 +128,8 @@ public class Category {
             String category_name = objJSON.getString("category_name").equals("null") ? "" : objJSON.getString("category_name");
             String category_description = objJSON.getString("category_description").equals("null") ? "" : objJSON.getString("category_description");
             String category_for = objJSON.getString("category_for").equals("null") ? "" : objJSON.getString("category_for");
-            return new Category(id, parent_id, category_name, category_description, category_for, "");
+            String image_url = "";//objJSON.getString("image").equals("null") ? "" : objJSON.getString("image");
+            return new Category(id, parent_id, category_name, category_description, category_for, image_url);
         } catch (Exception e) {
             e.printStackTrace();
             Logger.writeToCrashlytics(e);
@@ -150,7 +151,7 @@ public class Category {
                         if (arrCategory != null)
                             saveDataToLocalDatabase(arrCategory, mContext);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

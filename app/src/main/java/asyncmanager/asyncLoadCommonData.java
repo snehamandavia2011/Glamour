@@ -15,8 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 
 import entity.Category;
@@ -41,7 +45,6 @@ public class asyncLoadCommonData {
     public asyncLoadCommonData(Context mContext) {
         this.mContext = mContext;
     }
-
 
     public void loadCategoryImage(final ImageView img, final Category objCategory) {
         new AsyncTask() {
@@ -166,7 +169,110 @@ public class asyncLoadCommonData {
         return photo;
     }
 
-    public void loadProductImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView img) {
+    public void loadProductListImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView img) {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                pb.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
+                if (bitmap != null) {
+                    img.setImageBitmap(bitmap);
+                    objProductImage.setBmpThumb(bitmap);
+                } else {
+                    img.setImageResource(R.drawable.ic_nopic);
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                pb.setVisibility(View.VISIBLE);
+                img.setVisibility(View.GONE);
+            }
+        };
+
+        img.setTag(target);
+        Picasso.with(mContext)
+                .load(objProductImage.getImage())
+                .resize(200, 200)
+                .centerInside()
+                .into(target);
+
+    }
+
+    public void loadProductDetailImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView img) {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                pb.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
+                if (bitmap != null) {
+                    img.setImageBitmap(bitmap);
+                } else {
+                    img.setImageResource(R.drawable.ic_nopic);
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                pb.setVisibility(View.VISIBLE);
+                img.setVisibility(View.GONE);
+            }
+        };
+
+        img.setTag(target);
+        Picasso.with(mContext)
+                .load(objProductImage.getImage())
+                .into(target);
+
+    }
+
+    /*public void loadProductImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView img) {
+        new AsyncTask() {
+            Bitmap mIcon11 = null;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                pb.setVisibility(View.VISIBLE);
+                img.setVisibility(View.GONE);
+            }
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                final HttpEngine objHttpEngine = new HttpEngine();
+                final String tokenId = Helper.getStringPreference(mContext, User.Fields.TOKEN, "");
+                final URLMapping um = ConstantVal.getBase64FromURL();
+                ServerResponse sr = objHttpEngine.getDataFromWebAPI(mContext, um.getUrl(), um.getParamNames(), new String[]{objProductImage.getImage(), tokenId});
+                if (sr.getResponseCode().equals(ConstantVal.ServerResponseCode.SUCCESS)) {
+                    mIcon11 = Helper.convertBase64ImageToBitmap(parsePhoto(sr.getResponseString()));
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                pb.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
+                if (mIcon11 != null) {
+                    img.setImageBitmap(mIcon11);
+                    objProductImage.setBmpThumb(mIcon11);
+                } else {
+                    img.setImageResource(R.drawable.ic_nopic);
+                }
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }*/
+
+    /*public void loadProductImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView img) {
         new AsyncTask() {
             Bitmap mIcon11 = null;
 
@@ -203,5 +309,5 @@ public class asyncLoadCommonData {
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
+    }*/
 }
