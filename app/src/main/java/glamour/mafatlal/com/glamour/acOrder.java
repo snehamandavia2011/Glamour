@@ -59,7 +59,7 @@ public class acOrder extends AppCompatActivity {
             protected Object doInBackground(Object[] params) {
                 DataBase db = new DataBase(mContext);
                 db.open();
-                Cursor cur = db.fetch(DataBase.basket, "is_order_place='Y' and user_id=" + Helper.getIntPreference(mContext, User.Fields.ID, 0));
+                Cursor cur = db.fetch(DataBase.basket, "is_order_place='Y' and user_id=" + Helper.getIntPreference(mContext, User.Fields.ID, 0), "createdOn desc");
                 if (cur != null && cur.getCount() > 0) {
                     cur.moveToFirst();
                     arrOrder = new ArrayList<Order>();

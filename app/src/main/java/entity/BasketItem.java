@@ -5,9 +5,10 @@ package entity;
  */
 
 public class BasketItem {
-    String basket_id, product_id, name, desc, sizeId, size, quantity, price, image;
+    String basket_id, productServerPK, product_id, name, desc, sizeId, size, quantity, price, image;
 
-    public BasketItem(String basket_id, String product_id, String name, String desc, String sizeId, String size, String quantity, String price, String image) {
+    public BasketItem(String basket_id, String productServerPK, String product_id, String name, String desc, String sizeId, String size, String quantity, String price, String image) {
+        this.productServerPK = productServerPK;
         this.basket_id = basket_id;
         this.product_id = product_id;
         this.name = name;
@@ -89,5 +90,13 @@ public class BasketItem {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getProductServerPK() {
+        return productServerPK;
+    }
+
+    public void setProductServerPK(String productServerPK) {
+        this.productServerPK = productServerPK;
     }
 }

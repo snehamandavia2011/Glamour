@@ -107,17 +107,32 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        style="@style/stySubTitleBlackSingleLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin"
-        android:text="@string/strItemsInOrder" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/stySubTitleBlackSingleLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strItemsInOrder" />
+
+        <ImageButton
+            android:id="@+id/btnViewHide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/circle_white"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_expand" />
+    </RelativeLayout>
 
     <utility.MyListView
         android:id="@+id/lvlItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin"
         android:divider="@color/grey"
-        android:dividerHeight="1dp"></utility.MyListView>
+        android:dividerHeight="1dp"
+        android:visibility="gone"></utility.MyListView>
 </LinearLayout>

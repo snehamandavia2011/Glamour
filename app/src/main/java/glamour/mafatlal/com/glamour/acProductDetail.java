@@ -40,6 +40,7 @@ import utility.InputFilterMinMax;
 import utility.Logger;
 import utility.MyGridView;
 import utility.TabManager;
+import utility.uiZoom;
 
 public class acProductDetail extends AppCompatActivity {
     ProductMaster objProduct;
@@ -48,6 +49,7 @@ public class acProductDetail extends AppCompatActivity {
     Button btnAddtoBag;
     TextView txtStockAvail, txtSizeChart, txtProductPrice, txtProductName, txtProductDesc;
     utility.MyGridView gvSize;
+    uiZoom imgZoomProduct;
     ImageView imgProduct;
     ProgressBar pb;
     ArrayList<SizeMaster> arrProductSize = new ArrayList<>();
@@ -90,6 +92,7 @@ public class acProductDetail extends AppCompatActivity {
                 txtProductQty = (EditText) findViewById(R.id.txtProductQty);
                 txtProductQty.setFilters(new InputFilter[]{new InputFilterMinMax(1, 9999)});
                 imgProduct = (ImageView) findViewById(R.id.imgProduct);
+                imgZoomProduct = (uiZoom) findViewById(R.id.imgZoomProduct);
                 pb = (ProgressBar) findViewById(R.id.pb);
                 dot_progress_bar.setVisibility(View.VISIBLE);
                 btnPlus.setOnClickListener(new View.OnClickListener() {
@@ -142,12 +145,12 @@ public class acProductDetail extends AppCompatActivity {
                 lyMainContent.setVisibility(View.VISIBLE);
                 if (objProduct != null) {
                     ProductImage objImage = objProduct.getProductImage().get(0);
-                    if (objImage.getBmpThumb() != null) {
-                        //  imgProduct.setVisibility(View.VISIBLE);
-                        //imgProduct.setImageBitmap(objImage.getBmpThumb());
-                        //} else {
-                        new asyncLoadCommonData(mContext).loadProductDetailImage(objImage, pb, imgProduct);
-                    }
+                    //if (objImage.getBmpThumb() != null) {
+                    //  imgProduct.setVisibility(View.VISIBLE);
+                    //imgProduct.setImageBitmap(objImage.getBmpThumb());
+                    //} else {
+                    new asyncLoadCommonData(mContext).loadProductDetailImage(objImage, pb, imgProduct, imgZoomProduct);
+                    //}
                     String strProductId = objProduct.getProduct_id().equals("") ? mContext.getString(R.string.strNA) : objProduct.getProduct_id();
                     txtProductName.setText(objProduct.getProduct_name() + " (" + strProductId + ")");
                     if (objProduct.getProduct_description().equals("")) {
@@ -253,7 +256,7 @@ public class acProductDetail extends AppCompatActivity {
                                 db.update(DataBase.basket_items, DataBase.basket_items_int, where, cv);
                             } else {
                                 db.insert(DataBase.basket_items, DataBase.basket_items_int, new String[]{String.valueOf(basket_id), String.valueOf(objProduct.getId()),
-                                        objProduct.getProduct_name(), objProduct.getProduct_description(), String.valueOf(objSelectedSize.getId()), objSelectedSize.getSize(), String.valueOf(qty), String.valueOf(objProduct.getPrice()),
+                                        objProduct.getProduct_id(), objProduct.getProduct_name(), objProduct.getProduct_description(), String.valueOf(objSelectedSize.getId()), objSelectedSize.getSize(), String.valueOf(qty), String.valueOf(objProduct.getPrice()),
                                         base64Image});
                             }
                             isItemAdded = true;

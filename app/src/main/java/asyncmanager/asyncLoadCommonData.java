@@ -34,6 +34,7 @@ import utility.HttpEngine;
 import utility.Logger;
 import utility.ServerResponse;
 import utility.URLMapping;
+import utility.uiZoom;
 
 /**
  * Created by SAI on 8/15/2017.
@@ -203,16 +204,18 @@ public class asyncLoadCommonData {
 
     }
 
-    public void loadProductDetailImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView img) {
+    public void loadProductDetailImage(final ProductImage objProductImage, final ProgressBar pb, final ImageView imgProduct, final uiZoom imgZoomProduct) {
         Target target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 pb.setVisibility(View.GONE);
-                img.setVisibility(View.VISIBLE);
                 if (bitmap != null) {
-                    img.setImageBitmap(bitmap);
+                    imgZoomProduct.setDefaultScale(uiZoom.DEFAULT_SCALE_FIT_INSIDE);
+                    imgZoomProduct.setVisibility(View.VISIBLE);
+                    imgZoomProduct.setImageBitmap(bitmap);
                 } else {
-                    img.setImageResource(R.drawable.ic_nopic);
+                    imgProduct.setVisibility(View.VISIBLE);
+                    imgProduct.setImageResource(R.drawable.ic_nopic);
                 }
             }
 
@@ -223,11 +226,12 @@ public class asyncLoadCommonData {
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
                 pb.setVisibility(View.VISIBLE);
-                img.setVisibility(View.GONE);
+                imgZoomProduct.setVisibility(View.GONE);
+                imgProduct.setVisibility(View.GONE);
             }
         };
-
-        img.setTag(target);
+        imgProduct.setTag(target);
+        imgZoomProduct.setTag(target);
         Picasso.with(mContext)
                 .load(objProductImage.getImage())
                 .into(target);

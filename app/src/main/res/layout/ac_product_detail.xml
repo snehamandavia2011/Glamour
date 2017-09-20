@@ -45,6 +45,12 @@
                         android:layout_height="@dimen/heightOfProductImage"
                         android:layout_marginBottom="@dimen/margin">
 
+                        <utility.uiZoom
+                            android:visibility="gone"
+                            android:id="@+id/imgZoomProduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
                         <ImageView
                             android:id="@+id/imgProduct"
                             android:layout_width="match_parent"

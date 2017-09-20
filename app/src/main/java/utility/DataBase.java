@@ -47,7 +47,7 @@ public class DataBase {
     public static final int basket_items_int = 2;
 
     String[][] tables = new String[][]{{"_ID", "id", "parent_id", "category_name", "category_description", "category_for", "image"},
-            {"_ID", "is_order_place", "is_order_place_successfully", "user_id", "createdOn","sentOn","order_number"}, {"_ID", "basket_id", "product_id", "name", "desc",
+            {"_ID", "is_order_place", "is_order_place_successfully", "user_id", "createdOn", "sentOn", "order_number"}, {"_ID", "basket_id", "productServerPK", "product_id", "name", "desc",
             "sizeId", "size", "quantity", "price", "image"}};
 
     private static final String TABLE_0_CREATE = "create table "
@@ -64,7 +64,7 @@ public class DataBase {
     private static final String TABLE_2_CREATE = "create table "
             + basket_items
             + "(_ID integer primary key autoincrement,"
-            + "basket_id text not null,product_id text not null, name text not null,desc text not null,sizeId text not null," +
+            + "basket_id text not null,productServerPK text not null, product_id text not null, name text not null,desc text not null,sizeId text not null," +
             "size text not null,quantity text not null,price text not null,image text not null);";
 
     public DataBase(Context ctx) {
@@ -90,6 +90,7 @@ public class DataBase {
         }
         curBasket.close();
     }
+
     public void cleanWhileCloseApp() {
         sqLiteDb.delete(category_master, null, null);
     }

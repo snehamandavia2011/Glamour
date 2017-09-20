@@ -28,6 +28,7 @@ import utility.ConstantVal;
 import utility.DataBase;
 import utility.DateTimeUtils;
 import utility.Helper;
+import utility.Logger;
 import utility.ServerResponse;
 
 /**
@@ -41,7 +42,7 @@ public class OrderAdapter extends BaseAdapter {
     private class ViewHolder {
         utility.MyListView lvlItems;
         LinearLayout lyContainer, lyPlacedOn;
-        ImageButton btnResend;
+        ImageButton btnResend, btnViewHide;
         TextView txtCreatedOn, txtPlacedOn, txtStatus, txtOrderNumber;
     }
 
@@ -73,6 +74,7 @@ public class OrderAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.order_list_item, null);
             holder = new ViewHolder();
+            holder.btnViewHide = (ImageButton) convertView.findViewById(R.id.btnViewHide);
             holder.lyPlacedOn = (LinearLayout) convertView.findViewById(R.id.lyPlacedOn);
             holder.lyContainer = (LinearLayout) convertView.findViewById(R.id.lyContainer);
             holder.lvlItems = (utility.MyListView) convertView.findViewById(R.id.lvlItems);
@@ -85,6 +87,7 @@ public class OrderAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         new AsyncTask() {
             ArrayList<BasketItem> arrBasketItem;
             Order objOrder;
@@ -123,6 +126,18 @@ public class OrderAdapter extends BaseAdapter {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
                 showLineItem(arrBasketItem, holder.lvlItems);
+                holder.btnViewHide.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (holder.lvlItems.getVisibility() == View.GONE) {
+                            holder.btnViewHide.setRotation(180);
+                            holder.lvlItems.setVisibility(View.VISIBLE);
+                        } else if (holder.lvlItems.getVisibility() == View.VISIBLE) {
+                            holder.btnViewHide.setRotation(360);
+                            holder.lvlItems.setVisibility(View.GONE);
+                        }
+                    }
+                });
                 if (holder.btnResend.getVisibility() == View.VISIBLE) {
                     holder.btnResend.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -170,7 +185,7 @@ public class OrderAdapter extends BaseAdapter {
                 arrBasketItem = new ArrayList<BasketItem>();
                 curItem.moveToFirst();
                 do {
-                    arrBasketItem.add(new BasketItem(curItem.getString(1), curItem.getString(2), curItem.getString(3), curItem.getString(4), curItem.getString(5), curItem.getString(6), curItem.getString(7), curItem.getString(8), curItem.getString(9)));
+                    arrBasketItem.add(new BasketItem(curItem.getString(1), curItem.getString(2), curItem.getString(3), curItem.getString(4), curItem.getString(5), curItem.getString(6), curItem.getString(7), curItem.getString(8), curItem.getString(9), curItem.getString(10)));
                 } while (curItem.moveToNext());
                 return arrBasketItem;
             }
